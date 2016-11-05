@@ -1,0 +1,9 @@
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\bin\Release\PolygonPainter.exe.config
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\bin\Release\PolygonPainter.exe
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\bin\Release\PolygonPainter.pdb
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.Form1.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.Form2.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.Properties.Resources.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.csproj.GenerateResource.Cache
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.exe
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.pdb
