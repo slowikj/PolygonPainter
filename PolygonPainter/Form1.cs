@@ -55,6 +55,7 @@ namespace PolygonPainter
             res.Add("SelectMode", new SelectMode(_Shapes, canvas, _DEFAULT_SELECT_COLOR, automaticRelationBox));
             res.Add("AddVertexToPolygonMode", new AddVertexToPolygonMode(_Shapes, canvas));
             res.Add("SetRelationMode", new SetRelationMode(_Shapes, canvas));
+            res.Add("FillPolygonMode", new FillPolygonMode(_Shapes, canvas));
 
             return res;
         }
@@ -67,6 +68,7 @@ namespace PolygonPainter
             res["SelectMode"] = selectButton;
             res["AddVertexToPolygonMode"] = addVertexToPolygonButton;
             res["SetRelationMode"] = setRelationButton;
+            res["FillPolygonMode"] = fillPolygonButton;
 
             return res;
         }
@@ -95,7 +97,12 @@ namespace PolygonPainter
                 _ChangeMode("SetRelationMode");
         }
 
-
+        private void fillPolygonButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_modeButtons["FillPolygonMode"].Checked)
+                _ChangeMode("FillPolygonMode");
+        }
+        
         private void _ChangeMode (String modeName)
         {
             if (_currentMode.IsModeChangeForbidden() && _currentMode != _modes[modeName])
@@ -134,7 +141,7 @@ namespace PolygonPainter
         {
             _currentMode.MouseUp(sender, e);
         }
-
+        
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
             ShapesDrawnLabel.Text = _Shapes.Count.ToString();

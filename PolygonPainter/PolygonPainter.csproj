@@ -46,13 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modes\FillPolygonMode.cs" />
     <Compile Include="Shapes\Circle.cs" />
+    <Compile Include="Shapes\PolygonClasses\ActiveEdge.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\EmptyRelationSetter.cs" />
-    <Compile Include="Form2.cs">
+    <Compile Include="RelationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="RelationForm.Designer.cs">
+      <DependentUpon>RelationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FreeVector.cs" />
     <Compile Include="Shapes\GeneralHandlers\HandlerFactory.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Shapes\PolygonClasses\Relations\EmptyRelation.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\HorizontalRelation.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\LengthRelation.cs" />
+    <Compile Include="Shapes\PolygonClasses\PolygonFiller.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\Relation.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\VerticalRelation.cs" />
     <Compile Include="Shapes\PolygonClasses\VertexManager.cs" />
@@ -94,8 +97,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="RelationForm.resx">
+      <DependentUpon>RelationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

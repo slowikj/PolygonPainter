@@ -56,18 +56,18 @@ namespace PolygonPainter.Modes
         {
             if (relationSetter is EmptyRelationSetter)
                 return;
-
-            Form2 dialogForm = new Form2();
+            
+            RelationForm dialogForm = new RelationForm();
             dialogForm.ShowDialog();
             // MessageBox.Show(string.Format("{0}", dialogForm.Relation.ToString()));
             
-            dialogForm.Dispose();
-
             if (relationSetter.SetRelation(dialogForm.Relation))
             {
                 _canvas.Invalidate();
                 _canvas.Update();
             }
+            
+            dialogForm.Dispose();
         }
 
         private void _UnsetRelation(IRelationSetter relationSetter)

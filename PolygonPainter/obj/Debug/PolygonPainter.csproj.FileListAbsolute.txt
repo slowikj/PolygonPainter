@@ -41,3 +41,13 @@ C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter_lab\Po
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter_lab\PolygonPainter\obj\Debug\PolygonPainter.csproj.GenerateResource.Cache
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter_lab\PolygonPainter\bin\Debug\PolygonPainter.exe
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter_lab\PolygonPainter\bin\Debug\PolygonPainter.pdb
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\bin\Debug\PolygonPainter.exe.config
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.exe
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.pdb
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\bin\Debug\PolygonPainter.exe
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\bin\Debug\PolygonPainter.pdb
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.csprojResolveAssemblyReference.cache
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.Form1.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.Properties.Resources.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.csproj.GenerateResource.Cache
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.RelationForm.resources

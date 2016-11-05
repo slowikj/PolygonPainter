@@ -26,6 +26,14 @@ namespace PolygonPainter.Shapes.PolygonClasses
             }
         }
 
+        public List<Vertex> Vertices
+        {
+            get
+            {
+                return _vertices;
+            }
+        }
+
         public Vertex GetVertex(int index)
         {
             return _vertices[index];

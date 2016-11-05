@@ -37,6 +37,7 @@
             this.addVertexToPolygonButton = new System.Windows.Forms.RadioButton();
             this.canvas = new System.Windows.Forms.PictureBox();
             this.automaticRelationBox = new System.Windows.Forms.CheckBox();
+            this.fillPolygonButton = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -145,6 +146,19 @@
             this.automaticRelationBox.UseVisualStyleBackColor = true;
             this.automaticRelationBox.CheckedChanged += new System.EventHandler(this.automaticRelationBox_CheckedChanged);
             // 
+            // fillPolygonButton
+            // 
+            this.fillPolygonButton.AutoSize = true;
+            this.fillPolygonButton.Font = new System.Drawing.Font("Segoe Print", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.fillPolygonButton.Location = new System.Drawing.Point(26, 209);
+            this.fillPolygonButton.Name = "fillPolygonButton";
+            this.fillPolygonButton.Size = new System.Drawing.Size(99, 23);
+            this.fillPolygonButton.TabIndex = 14;
+            this.fillPolygonButton.TabStop = true;
+            this.fillPolygonButton.Text = "Fill a polygon";
+            this.fillPolygonButton.UseVisualStyleBackColor = true;
+            this.fillPolygonButton.CheckedChanged += new System.EventHandler(this.fillPolygonButton_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,6 +166,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.LightGreen;
             this.ClientSize = new System.Drawing.Size(1036, 637);
+            this.Controls.Add(this.fillPolygonButton);
             this.Controls.Add(this.automaticRelationBox);
             this.Controls.Add(this.canvas);
             this.Controls.Add(this.addVertexToPolygonButton);
@@ -180,6 +195,7 @@
         private System.Windows.Forms.RadioButton addVertexToPolygonButton;
         private System.Windows.Forms.PictureBox canvas;
         private System.Windows.Forms.CheckBox automaticRelationBox;
+        private System.Windows.Forms.RadioButton fillPolygonButton;
     }
 }
 

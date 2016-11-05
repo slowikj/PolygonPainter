@@ -22,11 +22,21 @@ namespace PolygonPainter.Shapes.PolygonClasses
         protected List<Color> _sideColors;
         protected VertexManager _vertexManager;
 
+        protected PolygonFiller _filler;
+
         public int NumberOfVertices
         {
             get
             {
                 return _vertexManager.NumberOfVertices;
+            }
+        }
+
+        public PolygonFiller Filler
+        {
+            set
+            {
+                _filler = value;
             }
         }
         
@@ -37,10 +47,14 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
             _vertexManager = new VertexManager();
             _sideColors = new List<Color>();
+
+            _filler = null;
         }
         
         public override void Draw(Graphics g)
         {
+            _filler?.Draw(g, _vertexManager.Vertices);
+
             int numberOfVertices = this.NumberOfVertices;
             PointF firstPoint = _vertexManager.GetVertex(0).Location;
             PointF lastPoint = _vertexManager.GetVertex(numberOfVertices - 1).Location;

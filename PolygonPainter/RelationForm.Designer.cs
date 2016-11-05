@@ -1,6 +1,6 @@
 ﻿namespace PolygonPainter
 {
-    partial class Form2
+    partial class RelationForm
     {
         /// <summary>
         /// Required designer variable.
