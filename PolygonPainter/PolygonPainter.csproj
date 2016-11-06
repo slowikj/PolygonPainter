@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FastBitmap.cs" />
     <Compile Include="Modes\FillPolygonMode.cs" />
+    <Compile Include="PaintTools.cs" />
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shapes\PolygonClasses\ActiveEdge.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\EmptyRelationSetter.cs" />

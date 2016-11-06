@@ -23,9 +23,9 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             return new HorizontalRelation();
         }
 
-        public override void Draw(Graphics g, Line side)
+        public override void Draw(PaintTools paintTools, Line side)
         {
-            base.Draw(g, side);
+            base.Draw(paintTools, side);
 
             PointF location = _GetLocation(side);
 
@@ -33,7 +33,7 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
                                            new PointF(location.X + _distanceFromMiddle, location.Y),
                                            _penColor);
 
-            horizontalLine.Draw(g);
+            horizontalLine.Draw(paintTools);
         }
 
         public override bool IsEmpty()

@@ -23,9 +23,9 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             return new VerticalRelation();
         }
 
-        public override void Draw(Graphics g, Line side)
+        public override void Draw(PaintTools paintTools, Line side)
         {
-            base.Draw(g, side);
+            base.Draw(paintTools, side);
 
             PointF location = _GetLocation(side);
 
@@ -33,7 +33,7 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
                                          new PointF(location.X, location.Y + _distanceFromMiddle),
                                          _penColor);
 
-            verticalLine.Draw(g);
+            verticalLine.Draw(paintTools);
         }
 
         public override bool IsEmpty()

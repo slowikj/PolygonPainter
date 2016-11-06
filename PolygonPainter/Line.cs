@@ -105,9 +105,9 @@ namespace PolygonPainter.Shapes
                              : a;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(PaintTools paintTools)
         {
-            g.DrawLine(_pen, _beg, _end);
+            paintTools.Graphics.DrawLine(_pen, _beg, _end);
 
             //int x1 = (int)_beg.X, y1 = (int)_beg.Y;
             //int x2 = (int)_end.X, y2 = (int)_end.Y;

@@ -84,7 +84,7 @@ namespace PolygonPainter.Shapes
             return res;
         }
 
-        public override void Draw(Graphics g)
+        public override void DrawContours(PaintTools g)
         {
             throw new NotImplementedException();
         }
@@ -100,6 +100,11 @@ namespace PolygonPainter.Shapes
         }
 
         public override bool IsClickedBy(PointF p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DrawFilling(PaintTools paintTools)
         {
             throw new NotImplementedException();
         }

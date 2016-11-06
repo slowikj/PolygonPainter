@@ -30,7 +30,8 @@ namespace PolygonPainter.Shapes
             return Math.Abs(a - b) <= EPS;
         }
 
-        public abstract void Draw (Graphics g);
+        public abstract void DrawContours (PaintTools paintTools);
+        public abstract void DrawFilling(PaintTools paintTools);
         public abstract bool IsClickedBy (PointF p);
         public abstract IHandler GetEntireShapeHandler(PointF clickedPoint, List<Shape> polygons, int polygonIndex);
         public abstract IHandler GetPartOfShapeHandler(PointF clickedPoint, List<Shape> polygons, int polygonIndex, CheckBox checkBox = null);

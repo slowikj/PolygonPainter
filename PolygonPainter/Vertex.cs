@@ -44,10 +44,10 @@ namespace PolygonPainter.Shapes
             _radius = radius;
         }
 
-        public void Draw (Graphics g)
+        public void Draw (PaintTools paintTools)
         {
-            g.FillEllipse(_brush, _middle.X - _radius, _middle.Y - _radius,
-                          _radius + _radius, _radius + _radius);
+            paintTools.Graphics.FillEllipse(_brush, _middle.X - _radius, _middle.Y - _radius,
+                                     _radius + _radius, _radius + _radius);
         }
 
         public bool IsClickedBy (PointF p)

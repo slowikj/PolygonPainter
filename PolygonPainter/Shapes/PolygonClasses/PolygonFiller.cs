@@ -19,7 +19,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             _color = color;
         }
         
-        public void Draw(Graphics g, List<Vertex> vertices)
+        public void Draw(PaintTools paintTools, List<Vertex> vertices)
         {
             Dictionary<int, List<ActiveEdge>> edges = _GetEdgesTable(vertices);
             int yMin = (int)vertices.Min(v => v.Location.Y);
@@ -39,18 +39,16 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 
                 for(int i = 0; i < activeEdges.Count; i += 2)
                 {
-                    //MessageBox.Show("rysuje " + ((int)activeEdges[i].CurrentX).ToString() + " " + ((int)activeEdges[i + 1].CurrentX).ToString());
-
-                    _DrawLine(g, y, (int)activeEdges[i].CurrentX, (int)activeEdges[i + 1].CurrentX);
+                    _DrawLine(paintTools, y, (int)activeEdges[i].CurrentX, (int)activeEdges[i + 1].CurrentX);
                 }
             }
         }
 
-        private void _DrawLine(Graphics g, int y, int begX, int endX)
+        private void _DrawLine(PaintTools paintTools, int y, int begX, int endX)
         {
             for(int x = begX; x <= endX; ++x)
             {
-                g.DrawRectangle(new Pen(_GetColor(x, y)), x, y, (float)0.5, (float)0.5);
+                paintTools.Bitmap.SetPixel(x, y, _GetColor(x, y));
             }
         }
 
@@ -70,18 +68,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
                 _ProcessAddingEdge(edge, edges);             
             }
-
-            //string res = "";
-            //foreach (var elem in edges)
-            //{
-            //    res += " " + "( ";
-            //    foreach (var x in elem.Value)
-            //        res += x.ToString();
-            //    res += ") ";
-            //}
-
-            //MessageBox.Show(res);
-            
+   
             return edges;
         }
 

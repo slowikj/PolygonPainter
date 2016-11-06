@@ -51,20 +51,23 @@ namespace PolygonPainter.Shapes.PolygonClasses
             _filler = null;
         }
         
-        public override void Draw(Graphics g)
+        public override void DrawContours(PaintTools paintTools)
         {
-            _filler?.Draw(g, _vertexManager.Vertices);
-
             int numberOfVertices = this.NumberOfVertices;
             PointF firstPoint = _vertexManager.GetVertex(0).Location;
             PointF lastPoint = _vertexManager.GetVertex(numberOfVertices - 1).Location;
 
             Line closingLine = new Line(lastPoint, firstPoint,
                                         _sideColors[numberOfVertices - 1]);
-            closingLine.Draw(g);
+            closingLine.Draw(paintTools);
 
-            _DrawPolyline(g);
-            _vertexManager.DrawRelations(g);
+            _DrawPolyline(paintTools);
+            _vertexManager.DrawRelations(paintTools);
+        }
+
+        public override void DrawFilling(PaintTools paintTools)
+        {
+            _filler?.Draw(paintTools, _vertexManager.Vertices);
         }
 
         public override IHandler GetPartOfShapeHandler(PointF clickedPoint, List<Shape> polygons, int polygonIndex, CheckBox checkBox)
@@ -112,17 +115,17 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 || _GetIndexOfSideClickedBy(p) != -1;
         }
         
-        protected void _DrawPolyline(Graphics g)
+        protected void _DrawPolyline(PaintTools paintTools)
         {
             for (int i = 0; i < this.NumberOfVertices - 1; ++i)
             {
                 Line side = new Line(_vertexManager.GetVertex(i).Location,
                                      _vertexManager.GetVertex(i + 1).Location,
                                      _sideColors[i]);
-                side.Draw(g);
+                side.Draw(paintTools);
             }
 
-            _vertexManager.DrawVertices(g);
+            _vertexManager.DrawVertices(paintTools);
         }
 
         protected bool _IsSideClickedBy(PointF p)

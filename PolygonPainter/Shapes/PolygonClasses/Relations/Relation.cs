@@ -42,10 +42,10 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             _isFixed = isFixed;
         }
         
-        public virtual void Draw(Graphics g, Line side)
+        public virtual void Draw(PaintTools paintTools, Line side)
         {
             Vertex circle = new Vertex(_GetLocation(side), _fillingColor, _radius);
-            circle.Draw(g);
+            circle.Draw(paintTools);
         }
 
         public abstract Relation Copy();

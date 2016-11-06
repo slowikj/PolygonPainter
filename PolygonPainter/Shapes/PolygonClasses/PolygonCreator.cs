@@ -42,14 +42,14 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return _isComplete;
         }
 
-        public override void Draw(Graphics g)
+        public override void DrawContours(PaintTools paintTools)
         {
             if (this.NumberOfVertices > 0)
             {
                 if (_isComplete)
-                    base.Draw(g);
+                    base.DrawContours(paintTools);
                 else
-                    _DrawPolyline(g);
+                    _DrawPolyline(paintTools);
             }
         }
 

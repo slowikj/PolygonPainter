@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 using PolygonPainter.Shapes;
 using PolygonPainter.Modes;
 
 using PolygonPainter.Shapes.PolygonClasses;
+using System.Drawing.Imaging;
 
 namespace PolygonPainter
 {
@@ -21,11 +23,11 @@ namespace PolygonPainter
                                _DEFAULT_LINE_COLOR = Color.BlueViolet,
                                _DEFAULT_SELECT_COLOR = Color.Green;
 
-        private List<Shape> _Shapes;
+        private List<Shape> _shapes;
         private Mode _currentMode;
         private Dictionary<String, Mode> _modes;
         private Dictionary<String, RadioButton> _modeButtons;
-
+        
         private Pen _meshPen;
 
         public Form1()
@@ -38,24 +40,23 @@ namespace PolygonPainter
                           ControlStyles.Selectable,
                           true);
 
-            _Shapes = new List<Shape>();
+            _shapes = new List<Shape>();
             
             _modes = _PrepareModesDictionary();
             _modeButtons = _PrepareModeButtonsDictionary();
             _currentMode = _modes["AddPolygonMode"];
 
             _meshPen = new Pen(Color.LightGray);
-            
         }
 
         Dictionary<String, Mode> _PrepareModesDictionary()
         {
             Dictionary<String, Mode> res = new Dictionary<string, Mode>();
-            res.Add("AddPolygonMode", new AddPolygonMode(_Shapes, canvas, _DEFAULT_VERTEX_COLOR, _DEFAULT_LINE_COLOR));
-            res.Add("SelectMode", new SelectMode(_Shapes, canvas, _DEFAULT_SELECT_COLOR, automaticRelationBox));
-            res.Add("AddVertexToPolygonMode", new AddVertexToPolygonMode(_Shapes, canvas));
-            res.Add("SetRelationMode", new SetRelationMode(_Shapes, canvas));
-            res.Add("FillPolygonMode", new FillPolygonMode(_Shapes, canvas));
+            res.Add("AddPolygonMode", new AddPolygonMode(_shapes, canvas, _DEFAULT_VERTEX_COLOR, _DEFAULT_LINE_COLOR));
+            res.Add("SelectMode", new SelectMode(_shapes, canvas, _DEFAULT_SELECT_COLOR, automaticRelationBox));
+            res.Add("AddVertexToPolygonMode", new AddVertexToPolygonMode(_shapes, canvas));
+            res.Add("SetRelationMode", new SetRelationMode(_shapes, canvas));
+            res.Add("FillPolygonMode", new FillPolygonMode(_shapes, canvas));
 
             return res;
         }
@@ -144,32 +145,34 @@ namespace PolygonPainter
         
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
-            ShapesDrawnLabel.Text = _Shapes.Count.ToString();
+            ShapesDrawnLabel.Text = _shapes.Count.ToString();
             
-            Bitmap bitmap = new Bitmap(canvas.Width, canvas.Height, e.Graphics);
+            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics),
+                                                   canvas.Width, canvas.Height);
+
+            PaintTools paintTools = new PaintTools(canvas, fastBitmap, e.Graphics);
+
+            _DrawGrid(paintTools);
             
-            using (Graphics newG = Graphics.FromImage(bitmap))
-            {
-                var context = BufferedGraphicsManager.Current;
-                BufferedGraphics buf = context.Allocate(newG,
-                                                        canvas.DisplayRectangle);
-                Graphics g = buf.Graphics;
-                
-
-                g.Clear(Color.White);
-
-                _DrawGrid(g);
-
-                foreach (Shape shape in _Shapes)
-                    shape.Draw(g);
-
-                buf.Render();
-            }
-
-            e.Graphics.DrawImage(bitmap, new PointF(0, 0));
+            _DrawShapes(paintTools);
         }
 
-        private void _DrawGrid(Graphics g)
+        private void _DrawShapes(PaintTools paintTools)
+        {
+            foreach (Shape shape in _shapes)
+            {
+                shape.DrawFilling(paintTools);
+            }
+
+            paintTools.Graphics.DrawImage(paintTools.Bitmap.GetBitmap(), new PointF(0, 0));
+
+            foreach (Shape shape in _shapes)
+            {
+                shape.DrawContours(paintTools);
+            }
+        }
+
+        private void _DrawGrid(PaintTools paintTools)
         {
             Line line = new Line(new PointF(), new PointF(), _meshPen.Color);
 
@@ -179,7 +182,7 @@ namespace PolygonPainter
                 line.Begin = new PointF(0, y * cellSize);
                 line.End = new PointF(numOfCells * cellSize, y * cellSize);
 
-                line.Draw(g);
+                line.Draw(paintTools);
             }
 
             for (int x = 0; x < numOfCells; ++x)
@@ -187,8 +190,9 @@ namespace PolygonPainter
                 line.Begin = new PointF(x * cellSize, 0);
                 line.End = new PointF(x * cellSize, numOfCells * cellSize);
 
-                line.Draw(g);
+                line.Draw(paintTools);
             }
         }
     }
 }
+

@@ -88,16 +88,16 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return true;
         }
 
-        public void DrawVertices(Graphics g)
+        public void DrawVertices(PaintTools paintTools)
         {
             foreach (Vertex vertex in _vertices)
-                vertex.Draw(g);
+                vertex.Draw(paintTools);
         }
 
-        public void DrawRelations(Graphics g)
+        public void DrawRelations(PaintTools paintTools)
         {
             for (int i = 0; i < this.NumberOfVertices; ++i)
-                _relations[i].Draw(g, new Line(_vertices[i].Location,
+                _relations[i].Draw(paintTools, new Line(_vertices[i].Location,
                                                _vertices[(i + 1) % this.NumberOfVertices].Location));
         }
 
