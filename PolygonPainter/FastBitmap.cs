@@ -19,18 +19,36 @@ namespace PolygonPainter
         private Bitmap _bitmap;
         private BitmapData _bData;
 
-        public FastBitmap(Bitmap bitmap, int width, int height)
+        private bool _isLocked;
+
+        public int Width
         {
-            _bitmap = bitmap;
-            _bData = _bitmap.LockBits(new Rectangle(0, 0, width, height),
-                                                ImageLockMode.ReadWrite,
-                                                _bitmap.PixelFormat);
+            get
+            {
+                return _bitmap.Width;
+            }
         }
 
+        public int Height
+        {
+            get
+            {
+                return _bitmap.Height;
+            }
+        }
+
+        public FastBitmap(Bitmap bitmap)
+        {
+            _bitmap = new Bitmap(bitmap);
+            _Lock();
+        }
+        
         public unsafe void SetPixel(int x, int y, Color c)
         {
-            //if (!_IsInside(x, y, _bitmap.Width, _bitmap.Height))
-            //    return;
+            if (!_isLocked)
+            {
+                _Lock();
+            }
 
             byte* scan0 = (byte*)_bData.Scan0.ToPointer();
             scan0[y * _bData.Stride + x * 4] = c.B;
@@ -39,9 +57,35 @@ namespace PolygonPainter
             scan0[y * _bData.Stride + x * 4 + 3] = c.A;
         }
 
-        private bool _IsInside(int x, int y, int width, int height)
+        private void _Lock()
         {
-            return 0 <= x && x <= width && 0 <= y && y <= height;
+            _bData = _bitmap.LockBits(new Rectangle(0, 0, _bitmap.Width, _bitmap.Height),
+                                                ImageLockMode.ReadWrite,
+                                                _bitmap.PixelFormat);
+
+            _isLocked = true;
+        }
+
+        public unsafe Color GetPixel(int x, int y)
+        {
+            if (! _isLocked)
+            {
+                _Lock();
+            }
+
+            byte* scan0 = (byte*)_bData.Scan0.ToPointer();
+
+            byte B = scan0[y * _bData.Stride + x * 4];
+            byte G = scan0[y * _bData.Stride + x * 4 + 1];
+            byte R = scan0[y * _bData.Stride + x * 4 + 2];
+            byte A = scan0[y * _bData.Stride + x * 4 + 3];
+
+            return Color.FromArgb(A, R, G, B);
+        }
+
+        public bool IsInside(int x, int y)
+        {
+            return 0 <= x && x <= this.Width && 0 <= y && y <= this.Height;
         }
 
         private void _Render()

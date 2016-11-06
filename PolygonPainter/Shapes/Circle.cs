@@ -108,5 +108,15 @@ namespace PolygonPainter.Shapes
         {
             throw new NotImplementedException();
         }
+
+        public override void SetFilling(FillingInfo fillingInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteFilling()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -31,14 +31,6 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 return _vertexManager.NumberOfVertices;
             }
         }
-
-        public PolygonFiller Filler
-        {
-            set
-            {
-                _filler = value;
-            }
-        }
         
         public Polygon (Color vertexColor, Color lineColor)
         {
@@ -67,7 +59,21 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
         public override void DrawFilling(PaintTools paintTools)
         {
-            _filler?.Draw(paintTools, _vertexManager.Vertices);
+            if (_filler != null)
+            {
+                _filler.Vertices = _vertexManager.Vertices;
+                _filler.Fill(paintTools);
+            }
+        }
+
+        public override void SetFilling(FillingInfo fillingInfo)
+        {
+            _filler = new PolygonFiller(fillingInfo);
+        }
+
+        public override void DeleteFilling()
+        {
+            _filler = null;
         }
 
         public override IHandler GetPartOfShapeHandler(PointF clickedPoint, List<Shape> polygons, int polygonIndex, CheckBox checkBox)

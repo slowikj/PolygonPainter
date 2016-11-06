@@ -63,8 +63,7 @@ namespace PolygonPainter.Modes
             if (!(_currentHandler is EmptyHandler))
             {
                 _currentHandler = new EmptyHandler();
-                _canvas.Invalidate();
-                _canvas.Update();
+                this.UpdateCanvas();
             }
         }
 
@@ -82,8 +81,7 @@ namespace PolygonPainter.Modes
 
             res.Mark();
 
-            _canvas.Invalidate();
-            _canvas.Update();
+            this.UpdateCanvas();
 
             return res;
         }
@@ -94,8 +92,7 @@ namespace PolygonPainter.Modes
            {
                if (_currentHandler.Move(e.Location))
                {
-                   _canvas.Invalidate();
-                   _canvas.Update();
+                    this.UpdateCanvas();
                }
            } 
         }
@@ -113,8 +110,7 @@ namespace PolygonPainter.Modes
                     MessageBox.Show(mes.Message);
                 }
 
-                _canvas.Invalidate();
-                _canvas.Update();
+                this.UpdateCanvas();
             }
         }
 

@@ -24,6 +24,12 @@ namespace PolygonPainter.Modes
             _canvas = canvas;
         }
 
+        public void UpdateCanvas()
+        {
+            _canvas.Invalidate();
+            _canvas.Update();
+        }
+
         public abstract void MouseClick(object obj, MouseEventArgs e);
         public abstract void MouseUp(object obj, MouseEventArgs e);
         public abstract void MouseMove(object obj, MouseEventArgs e);

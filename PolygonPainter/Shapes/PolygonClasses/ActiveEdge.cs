@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PolygonPainter.Interfaces;
+
 namespace PolygonPainter.Shapes.PolygonClasses
 {
     public partial class PolygonFiller

@@ -31,8 +31,7 @@ namespace PolygonPainter.Modes
                     IVertexAdder polygonAdder = (_shapes[i] as Polygon).GetVertexAdder();
                     if (polygonAdder.AddVertexClickedBy(e.Location))
                     {
-                        _canvas.Invalidate();
-                        _canvas.Update();
+                        this.UpdateCanvas();
                         break;
                     }             
                 }

@@ -8,27 +8,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using PolygonPainter.Interfaces;
+
 namespace PolygonPainter.Shapes.PolygonClasses
 {
     public partial class PolygonFiller
     {
-        private Color _color;
+        private FillingInfo _fillingInfo;
+        private List<Vertex> _vertices;
 
-        public PolygonFiller(Color color)
+        public List<Vertex> Vertices
         {
-            _color = color;
+            get
+            {
+                return _vertices;
+            }
+            set
+            {
+                _vertices = value;
+            }
+        }
+
+        public PolygonFiller(FillingInfo fillingInfo)
+        {
+            _fillingInfo = fillingInfo;
         }
         
-        public void Draw(PaintTools paintTools, List<Vertex> vertices)
+        public void Fill(PaintTools paintTools)
         {
-            Dictionary<int, List<ActiveEdge>> edges = _GetEdgesTable(vertices);
-            int yMin = (int)vertices.Min(v => v.Location.Y);
-            int yMax = (int)vertices.Max(v => v.Location.Y);
+            Dictionary<int, List<ActiveEdge>> edges = _GetEdgesTable();
+            int yMin = (int)_vertices.Min(v => v.Location.Y);
+            int yMax = (int)_vertices.Max(v => v.Location.Y);
             
             List<ActiveEdge> activeEdges = new List<ActiveEdge>();
             for(int y = yMax; y >= yMin; --y)
             {
-                int erased = activeEdges.RemoveAll(e => e.YLast == y);
+                activeEdges.RemoveAll(e => e.YLast == y);
                 activeEdges.ForEach(e => e.UpdateX());
                 
                 if (edges.ContainsKey(y))
@@ -48,31 +63,33 @@ namespace PolygonPainter.Shapes.PolygonClasses
         {
             for(int x = begX; x <= endX; ++x)
             {
-                paintTools.Bitmap.SetPixel(x, y, _GetColor(x, y));
+                if(paintTools.Bitmap.IsInside(x, y))
+                    paintTools.Bitmap.SetPixel(x, y, _GetColor(x, y));
             }
         }
 
         private Color _GetColor(int x, int y)
         {
-            return _color;
+            return _fillingInfo.Texture.GetPixel(x % _fillingInfo.Texture.Width,
+                                                 y % _fillingInfo.Texture.Height);
         }
         
-        private Dictionary<int, List<ActiveEdge>> _GetEdgesTable(List<Vertex> vertices)
+        private Dictionary<int, List<ActiveEdge>> _GetEdgesTable()
         {
             Dictionary<int, List<ActiveEdge>> edges = new Dictionary<int, List<ActiveEdge>>();
 
-            for (int i = 0; i < vertices.Count; ++i)
+            for (int i = 0; i < _vertices.Count; ++i)
             {
-                Line edge = new Line(vertices[i].Location,
-                                     vertices[(i + 1) % vertices.Count].Location);
+                Line edge = new Line(_vertices[i].Location,
+                                     _vertices[(i + 1) % _vertices.Count].Location);
 
-                _ProcessAddingEdge(edge, edges);             
+                _AddEdge(edge, edges);             
             }
    
             return edges;
         }
 
-        private void _ProcessAddingEdge(Line edge, Dictionary<int, List<ActiveEdge>> edges)
+        private void _AddEdge(Line edge, Dictionary<int, List<ActiveEdge>> edges)
         {
             if (!edge.IsHorizontal)
             {

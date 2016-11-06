@@ -35,15 +35,13 @@ namespace PolygonPainter.Modes
             {
                 case MouseButtons.Left:
                     _ProcessAddingPointF(e.Location);
-                    _canvas.Invalidate();
-                    _canvas.Update();
                     break;
                 case MouseButtons.Right:
                     _UndoLastOperation();
-                    _canvas.Invalidate();
-                    _canvas.Update();
                     break;
-            }            
+            }
+
+            this.UpdateCanvas();     
         }
 
         public override string ToString()

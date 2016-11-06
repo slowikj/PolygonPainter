@@ -56,7 +56,7 @@ namespace PolygonPainter
             res.Add("SelectMode", new SelectMode(_shapes, canvas, _DEFAULT_SELECT_COLOR, automaticRelationBox));
             res.Add("AddVertexToPolygonMode", new AddVertexToPolygonMode(_shapes, canvas));
             res.Add("SetRelationMode", new SetRelationMode(_shapes, canvas));
-            res.Add("FillPolygonMode", new FillPolygonMode(_shapes, canvas));
+            res.Add("FillMode", new FillMode(_shapes, canvas));
 
             return res;
         }
@@ -69,7 +69,7 @@ namespace PolygonPainter
             res["SelectMode"] = selectButton;
             res["AddVertexToPolygonMode"] = addVertexToPolygonButton;
             res["SetRelationMode"] = setRelationButton;
-            res["FillPolygonMode"] = fillPolygonButton;
+            res["FillMode"] = fillButton;
 
             return res;
         }
@@ -97,13 +97,13 @@ namespace PolygonPainter
             if (_modeButtons["SetRelationMode"].Checked)
                 _ChangeMode("SetRelationMode");
         }
-
-        private void fillPolygonButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (_modeButtons["FillPolygonMode"].Checked)
-                _ChangeMode("FillPolygonMode");
-        }
         
+        private void fillButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_modeButtons["FillMode"].Checked)
+                _ChangeMode("FillMode");
+        }
+
         private void _ChangeMode (String modeName)
         {
             if (_currentMode.IsModeChangeForbidden() && _currentMode != _modes[modeName])
@@ -147,8 +147,7 @@ namespace PolygonPainter
         {
             ShapesDrawnLabel.Text = _shapes.Count.ToString();
             
-            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics),
-                                                   canvas.Width, canvas.Height);
+            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics));
 
             PaintTools paintTools = new PaintTools(canvas, fastBitmap, e.Graphics);
 

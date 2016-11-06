@@ -1,6 +1,6 @@
 ﻿namespace PolygonPainter
 {
-    partial class RelationForm
+    partial class RelationDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -96,7 +96,7 @@
             this.lengthTextBox.Size = new System.Drawing.Size(74, 20);
             this.lengthTextBox.TabIndex = 2;
             // 
-            // Form2
+            // RelationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -107,7 +107,7 @@
             this.Controls.Add(this.verticalButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
-            this.Name = "Form2";
+            this.Name = "RelationForm";
             this.Text = "Which relation would you like to set?";
             this.ResumeLayout(false);
             this.PerformLayout();

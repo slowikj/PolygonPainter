@@ -50,4 +50,5 @@ C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\Polyg
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.Form1.resources
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.Properties.Resources.resources
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.csproj.GenerateResource.Cache
-C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.RelationForm.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.FillingDialog.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Debug\PolygonPainter.RelationDialog.resources

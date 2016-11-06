@@ -32,6 +32,8 @@ namespace PolygonPainter.Shapes
 
         public abstract void DrawContours (PaintTools paintTools);
         public abstract void DrawFilling(PaintTools paintTools);
+        public abstract void SetFilling(FillingInfo fillingInfo);
+        public abstract void DeleteFilling();
         public abstract bool IsClickedBy (PointF p);
         public abstract IHandler GetEntireShapeHandler(PointF clickedPoint, List<Shape> polygons, int polygonIndex);
         public abstract IHandler GetPartOfShapeHandler(PointF clickedPoint, List<Shape> polygons, int polygonIndex, CheckBox checkBox = null);

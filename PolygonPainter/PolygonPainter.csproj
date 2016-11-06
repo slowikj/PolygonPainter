@@ -48,16 +48,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FastBitmap.cs" />
-    <Compile Include="Modes\FillPolygonMode.cs" />
+    <Compile Include="FillingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FillingDialog.Designer.cs">
+      <DependentUpon>FillingDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FillingInfo.cs" />
+    <Compile Include="Modes\FillMode.cs" />
     <Compile Include="PaintTools.cs" />
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shapes\PolygonClasses\ActiveEdge.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\EmptyRelationSetter.cs" />
-    <Compile Include="RelationForm.cs">
+    <Compile Include="RelationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RelationForm.Designer.cs">
-      <DependentUpon>RelationForm.cs</DependentUpon>
+    <Compile Include="RelationDialog.Designer.cs">
+      <DependentUpon>RelationDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="FreeVector.cs" />
     <Compile Include="Shapes\GeneralHandlers\HandlerFactory.cs" />
@@ -97,11 +104,14 @@
     <Compile Include="Interfaces\IHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FillingDialog.resx">
+      <DependentUpon>FillingDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelationForm.resx">
-      <DependentUpon>RelationForm.cs</DependentUpon>
+    <EmbeddedResource Include="RelationDialog.resx">
+      <DependentUpon>RelationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

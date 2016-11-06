@@ -12,7 +12,7 @@ using PolygonPainter.Shapes.PolygonClasses.Relations;
 
 namespace PolygonPainter
 {
-    public partial class RelationForm : Form
+    public partial class RelationDialog : Form
     {
         private Relation _relation;
 
@@ -24,7 +24,7 @@ namespace PolygonPainter
             }
         }
 
-        public RelationForm()
+        public RelationDialog()
         {
             InitializeComponent();
         }
