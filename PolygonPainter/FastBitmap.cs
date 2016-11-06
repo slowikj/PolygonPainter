@@ -87,15 +87,11 @@ namespace PolygonPainter
         {
             return 0 <= x && x <= this.Width && 0 <= y && y <= this.Height;
         }
-
-        private void _Render()
-        {
-            _bitmap.UnlockBits(_bData);
-        }
-
+        
         public Bitmap GetBitmap()
         {
-            _Render();
+            _bitmap.UnlockBits(_bData);
+            _isLocked = false;
 
             return _bitmap;
         }
