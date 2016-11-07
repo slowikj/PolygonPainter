@@ -15,30 +15,17 @@ namespace PolygonPainter.Shapes.PolygonClasses
     public partial class PolygonFiller
     {
         private FillingInfo _fillingInfo;
-        private List<Vertex> _vertices;
-
-        public List<Vertex> Vertices
-        {
-            get
-            {
-                return _vertices;
-            }
-            set
-            {
-                _vertices = value;
-            }
-        }
-
+        
         public PolygonFiller(FillingInfo fillingInfo)
         {
             _fillingInfo = fillingInfo;
         }
         
-        public void Fill(PaintTools paintTools)
+        public void Fill(PaintTools paintTools, List<Vertex> vertices)
         {
-            Dictionary<int, List<ActiveEdge>> edges = _GetEdgesTable();
-            int yMin = (int)_vertices.Min(v => v.Location.Y);
-            int yMax = (int)_vertices.Max(v => v.Location.Y);
+            Dictionary<int, List<ActiveEdge>> edges = _GetEdgesTable(vertices);
+            int yMin = (int)vertices.Min(v => v.Location.Y);
+            int yMax = (int)vertices.Max(v => v.Location.Y);
             
             List<ActiveEdge> activeEdges = new List<ActiveEdge>();
             for(int y = yMax; y >= yMin; --y)
@@ -74,14 +61,14 @@ namespace PolygonPainter.Shapes.PolygonClasses
                                                  y % _fillingInfo.Texture.Height);
         }
         
-        private Dictionary<int, List<ActiveEdge>> _GetEdgesTable()
+        private Dictionary<int, List<ActiveEdge>> _GetEdgesTable(List<Vertex> vertices)
         {
             Dictionary<int, List<ActiveEdge>> edges = new Dictionary<int, List<ActiveEdge>>();
 
-            for (int i = 0; i < _vertices.Count; ++i)
+            for (int i = 0; i < vertices.Count; ++i)
             {
-                Line edge = new Line(_vertices[i].Location,
-                                     _vertices[(i + 1) % _vertices.Count].Location);
+                Line edge = new Line(vertices[i].Location,
+                                     vertices[(i + 1) % vertices.Count].Location);
 
                 _AddEdge(edge, edges);             
             }

@@ -59,11 +59,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
         public override void DrawFilling(PaintTools paintTools)
         {
-            if (_filler != null)
-            {
-                _filler.Vertices = _vertexManager.Vertices;
-                _filler.Fill(paintTools);
-            }
+            _filler?.Fill(paintTools, _vertexManager.Vertices);
         }
 
         public override void SetFilling(FillingInfo fillingInfo)
@@ -110,9 +106,6 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 return new EmptyRelationSetter();
             else
                 return new PolygonRelationSetter(this, sideIndex);
-
-            //return sideIndex == -1 ? new EmptyRelationSetter()
-            //                       : new PolygonRelationSetter(this, sideIndex);
         }
 
         public override bool IsClickedBy(PointF p)
