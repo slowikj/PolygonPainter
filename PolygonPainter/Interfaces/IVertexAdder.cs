@@ -13,6 +13,6 @@ namespace PolygonPainter.Interfaces
 {
     public interface IVertexAdder
     {
-        bool AddVertexClickedBy(PointF clickedPoint);
+        bool AddVertexClickedBy(PointD clickedPoint);
     }
 }

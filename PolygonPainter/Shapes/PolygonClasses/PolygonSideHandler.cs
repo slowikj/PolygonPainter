@@ -20,10 +20,10 @@ namespace PolygonPainter.Shapes.PolygonClasses
         private class PolygonSideHandler : AbstractPolygonHandler
         {
             protected int _sideIndex;
-            protected PointF _clickedPoint;
+            protected PointD _clickedPoint;
 
             public PolygonSideHandler(Polygon currentPolygon, List<Shape> polygons, int polygonIndex,
-                                int sideIndex, PointF clickedPoint, CheckBox checkBox = null, Color? markingColor = null)
+                                int sideIndex, PointD clickedPoint, CheckBox checkBox = null, Color? markingColor = null)
                 : base(currentPolygon, polygons, polygonIndex, markingColor)
             {
                 _sideIndex = sideIndex;
@@ -41,7 +41,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 _SetColorOfSide(_sideIndex, _markingColor);
             }
 
-            public override bool Move(PointF currentPoint)
+            public override bool Move(PointD currentPoint)
             {
                 return false;
             }

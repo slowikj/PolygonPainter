@@ -24,7 +24,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 _polygon = polygon;
             }
 
-            public bool AddVertexClickedBy(PointF clickedPoint)
+            public bool AddVertexClickedBy(PointD clickedPoint)
             {
                 int sideIndex = _polygon._GetIndexOfSideClickedBy(clickedPoint);
 

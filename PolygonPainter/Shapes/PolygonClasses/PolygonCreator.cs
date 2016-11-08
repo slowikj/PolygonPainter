@@ -21,18 +21,18 @@ namespace PolygonPainter.Shapes.PolygonClasses
             _isComplete = false;
         }
 
-        public void AddVertexClickedBy(PointF p)
+        public void AddVertexClickedBy(PointD p)
         {
             int clickedVertexIndex = _GetIndexOfVertexClickedBy(p);
-
+            
             if (clickedVertexIndex == 0 && this.NumberOfVertices >= 3)
             {
                 _isComplete = true;
+                _SetAntiClockwiseOrderOfVertices();
             }
             else if (clickedVertexIndex == -1)
             {
                 _vertexManager.AppendVertex(new Vertex(p, _defaultVertexColor));
-
                 _sideColors.Add(_defaultSideColor);
             }
         }
@@ -52,7 +52,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
                     _DrawPolyline(paintTools);
             }
         }
-
+        
         public void UndoLastOperation()
         {
             if (!this.IsComplete() && this.NumberOfVertices > 0)
@@ -61,5 +61,18 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 _sideColors.RemoveAt(_sideColors.Count - 1);
             }
         }
+
+        private void _SetAntiClockwiseOrderOfVertices()
+        {
+            if(!_IsAntiClockwiseVerticesOrder())
+            {
+                _vertexManager.Vertices.Reverse();
+            }
+        }
+
+        private bool _IsAntiClockwiseVerticesOrder()
+        {
+            return this.Area() >= 0;
+        } 
     }
 }

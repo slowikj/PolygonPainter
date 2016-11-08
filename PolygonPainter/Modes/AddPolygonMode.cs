@@ -29,12 +29,12 @@ namespace PolygonPainter.Modes
 
         public override void MouseClick(object obj, MouseEventArgs e)
         {
-            PointF clickedPointF = e.Location;
+            PointD clickedPointD = e.Location;
 
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    _ProcessAddingPointF(e.Location);
+                    _ProcessAddingPointD(e.Location);
                     break;
                 case MouseButtons.Right:
                     _UndoLastOperation();
@@ -49,7 +49,7 @@ namespace PolygonPainter.Modes
             return "AddPolygonMode";
         }
 
-        private void _ProcessAddingPointF(PointF clickedPoint)
+        private void _ProcessAddingPointD(PointD clickedPoint)
         {
             if (_currentPolygon.NumberOfVertices == 0)
                 _StartCreatingNewPolygon(clickedPoint);
@@ -71,14 +71,14 @@ namespace PolygonPainter.Modes
             }
         }
 
-        private void _StartCreatingNewPolygon(PointF point)
+        private void _StartCreatingNewPolygon(PointD point)
         {
             _shapes.Add(_currentPolygon);
 
             _AddNewPointToPolygon(point);
         }
         
-        private void _AddNewPointToPolygon(PointF point)
+        private void _AddNewPointToPolygon(PointD point)
         {
             _currentPolygon.AddVertexClickedBy(point);
         }
@@ -91,13 +91,17 @@ namespace PolygonPainter.Modes
         {
         }
         
-        public override void MousefloatClick(object obj, MouseEventArgs e)
+        public override void MousedoubleClick(object obj, MouseEventArgs e)
         {
         }
 
         public override bool IsModeChangeForbidden()
         {
             return _currentPolygon.NumberOfVertices > 0 && !_currentPolygon.IsComplete();
+        }
+
+        public override void ClearMarking()
+        {
         }
     }
 }

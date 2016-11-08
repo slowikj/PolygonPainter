@@ -76,7 +76,7 @@ namespace PolygonPainter.Modes
             }
         }
 
-        private IRelationSetter _GetRelationSetter(PointF clickedPoint)
+        private IRelationSetter _GetRelationSetter(PointD clickedPoint)
         {
             for (int i = 0; i < _shapes.Count; ++i)
             {
@@ -91,7 +91,7 @@ namespace PolygonPainter.Modes
             return new EmptyRelationSetter();
         }
 
-        public override void MousefloatClick(object obj, MouseEventArgs e)
+        public override void MousedoubleClick(object obj, MouseEventArgs e)
         {
         }
 
@@ -106,6 +106,10 @@ namespace PolygonPainter.Modes
         public override string ToString()
         {
             return "SetRelationMode";
+        }
+
+        public override void ClearMarking()
+        {
         }
     }
 }

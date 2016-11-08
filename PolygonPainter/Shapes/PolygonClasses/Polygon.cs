@@ -46,8 +46,8 @@ namespace PolygonPainter.Shapes.PolygonClasses
         public override void DrawContours(PaintTools paintTools)
         {
             int numberOfVertices = this.NumberOfVertices;
-            PointF firstPoint = _vertexManager.GetVertex(0).Location;
-            PointF lastPoint = _vertexManager.GetVertex(numberOfVertices - 1).Location;
+            PointD firstPoint = _vertexManager.GetVertex(0).Location;
+            PointD lastPoint = _vertexManager.GetVertex(numberOfVertices - 1).Location;
 
             Line closingLine = new Line(lastPoint, firstPoint,
                                         _sideColors[numberOfVertices - 1]);
@@ -72,7 +72,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             _filler = null;
         }
 
-        public override IHandler GetPartOfShapeHandler(PointF clickedPoint, List<Shape> polygons, int polygonIndex, CheckBox checkBox)
+        public override IHandler GetPartOfShapeHandler(PointD clickedPoint, List<Shape> polygons, int polygonIndex, CheckBox checkBox)
         {
             int vertexIndex = _GetIndexOfVertexClickedBy(clickedPoint);
             if (vertexIndex != -1)
@@ -85,7 +85,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return new EmptyHandler();
         }
 
-        public override IHandler GetEntireShapeHandler(PointF clickedPoint, List<Shape> polygons, int polygonIndex)
+        public override IHandler GetEntireShapeHandler(PointD clickedPoint, List<Shape> polygons, int polygonIndex)
         {
             if (IsClickedBy(clickedPoint))
                 return new EntirePolygonHandler(this, polygons, polygonIndex, clickedPoint);
@@ -98,7 +98,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return new PolygonVertexAdder(this);
         }
 
-        public IRelationSetter GetRelationSetter(PointF clickedPoint)
+        public IRelationSetter GetRelationSetter(PointD clickedPoint)
         {
             int sideIndex = _GetIndexOfSideClickedBy(clickedPoint);
 
@@ -108,12 +108,29 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 return new PolygonRelationSetter(this, sideIndex);
         }
 
-        public override bool IsClickedBy(PointF p)
+        public override bool IsClickedBy(PointD p)
         {
             return _GetIndexOfVertexClickedBy(p) != -1
                 || _GetIndexOfSideClickedBy(p) != -1;
         }
-        
+
+        public override double Area()
+        {
+            double res = 0;
+            for(int i = 0; i < this.NumberOfVertices; ++i)
+            {
+                int a = i;
+                int b = (i + 1) % this.NumberOfVertices;
+
+                FreeVector u = new FreeVector(_vertexManager.GetVertex(a).Location);
+                FreeVector v = new FreeVector(_vertexManager.GetVertex(b).Location);
+                
+                res += u.CrossProduct(v);
+            }
+
+            return res / 2;
+        }
+
         protected void _DrawPolyline(PaintTools paintTools)
         {
             for (int i = 0; i < this.NumberOfVertices - 1; ++i)
@@ -127,12 +144,12 @@ namespace PolygonPainter.Shapes.PolygonClasses
             _vertexManager.DrawVertices(paintTools);
         }
 
-        protected bool _IsSideClickedBy(PointF p)
+        protected bool _IsSideClickedBy(PointD p)
         {
             return _GetIndexOfSideClickedBy(p) != -1;
         }
 
-        protected int _GetIndexOfVertexClickedBy(PointF p)
+        protected int _GetIndexOfVertexClickedBy(PointD p)
         {
             for (int i = 0; i < this.NumberOfVertices; ++i)
                 if (_vertexManager.GetVertex(i).IsClickedBy(p))
@@ -141,7 +158,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return -1;
         }
 
-        protected int _GetIndexOfSideClickedBy(PointF p)
+        protected int _GetIndexOfSideClickedBy(PointD p)
         {
             for (int i = 0; i < this.NumberOfVertices; ++i)
             {
@@ -152,7 +169,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return -1;
         }
         
-        protected bool _IsFirstVertexClickedBy(PointF p)
+        protected bool _IsFirstVertexClickedBy(PointD p)
         {
             return _GetIndexOfVertexClickedBy(p) == 0;
         }

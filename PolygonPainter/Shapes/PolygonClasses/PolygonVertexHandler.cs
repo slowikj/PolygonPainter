@@ -44,9 +44,9 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 _DeletePolygonIfTooSmall();
             }
 
-            public override bool Move(PointF currentPoint)
+            public override bool Move(PointD currentPoint)
             {
-                PointF oldPoint = _currentPolygon._vertexManager.GetVertex(_vertexIndex).Location;
+                PointD oldPoint = _currentPolygon._vertexManager.GetVertex(_vertexIndex).Location;
 
                 FreeVector vector = new FreeVector(oldPoint, currentPoint);
 

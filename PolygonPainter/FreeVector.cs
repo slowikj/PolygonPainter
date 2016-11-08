@@ -14,7 +14,7 @@ namespace PolygonPainter
 {
     public struct FreeVector
     {
-        private PointF _p;
+        private PointD _p;
 
         const double eps_deg = 5 * Math.PI / 180;
 
@@ -58,7 +58,7 @@ namespace PolygonPainter
             return Math.Abs(_p.Y) <= 5;
         }
     
-        public float Length
+        public double Length
         {
             get
             {
@@ -66,15 +66,15 @@ namespace PolygonPainter
             }
             set
             {
-                float oldLength = _GetLength();
-                float x = _p.X * value / oldLength;
-                float y = _p.Y * value / oldLength;
-                _p = new PointF(x, y);
+                double oldLength = _GetLength();
+                double x = _p.X * value / oldLength;
+                double y = _p.Y * value / oldLength;
+                _p = new PointD(x, y);
           
             }
         }
 
-        public float X
+        public double X
         {
             get
             {
@@ -82,7 +82,7 @@ namespace PolygonPainter
             }
         }
 
-        public float Y
+        public double Y
         {
             get
             {
@@ -98,44 +98,49 @@ namespace PolygonPainter
             }
         }
 
-        private float _GetLength()
-        {
-            return (float)Math.Sqrt(_p.X * _p.X + _p.Y * _p.Y);
-        }
-
-        public FreeVector(PointF p)
+        public FreeVector(PointD p)
         {
             _p = p;
         }
 
-        public FreeVector(PointF begin, PointF end)
+        public double CrossProduct(FreeVector other)
         {
-            _p = new PointF(end.X - begin.X, end.Y - begin.Y);
+            return this.X * other.Y - this.Y * other.X;
+        }
+        
+        private double _GetLength()
+        {
+            return (double)Math.Sqrt(_p.X * _p.X + _p.Y * _p.Y);
+        }
+        
+        public FreeVector(PointD begin, PointD end)
+        {
+            _p = new PointD(end.X - begin.X, end.Y - begin.Y);
         }
 
-        public static PointF operator+ (PointF p, FreeVector v)
+        public static PointD operator+ (PointD p, FreeVector v)
         {
-            return new PointF(p.X + v._p.X, p.Y + v._p.Y);
+            return new PointD(p.X + v._p.X, p.Y + v._p.Y);
         }
 
         public static FreeVector operator+ (FreeVector a, FreeVector b)
         {
-            return new FreeVector(new PointF(a._p.X + b._p.X, a._p.Y + b._p.Y));
+            return new FreeVector(new PointD(a._p.X + b._p.X, a._p.Y + b._p.Y));
         }
 
-        public static FreeVector operator* (FreeVector v, float r)
+        public static FreeVector operator* (FreeVector v, double r)
         {
-            return new FreeVector(new PointF(v._p.X * r, v._p.Y * r));
+            return new FreeVector(new PointD(v._p.X * r, v._p.Y * r));
         }
 
-        public static FreeVector operator/ (FreeVector v, float r)
+        public static FreeVector operator/ (FreeVector v, double r)
         {
-            return new FreeVector(new PointF(v._p.X / r, v._p.Y / r));
+            return new FreeVector(new PointD(v._p.X / r, v._p.Y / r));
         }
 
         public static FreeVector operator- (FreeVector v)
         {
-            return new FreeVector(new PointF(-v._p.X, -v._p.Y));
+            return new FreeVector(new PointD(-v._p.X, -v._p.Y));
         }
 
         public static FreeVector operator- (FreeVector a, FreeVector b)

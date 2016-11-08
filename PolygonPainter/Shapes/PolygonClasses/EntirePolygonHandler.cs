@@ -17,11 +17,11 @@ namespace PolygonPainter.Shapes.PolygonClasses
    {
         private class EntirePolygonHandler : AbstractPolygonHandler
         {
-            private PointF _clickedPoint;
+            private PointD _clickedPoint;
 
             public EntirePolygonHandler(Polygon currentPolygon,
                                         List<Shape> polygons,
-                                        int polygonIndex, PointF clickedPoint, CheckBox checkBox = null, Color? markingColor = null)
+                                        int polygonIndex, PointD clickedPoint, CheckBox checkBox = null, Color? markingColor = null)
                 : base(currentPolygon, polygons, polygonIndex, markingColor)
             {
                 _polygonIndex = polygonIndex;
@@ -47,7 +47,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
                           _currentPolygon._defaultSideColor);
             }
 
-            public override bool Move(PointF currentPoint)
+            public override bool Move(PointD currentPoint)
             {
                 FreeVector vector = new FreeVector(_clickedPoint, currentPoint);
 

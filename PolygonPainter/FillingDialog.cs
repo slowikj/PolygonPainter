@@ -44,19 +44,40 @@ namespace PolygonPainter
 
         private void textureButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            DialogResult dialogResult = openFileDialog.ShowDialog();
-            if (dialogResult == DialogResult.OK)
+            Bitmap image = _GetImage();
+            if (image != null)
             {
-                Bitmap image = new Bitmap(openFileDialog.FileName);
                 _fillingInfo.Texture = new FastBitmap(image);
 
-                Bitmap iconImage = GetResizedImage(image, textureButton.Width, texturePanel.Height);
+                Bitmap iconImage = _GetResizedImage(image, texturePanel.Width, texturePanel.Height);
                 texturePanel.CreateGraphics().DrawImage(iconImage, 0, 0);
             }
         }
 
-        private Bitmap GetResizedImage(Image image, int width, int height)
+
+        private void normalVectorsButton_Click(object sender, EventArgs e)
+        {
+            Bitmap image = _GetImage();
+            if (image != null)
+            {
+                _fillingInfo.NormalVectors = new FastBitmap(image);
+
+                Bitmap iconImage = _GetResizedImage(image, normalVectorsPanel.Width, normalVectorsPanel.Height);
+                normalVectorsPanel.CreateGraphics().DrawImage(iconImage, 0, 0);
+            }
+        }
+
+        private Bitmap _GetImage()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            DialogResult dialogResult = openFileDialog.ShowDialog();
+
+            return dialogResult == DialogResult.OK ? new Bitmap(openFileDialog.FileName)
+                                                   : null;
+
+        }
+        
+        private Bitmap _GetResizedImage(Image image, int width, int height)
         {
             Bitmap res = new Bitmap(image, width, height);
 
@@ -76,9 +97,9 @@ namespace PolygonPainter
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            if (_fillingInfo.Texture == null)
+            if (_fillingInfo.Texture == null || _fillingInfo.NormalVectors == null)
             {
-                MessageBox.Show("No texture has been chosen");
+                MessageBox.Show("Some attributes hasn't been chosen");
                 _canExit = false;
             }
         }
@@ -93,7 +114,8 @@ namespace PolygonPainter
             if (!_canExit)
             {
                 e.Cancel = true;
+                _canExit = true;
             }
         }
-   }
+    }
 }

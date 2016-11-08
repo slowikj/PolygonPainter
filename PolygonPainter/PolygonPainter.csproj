@@ -57,8 +57,10 @@
     <Compile Include="FillingInfo.cs" />
     <Compile Include="Modes\FillMode.cs" />
     <Compile Include="PaintTools.cs" />
+    <Compile Include="PointD.cs" />
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shapes\PolygonClasses\ActiveEdge.cs" />
+    <Compile Include="Shapes\PolygonClasses\PolygonIntersectionComputer.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\EmptyRelationSetter.cs" />
     <Compile Include="RelationDialog.cs">
       <SubType>Form</SubType>

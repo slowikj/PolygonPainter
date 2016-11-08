@@ -26,7 +26,7 @@ namespace PolygonPainter.Shapes.GeneralHandlers
             _automaticRelationBox = automaticRelationBox;
         }
 
-        public IHandler GetEntireShapeHandler(PointF clickedPoint)
+        public IHandler GetEntireShapeHandler(PointD clickedPoint)
         {
             for (int i = 0; i < _shapes.Count; ++i)
             {
@@ -38,7 +38,7 @@ namespace PolygonPainter.Shapes.GeneralHandlers
             return new EmptyHandler();
         }
 
-        public IHandler GetPartOfShapeHandler(PointF clickedPoint)
+        public IHandler GetPartOfShapeHandler(PointD clickedPoint)
         {
             for (int i = 0; i < _shapes.Count; ++i)
             {

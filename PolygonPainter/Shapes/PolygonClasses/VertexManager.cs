@@ -103,7 +103,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
         public void SetColorOfVertex(int vertexIndex, Color newColor)
         {
-            PointF vertexLocation = _vertices[vertexIndex].Location;
+            PointD vertexLocation = _vertices[vertexIndex].Location;
             _vertices[vertexIndex] = new Vertex(vertexLocation, newColor);
         }
 
@@ -145,7 +145,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             if (P.Length == 0)
                 return false;
 
-            P[vertexIndex] = new FreeVector(new PointF(0, 0));
+            P[vertexIndex] = new FreeVector(new PointD(0, 0));
 
             FreeVector[] vectors = new FreeVector[this.NumberOfVertices];
             for(int i = 0; i < this.NumberOfVertices; ++i)
@@ -174,22 +174,22 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 throw new OperationImpossibleException("The relation has already been set");
 
             int firstVertexIndex = sideIndex;
-            PointF a = _vertices[firstVertexIndex].Location;
+            PointD a = _vertices[firstVertexIndex].Location;
 
             int secondVertexIndex = (sideIndex + 1) % this.NumberOfVertices;
-            PointF b = _vertices[secondVertexIndex].Location;
+            PointD b = _vertices[secondVertexIndex].Location;
 
             switch (relation.ToString())
             {
                 case "VerticalRelation":
-                    if (!this._TryToMoveForSettingRelation(firstVertexIndex, new FreeVector(a, new PointF(b.X, a.Y)), -1)
-                     && !this._TryToMoveForSettingRelation(secondVertexIndex, new FreeVector(b, new PointF(a.X, b.Y)), 1))
+                    if (!this._TryToMoveForSettingRelation(firstVertexIndex, new FreeVector(a, new PointD(b.X, a.Y)), -1)
+                     && !this._TryToMoveForSettingRelation(secondVertexIndex, new FreeVector(b, new PointD(a.X, b.Y)), 1))
                         throw new OperationImpossibleException("impossible to move vertex in order to get a vertical side");
 
                     break;
                 case "HorizontalRelation":
-                    if (!_TryToMoveForSettingRelation(firstVertexIndex, new FreeVector(a, new PointF(a.X, b.Y)), -1)
-                     && !_TryToMoveForSettingRelation(secondVertexIndex, new FreeVector(b, new PointF(b.X, a.Y)), 1))
+                    if (!_TryToMoveForSettingRelation(firstVertexIndex, new FreeVector(a, new PointD(a.X, b.Y)), -1)
+                     && !_TryToMoveForSettingRelation(secondVertexIndex, new FreeVector(b, new PointD(b.X, a.Y)), 1))
                         throw new OperationImpossibleException("impossible to move vertex in order to get o horizontal side");
 
                     break;
@@ -198,8 +198,8 @@ namespace PolygonPainter.Shapes.PolygonClasses
                     FreeVector v = new FreeVector(a, b);
                     v.Length = r;
 
-                    PointF wantedPointB = a + v;
-                    PointF wantedPointA = b + (-v);
+                    PointD wantedPointB = a + v;
+                    PointD wantedPointA = b + (-v);
                     if (!_TryToMoveForSettingRelation(secondVertexIndex, new FreeVector(b, wantedPointB), 1)
                      && !_TryToMoveForSettingRelation(firstVertexIndex, new FreeVector(a, wantedPointA), -1)
                      && !_CheckPointsOnCircle(firstVertexIndex, b, r, -1)
@@ -214,11 +214,11 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return true;
         }
 
-        private bool _CheckPointsOnCircle(int vertexIndex, PointF middle, int radius, int inc)
+        private bool _CheckPointsOnCircle(int vertexIndex, PointD middle, int radius, int inc)
         {
-            PointF a = _vertices[vertexIndex].Location;
+            PointD a = _vertices[vertexIndex].Location;
 
-            foreach (PointF potentialPoint in this.GetNextPointOfCircle(middle, radius))
+            foreach (PointD potentialPoint in this.GetNextPointOfCircle(middle, radius))
                 if (this._TryToMoveForSettingRelation(vertexIndex, new FreeVector(a, potentialPoint), inc))
                 {
                     return true;
@@ -228,7 +228,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
         }
 
         // algorithm for "drawing" a circle from Wikipedia
-        private IEnumerable<Point> GetNextPointOfCircle(PointF a, int radius)
+        private IEnumerable<Point> GetNextPointOfCircle(PointD a, int radius)
         {
             int x0 = (int)a.X, y0 = (int)a.Y;
             int x = radius;
@@ -273,7 +273,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
         {
             FreeVector[] res = new FreeVector[this.NumberOfVertices];
             for (int i = 0; i < this.NumberOfVertices; ++i)
-                res[i] = new FreeVector(new PointF(0, 0));
+                res[i] = new FreeVector(new PointD(0, 0));
 
             Func<int, int> next = (x => (x + 1) % this.NumberOfVertices);
             Func<int, int> prev = (x => (x - 1 + this.NumberOfVertices) % this.NumberOfVertices);
@@ -345,11 +345,11 @@ namespace PolygonPainter.Shapes.PolygonClasses
                     vector[vertexIndex] = vector[prev(vertexIndex)];
                     return true;
                 case "VerticalRelation":
-                    float xw = _vertices[vertexIndex].Location.X;
-                    float yw = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]).Y;
+                    double xw = _vertices[vertexIndex].Location.X;
+                    double yw = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]).Y;
 
                     FreeVector v = new FreeVector(_vertices[vertexIndex].Location,
-                                                  new PointF(xw, yw));
+                                                  new PointD(xw, yw));
 
                     vector[vertexIndex] = v;
                     return true;
@@ -357,10 +357,10 @@ namespace PolygonPainter.Shapes.PolygonClasses
                     Circle c = new Circle(_vertices[next(vertexIndex)].Location,
                                           (_relations[next(sideIndex)] as LengthRelation).Length);
 
-                    float y = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]).Y;
-                    PointF[] p = c.GetIntersectionPointsWithHorizontalLine(y);
+                    double y = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]).Y;
+                    PointD[] p = c.GetIntersectionPointsWithHorizontalLine(y);
 
-                    PointF? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
+                    PointD? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
                     if (!chosenPoint.HasValue)
                     {
                         vector[vertexIndex] = vector[prev(vertexIndex)];
@@ -374,9 +374,9 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return true; //?
         }
 
-        private PointF? _GetTheNearestPoint(PointF[] p, PointF from)
+        private PointD? _GetTheNearestPoint(PointD[] p, PointD from)
         {
-            PointF chosenPoint = new PointF();
+            PointD chosenPoint = new PointD();
             switch (p.Length)
             {
                 case 0:
@@ -408,20 +408,20 @@ namespace PolygonPainter.Shapes.PolygonClasses
                     vector[vertexIndex] = vector[prev(vertexIndex)];
                     return true;
                 case "HorizontalRelation":
-                    float xw = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]).X;
-                    float yw = _vertices[vertexIndex].Location.Y;
+                    double xw = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]).X;
+                    double yw = _vertices[vertexIndex].Location.Y;
 
                     vector[vertexIndex] = new FreeVector(_vertices[vertexIndex].Location,
-                                                         new PointF(xw, yw));
+                                                         new PointD(xw, yw));
 
                     return true;
                 case "LengthRelation":
                     Circle c = new Circle(_vertices[next(vertexIndex)].Location,
                                           (_relations[next(sideIndex)] as LengthRelation).Length);
 
-                    float x = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]).X;
-                    PointF[] p = c.GetIntersectionPointsWithVerticalLine(x);
-                    PointF? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
+                    double x = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]).X;
+                    PointD[] p = c.GetIntersectionPointsWithVerticalLine(x);
+                    PointD? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
                     
                     if (!chosenPoint.HasValue)
                     {
@@ -442,7 +442,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             FreeVector v = new FreeVector(_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)],
                                           _vertices[vertexIndex].Location);
 
-            float L1 = (_relations[sideIndex] as LengthRelation).Length;
+            double L1 = (_relations[sideIndex] as LengthRelation).Length;
             if (v.Length == L1)
                 return true;
 
@@ -453,7 +453,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
                         v = new FreeVector(_vertices[prev(vertexIndex)].Location,
                                            _vertices[vertexIndex].Location);
 
-                        PointF newPoint = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]) +(v);
+                        PointD newPoint = (_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)]) +(v);
 
                         vector[vertexIndex] = new FreeVector(_vertices[vertexIndex].Location, newPoint);
 
@@ -461,10 +461,10 @@ namespace PolygonPainter.Shapes.PolygonClasses
                     }
                 case "HorizontalRelation":
                     {
-                        float y = _vertices[vertexIndex].Location.Y;
+                        double y = _vertices[vertexIndex].Location.Y;
                         Circle c = new Circle(_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)], L1);
-                        PointF[] p = c.GetIntersectionPointsWithHorizontalLine(y);
-                        PointF? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
+                        PointD[] p = c.GetIntersectionPointsWithHorizontalLine(y);
+                        PointD? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
                         if (!chosenPoint.HasValue)
                         {
                             vector[vertexIndex] = vector[prev(vertexIndex)];
@@ -478,9 +478,9 @@ namespace PolygonPainter.Shapes.PolygonClasses
                     {
                         Circle c = new Circle(_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)], L1);
 
-                        float x = _vertices[vertexIndex].Location.X;
-                        PointF[] p = c.GetIntersectionPointsWithVerticalLine(x);
-                        PointF? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
+                        double x = _vertices[vertexIndex].Location.X;
+                        PointD[] p = c.GetIntersectionPointsWithVerticalLine(x);
+                        PointD? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
 
                         if (!chosenPoint.HasValue)
                         {
@@ -496,11 +496,11 @@ namespace PolygonPainter.Shapes.PolygonClasses
                     {
                         Circle c1 = new Circle(_vertices[prev(vertexIndex)].Location + vector[prev(vertexIndex)], L1);
 
-                        float L2 = (_relations[next(sideIndex)] as LengthRelation).Length;
+                        double L2 = (_relations[next(sideIndex)] as LengthRelation).Length;
                         Circle c2 = new Circle(_vertices[next(vertexIndex)].Location, L2);
 
-                        PointF[] p = c1.GetIntersectionPointsWithCircle(c2);
-                        PointF? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
+                        PointD[] p = c1.GetIntersectionPointsWithCircle(c2);
+                        PointD? chosenPoint = _GetTheNearestPoint(p, _vertices[vertexIndex].Location);
 
                         if (!chosenPoint.HasValue)
                         {

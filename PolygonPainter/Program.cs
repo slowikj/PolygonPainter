@@ -9,7 +9,7 @@ namespace PolygonPainter
     static class Program
     {
         /// <summary>
-        /// The main entry Pointfor the application.
+        /// The main entry PointDor the application.
         /// </summary>
         [STAThread]
         static void Main()

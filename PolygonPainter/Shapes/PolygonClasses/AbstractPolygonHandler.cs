@@ -75,7 +75,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             public abstract void Mark();
             public abstract void Unmark();
             public abstract void Delete();
-            public abstract bool Move(PointF currentPoint);
+            public abstract bool Move(PointD currentPoint);
 
             public virtual void FixAutomaticRelations()
             {

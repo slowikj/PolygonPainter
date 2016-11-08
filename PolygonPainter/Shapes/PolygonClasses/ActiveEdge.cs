@@ -12,7 +12,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
     {
         class ActiveEdge
         {
-            private float _currentX, _inc;
+            private double _currentX, _inc;
             private int _YLast;
 
             public int YLast
@@ -23,7 +23,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 }
             }
 
-            public float CurrentX
+            public double CurrentX
             {
                 get
                 {

@@ -131,7 +131,7 @@
             this.canvas.TabStop = false;
             this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
             this.canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseClick);
-            this.canvas.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.canvas_MousefloatClick);
+            this.canvas.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.canvas_MousedoubleClick);
             this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
             // 

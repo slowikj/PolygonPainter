@@ -38,7 +38,7 @@ namespace PolygonPainter.Modes
             }
         }
 
-        public override void MousefloatClick(object obj, MouseEventArgs e)
+        public override void MousedoubleClick(object obj, MouseEventArgs e)
         {
         }
 
@@ -58,6 +58,10 @@ namespace PolygonPainter.Modes
         public override string ToString()
         {
             return "AddVertexToPolygonMode";
+        }
+
+        public override void ClearMarking()
+        {
         }
     }
 }

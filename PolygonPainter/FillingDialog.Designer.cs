@@ -38,6 +38,9 @@
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.texturePanel = new System.Windows.Forms.Panel();
+            this.normalVectorsLabel = new System.Windows.Forms.Label();
+            this.normalVectorsPanel = new System.Windows.Forms.Panel();
+            this.normalVectorsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -46,7 +49,7 @@
             // 
             // lightColorButton
             // 
-            this.lightColorButton.Location = new System.Drawing.Point(191, 37);
+            this.lightColorButton.Location = new System.Drawing.Point(232, 37);
             this.lightColorButton.Name = "lightColorButton";
             this.lightColorButton.Size = new System.Drawing.Size(75, 23);
             this.lightColorButton.TabIndex = 0;
@@ -80,14 +83,14 @@
             // 
             // colorPanel
             // 
-            this.colorPanel.Location = new System.Drawing.Point(124, 12);
+            this.colorPanel.Location = new System.Drawing.Point(165, 12);
             this.colorPanel.Name = "colorPanel";
             this.colorPanel.Size = new System.Drawing.Size(49, 48);
             this.colorPanel.TabIndex = 3;
             // 
             // textureButton
             // 
-            this.textureButton.Location = new System.Drawing.Point(191, 128);
+            this.textureButton.Location = new System.Drawing.Point(232, 128);
             this.textureButton.Name = "textureButton";
             this.textureButton.Size = new System.Drawing.Size(75, 23);
             this.textureButton.TabIndex = 4;
@@ -98,7 +101,7 @@
             // okButton
             // 
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(63, 211);
+            this.okButton.Location = new System.Drawing.Point(63, 268);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 5;
@@ -109,7 +112,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(412, 211);
+            this.cancelButton.Location = new System.Drawing.Point(412, 268);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 6;
@@ -119,16 +122,46 @@
             // 
             // texturePanel
             // 
-            this.texturePanel.Location = new System.Drawing.Point(124, 103);
+            this.texturePanel.Location = new System.Drawing.Point(165, 103);
             this.texturePanel.Name = "texturePanel";
             this.texturePanel.Size = new System.Drawing.Size(49, 48);
             this.texturePanel.TabIndex = 7;
+            // 
+            // normalVectorsLabel
+            // 
+            this.normalVectorsLabel.AutoSize = true;
+            this.normalVectorsLabel.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.normalVectorsLabel.Location = new System.Drawing.Point(12, 201);
+            this.normalVectorsLabel.Name = "normalVectorsLabel";
+            this.normalVectorsLabel.Size = new System.Drawing.Size(112, 22);
+            this.normalVectorsLabel.TabIndex = 8;
+            this.normalVectorsLabel.Text = "Normal vectors";
+            // 
+            // normalVectorsPanel
+            // 
+            this.normalVectorsPanel.Location = new System.Drawing.Point(165, 184);
+            this.normalVectorsPanel.Name = "normalVectorsPanel";
+            this.normalVectorsPanel.Size = new System.Drawing.Size(49, 48);
+            this.normalVectorsPanel.TabIndex = 9;
+            // 
+            // normalVectorsButton
+            // 
+            this.normalVectorsButton.Location = new System.Drawing.Point(232, 209);
+            this.normalVectorsButton.Name = "normalVectorsButton";
+            this.normalVectorsButton.Size = new System.Drawing.Size(75, 23);
+            this.normalVectorsButton.TabIndex = 10;
+            this.normalVectorsButton.Text = "Choose";
+            this.normalVectorsButton.UseVisualStyleBackColor = true;
+            this.normalVectorsButton.Click += new System.EventHandler(this.normalVectorsButton_Click);
             // 
             // FillingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 262);
+            this.ClientSize = new System.Drawing.Size(568, 318);
+            this.Controls.Add(this.normalVectorsButton);
+            this.Controls.Add(this.normalVectorsPanel);
+            this.Controls.Add(this.normalVectorsLabel);
             this.Controls.Add(this.texturePanel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
@@ -157,5 +190,8 @@
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Panel texturePanel;
+        private System.Windows.Forms.Label normalVectorsLabel;
+        private System.Windows.Forms.Panel normalVectorsPanel;
+        private System.Windows.Forms.Button normalVectorsButton;
     }
 }

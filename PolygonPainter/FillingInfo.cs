@@ -13,6 +13,7 @@ namespace PolygonPainter
     public class FillingInfo
     {
         private FastBitmap _texture;
+        private FastBitmap _normalVectors;
         private Color _lightColor;
 
         public FastBitmap Texture
@@ -27,6 +28,18 @@ namespace PolygonPainter
             }
         }
 
+        public FastBitmap NormalVectors
+        {
+            get
+            {
+                return _normalVectors;
+            }
+            set
+            {
+                _normalVectors = value;
+            }
+        }
+
         public Color LightColor
         {
             get
@@ -38,16 +51,19 @@ namespace PolygonPainter
                 _lightColor = value;
             }
         }
+        
 
-        public FillingInfo (FastBitmap texture, Color lightColor)
+        public FillingInfo (FastBitmap texture, FastBitmap normalVectors, Color lightColor)
         {
             _texture = texture;
+            _normalVectors = normalVectors;
             _lightColor = lightColor;
         }
 
         public FillingInfo ()
         {
             _texture = null;
+            _normalVectors = null;
             _lightColor = Color.White;
         }
     }

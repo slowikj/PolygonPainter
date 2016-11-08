@@ -15,7 +15,7 @@ namespace PolygonPainter.Interfaces
         void Mark();
         void Unmark();
         void Delete();
-        bool Move(PointF currentPoint);
+        bool Move(PointD currentPoint);
         void FixAutomaticRelations();
     }
 }

@@ -31,7 +31,7 @@ namespace PolygonPainter.Shapes.GeneralHandlers
         {
         }
 
-        public bool Move(PointF currentPoint)
+        public bool Move(PointD currentPoint)
         {
             return false;
         }

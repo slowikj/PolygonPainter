@@ -27,10 +27,10 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
         {
             base.Draw(paintTools, side);
 
-            PointF location = _GetLocation(side);
+            PointD location = _GetLocation(side);
 
-            Line verticalLine = new Line(new PointF(location.X, location.Y - _distanceFromMiddle),
-                                         new PointF(location.X, location.Y + _distanceFromMiddle),
+            Line verticalLine = new Line(new PointD(location.X, location.Y - _distanceFromMiddle),
+                                         new PointD(location.X, location.Y + _distanceFromMiddle),
                                          _penColor);
 
             verticalLine.Draw(paintTools);

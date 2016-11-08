@@ -39,11 +39,11 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
         {
             base.Draw(paintTools, side);
 
-            PointF location = _GetLocation(side);
+            PointD location = _GetLocation(side);
 
             paintTools.Graphics.DrawString(_length.ToString(), _font,
-                                    new SolidBrush(_penColor), location.X - 2*_distanceFromMiddle - 3,
-                                                               location.Y - _distanceFromMiddle);
+                                    new SolidBrush(_penColor), (float)(location.X - 2*_distanceFromMiddle - 3),
+                                                               (float)(location.Y - _distanceFromMiddle));
         }
 
         public override string ToString()

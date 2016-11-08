@@ -47,6 +47,28 @@ namespace PolygonPainter
             _currentMode = _modes["AddPolygonMode"];
 
             _meshPen = new Pen(Color.LightGray);
+
+            //Line a = new Line(new Point(0, 0), new Point(5, 5));
+            //Line b = new Line(new Point(0, 5), new Point(5, 0));
+            //PointD? res = a.GetIntersectionWith(b);
+
+            //MessageBox.Show(res.HasValue ? res.Value.ToString() : "null");
+
+            //PolygonCreator pc = new PolygonCreator(Color.Black, Color.BlueViolet);
+            //pc.AddVertexClickedBy(new Point(5, 5));
+            //pc.AddVertexClickedBy(new Point(13, 5));
+            //pc.AddVertexClickedBy(new Point(13, 13));
+            //pc.AddVertexClickedBy(new Point(5, 13));
+            //pc.AddVertexClickedBy(new Point(5, 5));
+            //MessageBox.Show(pc.Area().ToString());
+
+            //pc = new PolygonCreator(Color.Black, Color.BlueViolet);
+            //pc.AddVertexClickedBy(new Point(23, 23));
+            //pc.AddVertexClickedBy(new Point(23, 5));
+            //pc.AddVertexClickedBy(new Point(5, 5));
+            //pc.AddVertexClickedBy(new Point(23, 23));
+          
+            //MessageBox.Show(pc.Area().ToString());
         }
 
         Dictionary<String, Mode> _PrepareModesDictionary()
@@ -113,6 +135,7 @@ namespace PolygonPainter
             }
             else
             {
+                _currentMode.ClearMarking();
                 _currentMode = _modes[modeName];
             }
         }
@@ -128,9 +151,9 @@ namespace PolygonPainter
         }
 
        
-        private void canvas_MousefloatClick(object sender, MouseEventArgs e)
+        private void canvas_MousedoubleClick(object sender, MouseEventArgs e)
         {
-            _currentMode.MousefloatClick(sender, e);
+            _currentMode.MousedoubleClick(sender, e);
         }
 
         private void automaticRelationBox_CheckedChanged(object sender, EventArgs e)
@@ -163,7 +186,7 @@ namespace PolygonPainter
                 shape.DrawFilling(paintTools);
             }
 
-            paintTools.Graphics.DrawImage(paintTools.Bitmap.GetBitmap(), new PointF(0, 0));
+            paintTools.Graphics.DrawImage(paintTools.Bitmap.GetBitmap(), new Point(0, 0));
 
             foreach (Shape shape in _shapes)
             {
@@ -173,21 +196,21 @@ namespace PolygonPainter
 
         private void _DrawGrid(PaintTools paintTools)
         {
-            Line line = new Line(new PointF(), new PointF(), _meshPen.Color);
+            Line line = new Line(new PointD(), new PointD(), _meshPen.Color);
 
             int numOfCells = 50, cellSize = 30;
             for (int y = 0; y < numOfCells; ++y)
             {
-                line.Begin = new PointF(0, y * cellSize);
-                line.End = new PointF(numOfCells * cellSize, y * cellSize);
+                line.Begin = new PointD(0, y * cellSize);
+                line.End = new PointD(numOfCells * cellSize, y * cellSize);
 
                 line.Draw(paintTools);
             }
 
             for (int x = 0; x < numOfCells; ++x)
             {
-                line.Begin = new PointF(x * cellSize, 0);
-                line.End = new PointF(x * cellSize, numOfCells * cellSize);
+                line.Begin = new PointD(x * cellSize, 0);
+                line.End = new PointD(x * cellSize, numOfCells * cellSize);
 
                 line.Draw(paintTools);
             }

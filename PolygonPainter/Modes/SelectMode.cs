@@ -33,16 +33,16 @@ namespace PolygonPainter.Modes
         {
             if (e.Button == MouseButtons.Right)
             {
-                _currentHandler = _GetChangedMarkedObject(e, true);
+                _SelectPartOfShape(e);
             }
         }
 
-        public override void MousefloatClick(object obj, MouseEventArgs e)
+        public override void MousedoubleClick(object obj, MouseEventArgs e)
         {
             switch (e.Button)
             {
                 case MouseButtons.Right:
-                    _SelectObject(e);
+                    _SelectEntireShape(e);
                     
                     break;
                 case MouseButtons.Left:
@@ -52,9 +52,25 @@ namespace PolygonPainter.Modes
             }
         }
 
-        private void _SelectObject(MouseEventArgs e)
+        private void _SelectEntireShape(MouseEventArgs e)
         {
-            _currentHandler = _GetChangedMarkedObject(e, false);
+            _ChangeHandler(e, false);
+        }
+
+        private void _SelectPartOfShape(MouseEventArgs e)
+        {
+            _ChangeHandler(e, true);
+        }
+
+        private void _ChangeHandler(MouseEventArgs e, bool wasOnlyOneClick)
+        {
+            _currentHandler.Unmark();
+
+            _currentHandler = _GetChangedMarkedObject(e, wasOnlyOneClick);
+
+            _currentHandler.Mark();
+
+            this.UpdateCanvas();
         }
 
         private void _DeleteObject()
@@ -74,15 +90,10 @@ namespace PolygonPainter.Modes
 
         private IHandler _GetChangedMarkedObject(MouseEventArgs e, bool wasOnlyOneClick)
         {
-            _currentHandler.Unmark();
-
+           
             IHandler res = (wasOnlyOneClick ? _handlerFactory.GetPartOfShapeHandler(e.Location)
                                             : _handlerFactory.GetEntireShapeHandler(e.Location));
-
-            res.Mark();
-
-            this.UpdateCanvas();
-
+            
             return res;
         }
         
@@ -117,6 +128,11 @@ namespace PolygonPainter.Modes
         public override bool IsModeChangeForbidden()
         {
             return false;
+        }
+
+        public override void ClearMarking()
+        {
+            _currentHandler.Unmark();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             return "AbstractRelation";
         }
 
-        protected PointF _GetLocation(Line side)
+        protected PointD _GetLocation(Line side)
         {
             return side.Middle;
         }

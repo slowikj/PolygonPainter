@@ -12,7 +12,7 @@ namespace PolygonPainter.Shapes
 {
     public struct Line
     {
-        private PointF _beg, _end;
+        private PointD _beg, _end;
         private Pen _pen;
 
         public Color Color
@@ -27,7 +27,7 @@ namespace PolygonPainter.Shapes
             }
         }
 
-        public PointF Begin
+        public PointD Begin
         {
             get
             {
@@ -39,7 +39,7 @@ namespace PolygonPainter.Shapes
             }
         }
 
-        public PointF End
+        public PointD End
         {
             get
             {
@@ -51,20 +51,20 @@ namespace PolygonPainter.Shapes
             }
         }
 
-        public PointF Middle
+        public PointD Middle
         {
             get
             {
-                return new PointF((_beg.X + _end.X) / 2,
+                return new PointD((_beg.X + _end.X) / 2,
                                  (_beg.Y + _end.Y) / 2);
             }
         }
 
-        public int Length
+        public double Length
         {
             get
             {
-                return (int)Math.Sqrt((_beg.X - End.X) * (_beg.X - End.X)
+                return Math.Sqrt((_beg.X - End.X) * (_beg.X - End.X)
                                       + (_beg.Y - End.Y) * (_beg.Y - End.Y));
             }
         }
@@ -86,20 +86,20 @@ namespace PolygonPainter.Shapes
         }
 
 
-        public Line(PointF beg, PointF end, Color? color = null)
+        public Line(PointD beg, PointD end, Color? color = null)
         {
             _beg = _GetLowerPoint(beg, end);
             _end = _GetUpperPoint(beg, end);
             _pen = new Pen(color ?? Color.Black);
         }
 
-        private static PointF _GetLowerPoint(PointF a, PointF b)
+        private static PointD _GetLowerPoint(PointD a, PointD b)
         {
             return a.Y > b.Y ? a
                              : b;
         }
 
-        private static PointF _GetUpperPoint(PointF a, PointF b)
+        private static PointD _GetUpperPoint(PointD a, PointD b)
         {
             return a.Y > b.Y ? b
                              : a;
@@ -107,7 +107,7 @@ namespace PolygonPainter.Shapes
 
         public void Draw(PaintTools paintTools)
         {
-            paintTools.Graphics.DrawLine(_pen, _beg, _end);
+            paintTools.Graphics.DrawLine(_pen, (PointF)_beg, (PointF)_end);
 
             //int x1 = (int)_beg.X, y1 = (int)_beg.Y;
             //int x2 = (int)_end.X, y2 = (int)_end.Y;
@@ -138,7 +138,7 @@ namespace PolygonPainter.Shapes
             //}
 
             //// put the first pixel
-            //g.DrawRectangle(_pen, x, y, (float)0.1, (float)0.1);
+            //g.DrawRectangle(_pen, x, y, (double)0.1, (double)0.1);
             //// OX
             //if (dx > dy)
             //{
@@ -160,7 +160,7 @@ namespace PolygonPainter.Shapes
             //            d += bi;
             //            x += xi;
             //        }
-            //        g.DrawRectangle(_pen, x, y, (float)0.1, (float)0.1);
+            //        g.DrawRectangle(_pen, x, y, (double)0.1, (double)0.1);
             //    }
             //}
             //// OY
@@ -184,17 +184,103 @@ namespace PolygonPainter.Shapes
             //            d += bi;
             //            y += yi;
             //        }
-            //        g.DrawRectangle(_pen, x, y, (float)0.1, (float)0.1);
+            //        g.DrawRectangle(_pen, x, y, (double)0.1, (double)0.1);
             //    }
             //}
         }
 
-        public bool IsClickedBy(PointF p)
+        public bool IsClickedBy(PointD p)
         {
-            return Shape.EqualsEps((float)Math.Sqrt(Shape.DistanceSquared(_beg, p)) 
-                                        + (float)Math.Sqrt(Shape.DistanceSquared(p, _end)),
-                                   (float)Math.Sqrt(Shape.DistanceSquared(_beg, _end)));
+            return Shape.EqualsEps(Math.Sqrt(Shape.DistanceSquared(_beg, p)) 
+                                        + Math.Sqrt(Shape.DistanceSquared(p, _end)),
+                                          Math.Sqrt(Shape.DistanceSquared(_beg, _end)));
                 
         }
+
+        public PointD? GetIntersectionWith(Line other)
+        {
+            double x1 = this.Begin.X, x2 = this.End.X;
+            double y1 = this.Begin.Y, y2 = this.End.Y;
+
+            double x3 = other.Begin.X, x4 = other.End.X;
+            double y3 = other.Begin.Y, y4 = other.End.Y;
+
+            // edges has one the same point
+           
+            if (_TouchesWithOnePoint(this.Begin, this.End, other.Begin, other.End))
+            {
+                return this.Begin;
+            }
+            
+            if (_TouchesWithOnePoint(this.Begin, this.End, other.End, other.Begin))
+            {
+                return this.Begin;
+            }
+            
+            if (_TouchesWithOnePoint(this.End, this.Begin, other.Begin, other.End))
+            {
+                return this.End;
+            }
+            
+            if (_TouchesWithOnePoint(this.End, this.Begin, other.End, other.Begin))
+            {
+                return this.End;
+            }
+
+            double w = ((x1 - x2) * (y4 - y3)) - ((x4 - x3) * (y1 - y2));
+            double wk = ((x4 - x2) * (y4 - y3)) - ((x4 - x3) * (y4 - y2));
+            double wm = ((x1 - x2) * (y4 - y2)) - ((x4 - x2) * (y1 - y2));
+
+            if (Shape.EqualsEps(w, 0, (double)0.0001) 
+                && Shape.EqualsEps(wm, (double)0.0, (double)0.0001) && Shape.EqualsEps(wk, 0, (double)0.0001))
+                return null;
+            else if (Shape.EqualsEps(w, 0, (double)0.0001) 
+                && (!Shape.EqualsEps(wk, (double)0.0, (double)0.0001) || !Shape.EqualsEps(wm, 0, (double)0.0001)))
+                return null;
+            else
+            {
+                double k = (wk / w);
+                double m = (wm / w);
+                
+                if (k >= 0.000000 && k <= 1.000000 && m >= 0.000000 && m <= 1.000000)
+                {
+                    //przeciecie
+
+                    double x = (double)((k * x1) + x2 - (k * x2));
+                    double y = (double)((m * y3) + y4 - (m * y4));
+                    return new PointD(x, y);
+                }
+                else if (k >= 0.000000 && k <= 1.000000 && !(m >= 0.000000 && m <= 1.000000))
+                    //przedluzenie jednego odcinka przecina drugi odcinek
+                    return null;
+                else if (!(k >= 0.000000 && k <= 1.000000) && (m >= 0.000000 && m <= 1.000000))
+                    //to samo co wyzej
+                    return null;
+                else if (!(k >= 0.000000 && k <= 1.000000) && !(m >= 0.000000 && m <= 1.000000))
+                    //przedluzenia obu odcinkow sie przecinaja
+                    return null;
+            }
+
+            return null;
+        }
+
+        private bool _TouchesWithOnePoint(PointD touchPointA, PointD beginA, PointD touchPointB, PointD endB)
+        {
+            if (Shape.EqualsEps(touchPointA.X, touchPointB.X, 0.0001)
+                && Shape.EqualsEps(touchPointA.Y, touchPointB.Y, 0.0001))
+            {
+                double dist = (double)Math.Sqrt(Shape.DistanceSquared(beginA, endB));
+                double sum = Math.Sqrt(Shape.DistanceSquared(beginA, touchPointA))
+                            + Math.Sqrt(Shape.DistanceSquared(endB, touchPointB));
+
+                if (Shape.EqualsEps(dist, sum, 0.00001))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
     }
 }
