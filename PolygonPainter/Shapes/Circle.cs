@@ -89,12 +89,14 @@ namespace PolygonPainter.Shapes
             throw new NotImplementedException();
         }
 
-        public override IHandler GetEntireShapeHandler(PointD clickedPoint, List<Shape> polygons, int polygonIndex)
+        public override IHandler GetEntireShapeHandler(PointD clickedPoint, List<Shape> polygons, int polygonIndex,
+                                                        Color? markingColor = null)
         {
             throw new NotImplementedException();
         }
 
-        public override IHandler GetPartOfShapeHandler(PointD clickedPoint, List<Shape> polygons, int polygonIndex, CheckBox checkbox = null)
+        public override IHandler GetPartOfShapeHandler(PointD clickedPoint, List<Shape> polygons, int polygonIndex,
+                                                        CheckBox checkBox = null, Color? markingColor = null)
         {
             throw new NotImplementedException();
         }

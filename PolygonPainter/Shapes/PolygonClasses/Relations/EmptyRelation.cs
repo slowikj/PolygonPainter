@@ -23,7 +23,7 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             return new EmptyRelation();
         }
 
-        public override void Draw(PaintTools g, Line side)
+        public override void Draw(PaintTools g, Segment side)
         {
         }
 

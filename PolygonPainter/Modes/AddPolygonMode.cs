@@ -16,15 +16,15 @@ namespace PolygonPainter.Modes
     public class AddPolygonMode : Mode
     {
         private PolygonCreator _currentPolygon;
-        private Color _vertexColor, _lineColor;
+        private Color _vertexColor, _sideColor;
         
-        public AddPolygonMode (List<Shape> Shapes, PictureBox canvas, Color vertexColor, Color lineColor)
+        public AddPolygonMode (List<Shape> Shapes, PictureBox canvas, Color vertexColor, Color sideColor)
             : base(Shapes, canvas)
         {
             _vertexColor = vertexColor;
-            _lineColor = lineColor;
+            _sideColor = sideColor;
             
-            _currentPolygon = new PolygonCreator(_vertexColor, _lineColor);
+            _currentPolygon = new PolygonCreator(_vertexColor, _sideColor);
         }
 
         public override void MouseClick(object obj, MouseEventArgs e)
@@ -57,7 +57,7 @@ namespace PolygonPainter.Modes
                 _AddNewPointToPolygon(clickedPoint);
 
             if (_currentPolygon.IsComplete())
-                _currentPolygon = new PolygonCreator(_vertexColor, _lineColor);
+                _currentPolygon = new PolygonCreator(_vertexColor, _sideColor);
         }
 
         private void _UndoLastOperation()
@@ -100,7 +100,7 @@ namespace PolygonPainter.Modes
             return _currentPolygon.NumberOfVertices > 0 && !_currentPolygon.IsComplete();
         }
 
-        public override void ClearMarking()
+        public override void Clear()
         {
         }
     }

@@ -35,7 +35,7 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             _font = new Font(FontFamily.GenericSansSerif, 8, FontStyle.Bold);
         }
 
-        public override void Draw(PaintTools paintTools, Line side)
+        public override void Draw(PaintTools paintTools, Segment side)
         {
             base.Draw(paintTools, side);
 

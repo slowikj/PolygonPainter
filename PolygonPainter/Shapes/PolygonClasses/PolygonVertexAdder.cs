@@ -30,7 +30,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
                 if (sideIndex != -1)
                 {
-                    Line side = _polygon._GetSide(sideIndex);
+                    Segment side = _polygon._GetSide(sideIndex);
                     _AddVertex(sideIndex, new Vertex(side.Middle, _polygon._defaultVertexColor));
                     return true;
                 }

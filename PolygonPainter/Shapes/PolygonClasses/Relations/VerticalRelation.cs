@@ -23,17 +23,17 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             return new VerticalRelation();
         }
 
-        public override void Draw(PaintTools paintTools, Line side)
+        public override void Draw(PaintTools paintTools, Segment side)
         {
             base.Draw(paintTools, side);
 
             PointD location = _GetLocation(side);
 
-            Line verticalLine = new Line(new PointD(location.X, location.Y - _distanceFromMiddle),
+            Segment verticalSegment = new Segment(new PointD(location.X, location.Y - _distanceFromMiddle),
                                          new PointD(location.X, location.Y + _distanceFromMiddle),
                                          _penColor);
 
-            verticalLine.Draw(paintTools);
+            verticalSegment.Draw(paintTools);
         }
 
         public override bool IsEmpty()

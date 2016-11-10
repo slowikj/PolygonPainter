@@ -108,7 +108,7 @@ namespace PolygonPainter.Modes
             return "SetRelationMode";
         }
 
-        public override void ClearMarking()
+        public override void Clear()
         {
         }
     }

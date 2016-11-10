@@ -130,9 +130,11 @@ namespace PolygonPainter.Modes
             return false;
         }
 
-        public override void ClearMarking()
+        public override void Clear()
         {
             _currentHandler.Unmark();
+            _currentHandler = new EmptyHandler();
+            this.UpdateCanvas();
         }
     }
 }

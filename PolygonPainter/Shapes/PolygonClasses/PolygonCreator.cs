@@ -15,8 +15,8 @@ namespace PolygonPainter.Shapes.PolygonClasses
     {
         protected bool _isComplete;
 
-        public PolygonCreator(Color vertexColor, Color lineColor)
-            : base(vertexColor, lineColor)
+        public PolygonCreator(Color vertexColor, Color sideColor)
+            : base(vertexColor, sideColor)
         {
             _isComplete = false;
         }

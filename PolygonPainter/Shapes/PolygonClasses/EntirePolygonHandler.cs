@@ -15,7 +15,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
 {
    public partial class Polygon : Shape
    {
-        private class EntirePolygonHandler : AbstractPolygonHandler
+        public class EntirePolygonHandler : AbstractPolygonHandler
         {
             private PointD _clickedPoint;
 
@@ -56,6 +56,11 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 _clickedPoint = currentPoint;
 
                 return true;
+            }
+
+            public Polygon[] GetIntersectionPolygons(Polygon other)
+            {
+                return _currentPolygon.GetIntersectionPolygons(other);
             }
         }
 

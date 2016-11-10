@@ -78,7 +78,7 @@ namespace PolygonPainter.Modes
 
         private int _GetClickedShapeIndex(Point p)
         {
-            for (int i = 0; i < _shapes.Count; ++i)
+            for (int i = _shapes.Count - 1; i >= 0; --i)
             {
                 if (_shapes[i].IsClickedBy(p))
                     return i;
@@ -99,7 +99,7 @@ namespace PolygonPainter.Modes
         {
         }
 
-        public override void ClearMarking()
+        public override void Clear()
         {
         }
     }

@@ -36,11 +36,11 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 }
             }
 
-            public ActiveEdge(Line line)
+            public ActiveEdge(Segment segment)
             {
-                _YLast = (int)line.End.Y;
-                _currentX = line.Begin.X;
-                _inc = -(line.Begin.X - line.End.X) / (line.Begin.Y - line.End.Y);
+                _YLast = (int)segment.End.Y;
+                _currentX = segment.Begin.X;
+                _inc = -(segment.Begin.X - segment.End.X) / (segment.Begin.Y - segment.End.Y);
             }
 
             public void UpdateX ()

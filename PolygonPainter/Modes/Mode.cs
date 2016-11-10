@@ -18,9 +18,9 @@ namespace PolygonPainter.Modes
         protected List<Shape> _shapes;
         protected PictureBox _canvas;
 
-        public Mode (List<Shape> Shapes, PictureBox canvas)
+        public Mode (List<Shape> shapes, PictureBox canvas)
         {
-            _shapes = Shapes;
+            _shapes = shapes;
             _canvas = canvas;
         }
 
@@ -35,6 +35,6 @@ namespace PolygonPainter.Modes
         public abstract void MouseMove(object obj, MouseEventArgs e);
         public abstract void MousedoubleClick(object obj, MouseEventArgs e);
         public abstract bool IsModeChangeForbidden();
-        public abstract void ClearMarking();
+        public abstract void Clear();
     }
 }

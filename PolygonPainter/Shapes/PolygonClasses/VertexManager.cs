@@ -34,6 +34,14 @@ namespace PolygonPainter.Shapes.PolygonClasses
             }
         }
 
+        public PointD[] VertexLocations
+        {
+            get
+            {
+                return _vertices.Select(v => v.Location).ToArray();
+            }
+        }
+
         public Vertex GetVertex(int index)
         {
             return _vertices[index];
@@ -97,7 +105,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
         public void DrawRelations(PaintTools paintTools)
         {
             for (int i = 0; i < this.NumberOfVertices; ++i)
-                _relations[i].Draw(paintTools, new Line(_vertices[i].Location,
+                _relations[i].Draw(paintTools, new Segment(_vertices[i].Location,
                                                _vertices[(i + 1) % this.NumberOfVertices].Location));
         }
 

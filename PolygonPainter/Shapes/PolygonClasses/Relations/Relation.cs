@@ -42,7 +42,7 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             _isFixed = isFixed;
         }
         
-        public virtual void Draw(PaintTools paintTools, Line side)
+        public virtual void Draw(PaintTools paintTools, Segment side)
         {
             Vertex circle = new Vertex(_GetLocation(side), _fillingColor, _radius);
             circle.Draw(paintTools);
@@ -55,7 +55,7 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             return "AbstractRelation";
         }
 
-        protected PointD _GetLocation(Line side)
+        protected PointD _GetLocation(Segment side)
         {
             return side.Middle;
         }

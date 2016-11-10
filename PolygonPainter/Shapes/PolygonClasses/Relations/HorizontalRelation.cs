@@ -23,17 +23,17 @@ namespace PolygonPainter.Shapes.PolygonClasses.Relations
             return new HorizontalRelation();
         }
 
-        public override void Draw(PaintTools paintTools, Line side)
+        public override void Draw(PaintTools paintTools, Segment side)
         {
             base.Draw(paintTools, side);
 
             PointD location = _GetLocation(side);
 
-            Line horizontalLine = new Line(new PointD(location.X - _distanceFromMiddle, location.Y),
+            Segment horizontalSegment = new Segment(new PointD(location.X - _distanceFromMiddle, location.Y),
                                            new PointD(location.X + _distanceFromMiddle, location.Y),
                                            _penColor);
 
-            horizontalLine.Draw(paintTools);
+            horizontalSegment.Draw(paintTools);
         }
 
         public override bool IsEmpty()

@@ -41,12 +41,12 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 
                 for(int i = 0; i < activeEdges.Count; i += 2)
                 {
-                    _DrawLine(paintTools, y, (int)activeEdges[i].CurrentX, (int)activeEdges[i + 1].CurrentX);
+                    _DrawSegment(paintTools, y, (int)activeEdges[i].CurrentX, (int)activeEdges[i + 1].CurrentX);
                 }
             }
         }
 
-        private void _DrawLine(PaintTools paintTools, int y, int begX, int endX)
+        private void _DrawSegment(PaintTools paintTools, int y, int begX, int endX)
         {
             for(int x = begX; x <= endX; ++x)
             {
@@ -67,7 +67,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
             for (int i = 0; i < vertices.Count; ++i)
             {
-                Line edge = new Line(vertices[i].Location,
+                Segment edge = new Segment(vertices[i].Location,
                                      vertices[(i + 1) % vertices.Count].Location);
 
                 _AddEdge(edge, edges);             
@@ -76,7 +76,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return edges;
         }
 
-        private void _AddEdge(Line edge, Dictionary<int, List<ActiveEdge>> edges)
+        private void _AddEdge(Segment edge, Dictionary<int, List<ActiveEdge>> edges)
         {
             if (!edge.IsHorizontal)
             {

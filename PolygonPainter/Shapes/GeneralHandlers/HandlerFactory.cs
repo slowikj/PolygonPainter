@@ -28,21 +28,21 @@ namespace PolygonPainter.Shapes.GeneralHandlers
 
         public IHandler GetEntireShapeHandler(PointD clickedPoint)
         {
-            for (int i = 0; i < _shapes.Count; ++i)
+            for (int i = _shapes.Count - 1; i >= 0; --i)
             {
-                IHandler res = _shapes[i].GetEntireShapeHandler(clickedPoint, _shapes, i);
+                IHandler res = _shapes[i].GetEntireShapeHandler(clickedPoint, _shapes, i, _markingColor);
                 if (!(res is EmptyHandler))
                     return res;
             }
 
             return new EmptyHandler();
         }
-
+        
         public IHandler GetPartOfShapeHandler(PointD clickedPoint)
         {
-            for (int i = 0; i < _shapes.Count; ++i)
+            for (int i = _shapes.Count - 1; i >= 0; --i)
             {
-                IHandler res = _shapes[i].GetPartOfShapeHandler(clickedPoint, _shapes, i, _automaticRelationBox);
+                IHandler res = _shapes[i].GetPartOfShapeHandler(clickedPoint, _shapes, i, _automaticRelationBox, _markingColor);
                 if (!(res is EmptyHandler))
                     return res;
             }

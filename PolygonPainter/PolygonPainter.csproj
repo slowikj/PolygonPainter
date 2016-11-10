@@ -45,8 +45,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums.cs" />
     <Compile Include="FastBitmap.cs" />
     <Compile Include="FillingDialog.cs">
       <SubType>Form</SubType>
@@ -55,11 +57,14 @@
       <DependentUpon>FillingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="FillingInfo.cs" />
+    <Compile Include="Modes\IntersectionMode.cs" />
+    <Compile Include="SegmentIntersectionInfo.cs" />
     <Compile Include="Modes\FillMode.cs" />
     <Compile Include="PaintTools.cs" />
     <Compile Include="PointD.cs" />
     <Compile Include="Shapes\Circle.cs" />
     <Compile Include="Shapes\PolygonClasses\ActiveEdge.cs" />
+    <Compile Include="Shapes\PolygonClasses\PolygonInclusionChecker.cs" />
     <Compile Include="Shapes\PolygonClasses\PolygonIntersectionComputer.cs" />
     <Compile Include="Shapes\PolygonClasses\Relations\EmptyRelationSetter.cs" />
     <Compile Include="RelationDialog.cs">
@@ -90,7 +95,7 @@
     <Compile Include="Shapes\PolygonClasses\Relations\VerticalRelation.cs" />
     <Compile Include="Shapes\PolygonClasses\VertexManager.cs" />
     <Compile Include="Shapes\Shape.cs" />
-    <Compile Include="Line.cs" />
+    <Compile Include="Segment.cs" />
     <Compile Include="Vertex.cs" />
     <Compile Include="Shapes\PolygonClasses\Polygon.cs" />
     <Compile Include="Form1.cs">

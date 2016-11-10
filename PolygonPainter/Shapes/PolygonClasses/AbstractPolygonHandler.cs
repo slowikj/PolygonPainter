@@ -16,7 +16,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
 {
     public partial class Polygon : Shape
     {
-        private abstract class AbstractPolygonHandler : IHandler
+        public abstract class AbstractPolygonHandler : IHandler
         {
             protected readonly Color _DEFAULT_MARKING_COLOR = Color.Green;
 
@@ -24,6 +24,14 @@ namespace PolygonPainter.Shapes.PolygonClasses
             protected List<Shape> _polygons;
             protected int _polygonIndex;
             protected Color _markingColor;
+
+            public int PolygonIndex
+            {
+                get
+                {
+                    return _polygonIndex;
+                }
+            }
 
             public AbstractPolygonHandler(Polygon currentPolygon,
                                           List<Shape> polygons,

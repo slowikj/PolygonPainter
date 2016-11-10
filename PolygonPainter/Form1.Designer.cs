@@ -38,6 +38,7 @@
             this.canvas = new System.Windows.Forms.PictureBox();
             this.automaticRelationBox = new System.Windows.Forms.CheckBox();
             this.fillButton = new System.Windows.Forms.RadioButton();
+            this.intersectionButton = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -159,6 +160,19 @@
             this.fillButton.UseVisualStyleBackColor = true;
             this.fillButton.CheckedChanged += new System.EventHandler(this.fillButton_CheckedChanged);
             // 
+            // intersectionButton
+            // 
+            this.intersectionButton.AutoSize = true;
+            this.intersectionButton.Font = new System.Drawing.Font("Segoe Print", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.intersectionButton.Location = new System.Drawing.Point(26, 238);
+            this.intersectionButton.Name = "intersectionButton";
+            this.intersectionButton.Size = new System.Drawing.Size(92, 23);
+            this.intersectionButton.TabIndex = 15;
+            this.intersectionButton.TabStop = true;
+            this.intersectionButton.Text = "Intersection";
+            this.intersectionButton.UseVisualStyleBackColor = true;
+            this.intersectionButton.CheckedChanged += new System.EventHandler(this.intersectionButton_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -166,6 +180,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.LightGreen;
             this.ClientSize = new System.Drawing.Size(1036, 637);
+            this.Controls.Add(this.intersectionButton);
             this.Controls.Add(this.fillButton);
             this.Controls.Add(this.automaticRelationBox);
             this.Controls.Add(this.canvas);
@@ -196,6 +211,7 @@
         private System.Windows.Forms.PictureBox canvas;
         private System.Windows.Forms.CheckBox automaticRelationBox;
         private System.Windows.Forms.RadioButton fillButton;
+        private System.Windows.Forms.RadioButton intersectionButton;
     }
 }
 

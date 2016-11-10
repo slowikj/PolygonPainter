@@ -64,7 +64,7 @@
             this.verticalButton.Size = new System.Drawing.Size(106, 17);
             this.verticalButton.TabIndex = 1;
             this.verticalButton.TabStop = true;
-            this.verticalButton.Text = "Set a vertical line";
+            this.verticalButton.Text = "Set a vertical Segment";
             this.verticalButton.UseVisualStyleBackColor = true;
             // 
             // horizontalButton
@@ -75,7 +75,7 @@
             this.horizontalButton.Size = new System.Drawing.Size(117, 17);
             this.horizontalButton.TabIndex = 1;
             this.horizontalButton.TabStop = true;
-            this.horizontalButton.Text = "Set a horizontal line";
+            this.horizontalButton.Text = "Set a horizontal Segment";
             this.horizontalButton.UseVisualStyleBackColor = true;
             // 
             // lengthButton

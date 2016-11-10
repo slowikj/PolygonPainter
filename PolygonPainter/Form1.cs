@@ -20,7 +20,7 @@ namespace PolygonPainter
     public partial class Form1 : Form
     {
         private readonly Color _DEFAULT_VERTEX_COLOR = Color.Red,
-                               _DEFAULT_LINE_COLOR = Color.BlueViolet,
+                               _DEFAULT_SIDE_COLOR = Color.BlueViolet,
                                _DEFAULT_SELECT_COLOR = Color.Green;
 
         private List<Shape> _shapes;
@@ -48,11 +48,11 @@ namespace PolygonPainter
 
             _meshPen = new Pen(Color.LightGray);
 
-            //Line a = new Line(new Point(0, 0), new Point(5, 5));
-            //Line b = new Line(new Point(0, 5), new Point(5, 0));
-            //PointD? res = a.GetIntersectionWith(b);
+            //Segment a = new Segment(new Point(0, 0), new Point(5, 5));
+            //Segment b = new Segment(new Point(3, 3), new Point(3, 0));
+            //SegmentIntersectionInfo res = a.GetIntersectionWith(b);
 
-            //MessageBox.Show(res.HasValue ? res.Value.ToString() : "null");
+            //MessageBox.Show((res.Point.HasValue ? res.Point.Value.ToString() : "null") + " " + res.Type.ToString());
 
             //PolygonCreator pc = new PolygonCreator(Color.Black, Color.BlueViolet);
             //pc.AddVertexClickedBy(new Point(5, 5));
@@ -67,18 +67,20 @@ namespace PolygonPainter
             //pc.AddVertexClickedBy(new Point(23, 5));
             //pc.AddVertexClickedBy(new Point(5, 5));
             //pc.AddVertexClickedBy(new Point(23, 23));
-          
+
             //MessageBox.Show(pc.Area().ToString());
         }
 
         Dictionary<String, Mode> _PrepareModesDictionary()
         {
             Dictionary<String, Mode> res = new Dictionary<string, Mode>();
-            res.Add("AddPolygonMode", new AddPolygonMode(_shapes, canvas, _DEFAULT_VERTEX_COLOR, _DEFAULT_LINE_COLOR));
+            res.Add("AddPolygonMode", new AddPolygonMode(_shapes, canvas, _DEFAULT_VERTEX_COLOR, _DEFAULT_SIDE_COLOR));
             res.Add("SelectMode", new SelectMode(_shapes, canvas, _DEFAULT_SELECT_COLOR, automaticRelationBox));
             res.Add("AddVertexToPolygonMode", new AddVertexToPolygonMode(_shapes, canvas));
             res.Add("SetRelationMode", new SetRelationMode(_shapes, canvas));
             res.Add("FillMode", new FillMode(_shapes, canvas));
+            res.Add("IntersectionMode", new IntersectionMode(_shapes, canvas));
+
 
             return res;
         }
@@ -92,6 +94,7 @@ namespace PolygonPainter
             res["AddVertexToPolygonMode"] = addVertexToPolygonButton;
             res["SetRelationMode"] = setRelationButton;
             res["FillMode"] = fillButton;
+            res["IntersectionMode"] = intersectionButton;
 
             return res;
         }
@@ -126,6 +129,13 @@ namespace PolygonPainter
                 _ChangeMode("FillMode");
         }
 
+
+        private void intersectionButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_modeButtons["IntersectionMode"].Checked)
+                _ChangeMode("IntersectionMode");
+        }
+
         private void _ChangeMode (String modeName)
         {
             if (_currentMode.IsModeChangeForbidden() && _currentMode != _modes[modeName])
@@ -135,7 +145,7 @@ namespace PolygonPainter
             }
             else
             {
-                _currentMode.ClearMarking();
+                _currentMode.Clear();
                 _currentMode = _modes[modeName];
             }
         }
@@ -196,23 +206,23 @@ namespace PolygonPainter
 
         private void _DrawGrid(PaintTools paintTools)
         {
-            Line line = new Line(new PointD(), new PointD(), _meshPen.Color);
-
             int numOfCells = 50, cellSize = 30;
             for (int y = 0; y < numOfCells; ++y)
             {
-                line.Begin = new PointD(0, y * cellSize);
-                line.End = new PointD(numOfCells * cellSize, y * cellSize);
-
-                line.Draw(paintTools);
+                Segment segment = new Segment(new PointD(0, y * cellSize),
+                                              new PointD(numOfCells * cellSize, y * cellSize),
+                                              _meshPen.Color);
+            
+                segment.Draw(paintTools);
             }
 
             for (int x = 0; x < numOfCells; ++x)
             {
-                line.Begin = new PointD(x * cellSize, 0);
-                line.End = new PointD(x * cellSize, numOfCells * cellSize);
-
-                line.Draw(paintTools);
+                Segment segment = new Segment(new PointD(x * cellSize, 0),
+                                              new PointD(x * cellSize, numOfCells * cellSize),
+                                              _meshPen.Color);
+                
+                segment.Draw(paintTools);
             }
         }
     }
