@@ -41,6 +41,9 @@
             this.normalVectorsLabel = new System.Windows.Forms.Label();
             this.normalVectorsPanel = new System.Windows.Forms.Panel();
             this.normalVectorsButton = new System.Windows.Forms.Button();
+            this.heightMapLabel = new System.Windows.Forms.Label();
+            this.heightMapPanel = new System.Windows.Forms.Panel();
+            this.heightMapButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -101,7 +104,7 @@
             // okButton
             // 
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(63, 268);
+            this.okButton.Location = new System.Drawing.Point(63, 338);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 5;
@@ -112,7 +115,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(412, 268);
+            this.cancelButton.Location = new System.Drawing.Point(412, 338);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 6;
@@ -154,11 +157,41 @@
             this.normalVectorsButton.UseVisualStyleBackColor = true;
             this.normalVectorsButton.Click += new System.EventHandler(this.normalVectorsButton_Click);
             // 
+            // heightMapLabel
+            // 
+            this.heightMapLabel.AutoSize = true;
+            this.heightMapLabel.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.heightMapLabel.Location = new System.Drawing.Point(12, 290);
+            this.heightMapLabel.Name = "heightMapLabel";
+            this.heightMapLabel.Size = new System.Drawing.Size(87, 22);
+            this.heightMapLabel.TabIndex = 11;
+            this.heightMapLabel.Text = "Height map";
+            // 
+            // heightMapPanel
+            // 
+            this.heightMapPanel.Location = new System.Drawing.Point(165, 264);
+            this.heightMapPanel.Name = "heightMapPanel";
+            this.heightMapPanel.Size = new System.Drawing.Size(49, 48);
+            this.heightMapPanel.TabIndex = 12;
+            // 
+            // heightMapButton
+            // 
+            this.heightMapButton.Location = new System.Drawing.Point(232, 291);
+            this.heightMapButton.Name = "heightMapButton";
+            this.heightMapButton.Size = new System.Drawing.Size(75, 23);
+            this.heightMapButton.TabIndex = 13;
+            this.heightMapButton.Text = "Choose";
+            this.heightMapButton.UseVisualStyleBackColor = true;
+            this.heightMapButton.Click += new System.EventHandler(this.heightMapButton_Click);
+            // 
             // FillingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 318);
+            this.ClientSize = new System.Drawing.Size(611, 373);
+            this.Controls.Add(this.heightMapButton);
+            this.Controls.Add(this.heightMapPanel);
+            this.Controls.Add(this.heightMapLabel);
             this.Controls.Add(this.normalVectorsButton);
             this.Controls.Add(this.normalVectorsPanel);
             this.Controls.Add(this.normalVectorsLabel);
@@ -193,5 +226,8 @@
         private System.Windows.Forms.Label normalVectorsLabel;
         private System.Windows.Forms.Panel normalVectorsPanel;
         private System.Windows.Forms.Button normalVectorsButton;
+        private System.Windows.Forms.Label heightMapLabel;
+        private System.Windows.Forms.Panel heightMapPanel;
+        private System.Windows.Forms.Button heightMapButton;
     }
 }

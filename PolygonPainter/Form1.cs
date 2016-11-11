@@ -48,6 +48,8 @@ namespace PolygonPainter
 
             _meshPen = new Pen(Color.LightGray);
 
+            MessageBox.Show(canvas.Width.ToString() + " " + canvas.Height.ToString());
+
             //Segment a = new Segment(new Point(0, 0), new Point(5, 5));
             //Segment b = new Segment(new Point(3, 3), new Point(3, 0));
             //SegmentIntersectionInfo res = a.GetIntersectionWith(b);

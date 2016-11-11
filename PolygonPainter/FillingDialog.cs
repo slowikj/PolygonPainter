@@ -12,14 +12,15 @@ namespace PolygonPainter
 {
     public partial class FillingDialog : Form
     {
-        private FillingInfo _fillingInfo;
+        private Bitmap _texture, _normalVectorsMap, _heightMap;
+        Color _lightColor;
         private bool _canExit;
-
+        
         public FillingInfo FillingInfo
         {
             get
             {
-                return _fillingInfo;
+                return new FillingInfo(_texture, _normalVectorsMap, _heightMap, _lightColor);
             }
         }
 
@@ -27,7 +28,11 @@ namespace PolygonPainter
         {
             InitializeComponent();
 
-            _fillingInfo = new FillingInfo();
+            _texture = null;
+            _normalVectorsMap = null;
+            _heightMap = null;
+            _lightColor = Color.White;
+            
             _canExit = true;
         }
         
@@ -38,7 +43,7 @@ namespace PolygonPainter
             if (dialogResult == DialogResult.OK)
             {
                 colorPanel.BackColor = colorDialog.Color;
-                _fillingInfo.LightColor = colorDialog.Color;
+                _lightColor = colorDialog.Color;
             }
         }
 
@@ -47,23 +52,25 @@ namespace PolygonPainter
             Bitmap image = _GetImage();
             if (image != null)
             {
-                _fillingInfo.Texture = new FastBitmap(image);
-
-                Bitmap iconImage = _GetResizedImage(image, texturePanel.Width, texturePanel.Height);
-                texturePanel.CreateGraphics().DrawImage(iconImage, 0, 0);
+                _SetImage(image, ref _texture, texturePanel);
             }
         }
-
-
+        
         private void normalVectorsButton_Click(object sender, EventArgs e)
         {
             Bitmap image = _GetImage();
             if (image != null)
             {
-                _fillingInfo.NormalVectors = new FastBitmap(image);
-
-                Bitmap iconImage = _GetResizedImage(image, normalVectorsPanel.Width, normalVectorsPanel.Height);
-                normalVectorsPanel.CreateGraphics().DrawImage(iconImage, 0, 0);
+                _SetImage(image, ref _normalVectorsMap, normalVectorsPanel);
+            }
+        }
+        
+        private void heightMapButton_Click(object sender, EventArgs e)
+        {
+            Bitmap image = _GetImage();
+            if (image != null)
+            {
+                _SetImage(image, ref _heightMap, heightMapPanel);
             }
         }
 
@@ -71,38 +78,48 @@ namespace PolygonPainter
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             DialogResult dialogResult = openFileDialog.ShowDialog();
-
+            
             return dialogResult == DialogResult.OK ? new Bitmap(openFileDialog.FileName)
                                                    : null;
-
         }
-        
-        private Bitmap _GetResizedImage(Image image, int width, int height)
+
+        private void _SetImage(Bitmap image, ref Bitmap destination, Panel panel)
         {
-            Bitmap res = new Bitmap(image, width, height);
+            destination = image;
 
-            using (Graphics graphics = Graphics.FromImage(res))
-            {
-                //set the resize quality modes to high quality
-                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
-                //draw the image into the target bitmap
-                graphics.DrawImage(image, 0, 0, res.Width, res.Height);
-            }
-
-            return res;
+            //Bitmap iconImage = _GetResizedImage(image, panel.Width, panel.Height);
+            Bitmap iconImage = new Bitmap(image, panel.Width, panel.Height);
+            panel.CreateGraphics().DrawImage(iconImage, 0, 0);
         }
+
+        
+        //private Bitmap _GetResizedImage(Image image, int width, int height)
+        //{
+        //    Bitmap res = new Bitmap(image, width, height);
+
+        //    using (Graphics graphics = Graphics.FromImage(res))
+        //    {
+        //        //set the resize quality modes to high quality
+        //        graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        //        graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        //        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+        //        //draw the image into the target bitmap
+        //        graphics.DrawImage(image, 0, 0, res.Width, res.Height);
+        //    }
+
+        //    return res;
+        //}
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            if (_fillingInfo.Texture == null || _fillingInfo.NormalVectors == null)
+            if (_texture == null || _normalVectorsMap == null || _heightMap == null)
             {
                 MessageBox.Show("Some attributes hasn't been chosen");
                 _canExit = false;
             }
         }
+
 
         private void cancelButton_Click(object sender, EventArgs e)
         {

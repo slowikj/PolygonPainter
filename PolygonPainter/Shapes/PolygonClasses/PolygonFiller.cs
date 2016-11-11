@@ -50,15 +50,57 @@ namespace PolygonPainter.Shapes.PolygonClasses
         {
             for(int x = begX; x <= endX; ++x)
             {
-                if(paintTools.Bitmap.IsInside(x, y))
+                if (paintTools.Bitmap.IsInside(x, y))
+                {
                     paintTools.Bitmap.SetPixel(x, y, _GetColor(x, y));
+                }
             }
         }
 
         private Color _GetColor(int x, int y)
         {
-            return _fillingInfo.Texture.GetPixel(x % _fillingInfo.Texture.Width,
-                                                 y % _fillingInfo.Texture.Height);
+            Color objectColor = _fillingInfo.GetPixelOfTexture(x, y);
+            double[] objectColorVector = _GetVector(objectColor);
+
+            Color lightColor = _fillingInfo.GetLightColor();
+            double[] lightColorVector = _GetVector(lightColor);
+
+            Color colorFromNormalMap = _fillingInfo.GetPixelOfNormalVectorsMap(x, y);
+            double[] N = new double[3] {(double)colorFromNormalMap.R / 127.5 - 1,
+                                        (double)colorFromNormalMap.G / 127.5 - 1,
+                                        (double)colorFromNormalMap.B / 255};
+
+            //double[] N = new double[3] { 0, 0, 1 };
+            N = _Normalized(N);
+
+            double[] L = new double[3] { 421 - x, 300 - y, 100 };
+            L = _Normalized(L);
+
+            double cos = N.Zip(L, (a, b) => a * b)
+                          .Sum();
+
+            if (cos <= 0)
+            {
+                return Color.Black;
+            }
+
+            double[] res = objectColorVector.Zip(lightColorVector, (a, b) => (a * b * cos / 255))
+                                            .ToArray();
+
+            return Color.FromArgb(objectColor.A, (int)res[0], (int)res[1], (int)res[2]);
+        }
+
+        private double[] _Normalized(double[] a)
+        {
+            double l = Math.Sqrt(a.Select(x => x * x).Sum());
+
+            return a.Select(x => x / l).ToArray();
+        }
+
+        private double[] _GetVector(Color color)
+        {
+            double[] res = new double[3] { color.R, color.G, color.B };
+            return res;
         }
         
         private Dictionary<int, List<ActiveEdge>> _GetEdgesTable(List<Vertex> vertices)
@@ -68,7 +110,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             for (int i = 0; i < vertices.Count; ++i)
             {
                 Segment edge = new Segment(vertices[i].Location,
-                                     vertices[(i + 1) % vertices.Count].Location);
+                                           vertices[(i + 1) % vertices.Count].Location);
 
                 _AddEdge(edge, edges);             
             }

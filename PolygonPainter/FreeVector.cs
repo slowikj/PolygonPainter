@@ -32,7 +32,7 @@ namespace PolygonPainter
             //double angle = Math.Atan(_p.Y / _p.X);
 
             //return Math.Abs(angle - (Math.PI / 2)) <= (eps_deg * 1.5);
-
+            
             FreeVector v = this;
             v.Length = 1;
 

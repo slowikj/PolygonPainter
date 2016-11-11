@@ -7,3 +7,14 @@ C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\Polygo
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.csproj.GenerateResource.Cache
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.exe
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt1\PolygonPainter\PolygonPainter\obj\Release\PolygonPainter.pdb
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\bin\Release\PolygonPainter.exe.config
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.exe
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.pdb
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.FillingDialog.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.Form1.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.RelationDialog.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.Properties.Resources.resources
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.csproj.GenerateResource.Cache
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\bin\Release\PolygonPainter.exe
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\bin\Release\PolygonPainter.pdb
+C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.csprojResolveAssemblyReference.cache

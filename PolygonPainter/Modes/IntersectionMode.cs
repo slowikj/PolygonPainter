@@ -106,21 +106,13 @@ namespace PolygonPainter.Modes
         {
             int i = _handlers[0].PolygonIndex;
             int j = _handlers[1].PolygonIndex;
-
+            
             try
             {
                 Polygon[] newPolygons = (_shapes[i] as Polygon).GetIntersectionPolygons(_shapes[j] as Polygon);
 
-                _handlers.Sort((x, y) => y.PolygonIndex.CompareTo(x.PolygonIndex));
-                foreach (var handler in _handlers)
-                {
-                    handler.Delete();
-                }
-
-                foreach (Polygon newPolygon in newPolygons)
-                {
-                    _shapes.Add(newPolygon);
-                }
+                _DeleteIntersectedPolygons();
+                _AppendNewPolygons(newPolygons);
 
                 this.Clear();
                 this.UpdateCanvas();
@@ -128,6 +120,23 @@ namespace PolygonPainter.Modes
             catch (OperationImpossibleException e)
             {
                 MessageBox.Show(e.Message);
+            }
+        }
+
+        private void _AppendNewPolygons(Polygon[] newPolygons)
+        {
+            foreach (Polygon newPolygon in newPolygons)
+            {
+                _shapes.Add(newPolygon);
+            }
+        }
+
+        private void _DeleteIntersectedPolygons()
+        {
+            _handlers.Sort((x, y) => y.PolygonIndex.CompareTo(x.PolygonIndex));
+            foreach (var handler in _handlers)
+            {
+                handler.Delete();
             }
         }
     }
