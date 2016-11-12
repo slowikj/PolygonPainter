@@ -111,7 +111,7 @@ namespace PolygonPainter.Shapes
             throw new NotImplementedException();
         }
 
-        public override void SetFilling(FillingInfo fillingInfo)
+        public override void SetFilling(FillingInfo fillingInfo, double[] _lightPoint)
         {
             throw new NotImplementedException();
         }

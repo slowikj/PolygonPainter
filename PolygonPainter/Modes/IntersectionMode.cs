@@ -139,5 +139,9 @@ namespace PolygonPainter.Modes
                 handler.Delete();
             }
         }
+
+        public override void KeyEventHandler(Keys keyData)
+        {
+        }
     }
 }

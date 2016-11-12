@@ -76,9 +76,9 @@ namespace PolygonPainter.Shapes.PolygonClasses
             _filler?.Fill(paintTools, _vertexManager.Vertices);
         }
 
-        public override void SetFilling(FillingInfo fillingInfo)
+        public override void SetFilling(FillingInfo fillingInfo, double[] _lightPoint)
         {
-            _filler = new PolygonFiller(fillingInfo);
+            _filler = new PolygonFiller(fillingInfo, _lightPoint);
         }
 
         public override void DeleteFilling()

@@ -136,5 +136,9 @@ namespace PolygonPainter.Modes
             _currentHandler = new EmptyHandler();
             this.UpdateCanvas();
         }
+
+        public override void KeyEventHandler(Keys keyData)
+        {
+        }
     }
 }

@@ -50,27 +50,8 @@ namespace PolygonPainter
 
             MessageBox.Show(canvas.Width.ToString() + " " + canvas.Height.ToString());
 
-            //Segment a = new Segment(new Point(0, 0), new Point(5, 5));
-            //Segment b = new Segment(new Point(3, 3), new Point(3, 0));
-            //SegmentIntersectionInfo res = a.GetIntersectionWith(b);
-
-            //MessageBox.Show((res.Point.HasValue ? res.Point.Value.ToString() : "null") + " " + res.Type.ToString());
-
-            //PolygonCreator pc = new PolygonCreator(Color.Black, Color.BlueViolet);
-            //pc.AddVertexClickedBy(new Point(5, 5));
-            //pc.AddVertexClickedBy(new Point(13, 5));
-            //pc.AddVertexClickedBy(new Point(13, 13));
-            //pc.AddVertexClickedBy(new Point(5, 13));
-            //pc.AddVertexClickedBy(new Point(5, 5));
-            //MessageBox.Show(pc.Area().ToString());
-
-            //pc = new PolygonCreator(Color.Black, Color.BlueViolet);
-            //pc.AddVertexClickedBy(new Point(23, 23));
-            //pc.AddVertexClickedBy(new Point(23, 5));
-            //pc.AddVertexClickedBy(new Point(5, 5));
-            //pc.AddVertexClickedBy(new Point(23, 23));
-
-            //MessageBox.Show(pc.Area().ToString());
+            this.KeyPreview = true;
+            
         }
 
         Dictionary<String, Mode> _PrepareModesDictionary()
@@ -191,6 +172,17 @@ namespace PolygonPainter
             _DrawShapes(paintTools);
         }
 
+        //private void canvas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        //{
+        //    switch (e.KeyCode)
+        //    {
+        //        case Keys.Down:
+        //        case Keys.Up:
+        //            e.IsInputKey = true;
+        //            break;
+        //    }
+        //}
+        
         private void _DrawShapes(PaintTools paintTools)
         {
             foreach (Shape shape in _shapes)
@@ -226,6 +218,13 @@ namespace PolygonPainter
                 
                 segment.Draw(paintTools);
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            _currentMode.KeyEventHandler(keyData);
+
+            return true;
         }
     }
 }

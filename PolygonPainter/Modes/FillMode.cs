@@ -15,9 +15,41 @@ namespace PolygonPainter.Modes
 {
     public class FillMode : Mode
     {
+        private double[] _lightPoint;
+
         public FillMode(List<Shape> shapes, PictureBox canvas)
             : base(shapes, canvas)
         {
+            _lightPoint = new double[3] { canvas.Width / 2, canvas.Height / 2, 50 };
+        }
+
+        public override void KeyEventHandler(Keys keyData)
+        {
+            const int pixelsChange = 10;
+
+            switch(keyData)
+            {
+                case Keys.Up:
+                    _lightPoint[1] = Math.Max(0, _lightPoint[1] - pixelsChange);
+                    break;
+                case Keys.Down:
+                    _lightPoint[1] = Math.Min(_canvas.Height, _lightPoint[1] + pixelsChange);
+                    break;
+                case Keys.Left:
+                    _lightPoint[0] = Math.Max(0, _lightPoint[0] - pixelsChange); 
+                    break;
+                case Keys.Right:
+                    _lightPoint[0] = Math.Min(_canvas.Width, _lightPoint[0] + pixelsChange);
+                    break;
+                case Keys.W:
+                    _lightPoint[2] = Math.Min(1000, _lightPoint[2] + pixelsChange);
+                    break;
+                case Keys.S:
+                    _lightPoint[2] = Math.Max(1, _lightPoint[2] - pixelsChange);
+                    break;
+            }
+
+            this.UpdateCanvas();
         }
 
         public override bool IsModeChangeForbidden()
@@ -49,7 +81,7 @@ namespace PolygonPainter.Modes
 
             if (filling != null)
             {
-                _shapes[shapeIndex].SetFilling(filling);
+                _shapes[shapeIndex].SetFilling(filling, _lightPoint);
 
                 this.UpdateCanvas();
             }

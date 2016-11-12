@@ -63,5 +63,9 @@ namespace PolygonPainter.Modes
         public override void Clear()
         {
         }
+
+        public override void KeyEventHandler(Keys keyData)
+        {
+        }
     }
 }

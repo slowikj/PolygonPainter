@@ -15,10 +15,12 @@ namespace PolygonPainter.Shapes.PolygonClasses
     public partial class PolygonFiller
     {
         private FillingInfo _fillingInfo;
+        private double[] _lightPoint;
         
-        public PolygonFiller(FillingInfo fillingInfo)
+        public PolygonFiller(FillingInfo fillingInfo, double[] lightPoint)
         {
             _fillingInfo = fillingInfo;
+            _lightPoint = lightPoint;
         }
         
         public void Fill(PaintTools paintTools, List<Vertex> vertices)
@@ -73,7 +75,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             //double[] N = new double[3] { 0, 0, 1 };
             N = _Normalized(N);
 
-            double[] L = new double[3] { 421 - x, 300 - y, 100 };
+            double[] L = new double[3] { _lightPoint[0] - x, _lightPoint[1] - y, _lightPoint[2] };
             L = _Normalized(L);
 
             double cos = N.Zip(L, (a, b) => a * b)
@@ -93,7 +95,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
         private double[] _Normalized(double[] a)
         {
             double l = Math.Sqrt(a.Select(x => x * x).Sum());
-
+            
             return a.Select(x => x / l).ToArray();
         }
 
@@ -110,7 +112,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             for (int i = 0; i < vertices.Count; ++i)
             {
                 Segment edge = new Segment(vertices[i].Location,
-                                           vertices[(i + 1) % vertices.Count].Location);
+                                     vertices[(i + 1) % vertices.Count].Location);
 
                 _AddEdge(edge, edges);             
             }
