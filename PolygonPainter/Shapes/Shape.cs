@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using PolygonPainter.Shapes.PolygonClasses;
 using PolygonPainter.Shapes;
 using PolygonPainter.Interfaces;
+using PolygonPainter.Modes.LightManagers;
 
 namespace PolygonPainter.Shapes
 {
@@ -33,7 +34,7 @@ namespace PolygonPainter.Shapes
 
         public abstract void DrawContours (PaintTools paintTools);
         public abstract void DrawFilling(PaintTools paintTools);
-        public abstract void SetFilling(FillingInfo fillingInfo, double[] _lightPoint);
+        public abstract void SetFilling(FillingInfo fillingInfo, LightManager lightManager);
         public abstract void DeleteFilling();
         public abstract bool IsClickedBy (PointD p);
         public abstract IHandler GetEntireShapeHandler(PointD clickedPoint, List<Shape> polygons, int polygonIndex,
@@ -41,5 +42,6 @@ namespace PolygonPainter.Shapes
         public abstract IHandler GetPartOfShapeHandler(PointD clickedPoint, List<Shape> polygons, int polygonIndex,
                                                        CheckBox checkBox = null, Color? markingColor = null);
         public abstract double Area();
+        public abstract void ChangeLightManager(LightManager lightManager);
     }
 }

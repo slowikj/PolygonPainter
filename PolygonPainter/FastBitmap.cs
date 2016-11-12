@@ -16,7 +16,7 @@ namespace PolygonPainter
 {
     public class FastBitmap
     {
-        private const int DEFAULT_WIDTH = 823, DEFAULT_HEIGHT = 614;
+        private const int DEFAULT_WIDTH = 701, DEFAULT_HEIGHT = 701;
 
         private Size _initalImageSize;
         private Bitmap _bitmap;
@@ -60,11 +60,18 @@ namespace PolygonPainter
         
         public unsafe void SetPixel(int x, int y, Color c)
         {
+            if (x < 0 || y < 0)
+            {
+                return;
+            }
+
+            _ResizeIfNecessary(x, y);
+
             if (!_isLocked)
             {
                 _Lock();
             }
-
+            
             byte* scan0 = (byte*)_bData.Scan0.ToPointer();
             scan0[y * _bData.Stride + x * 4] = c.B;
             scan0[y * _bData.Stride + x * 4 + 1] = c.G;
@@ -89,6 +96,13 @@ namespace PolygonPainter
 
         public unsafe Color GetPixel(int x, int y)
         {
+            if (x < 0 || y < 0)
+            {
+                return Color.Black;
+            }
+
+            _ResizeIfNecessary(x, y);
+
             if (! _isLocked)
             {
                 _Lock();
@@ -104,11 +118,23 @@ namespace PolygonPainter
             return Color.FromArgb(A, R, G, B);
         }
 
+        private void _ResizeIfNecessary (int askedX, int askedY)
+        {
+            if (askedX >= this.Width || askedY >= this.Height)
+            {
+                askedX *= 2;
+                askedY *= 2;
+
+                this.Resize(Math.Max(askedX + 1, this.Width),
+                            Math.Max(askedY + 1, this.Height));
+            }
+        }
+
         public void Resize (int newWidth, int newHeight)
         {
             FastBitmap fb = new FastBitmap(new Bitmap(newWidth, newHeight));
 
-            MessageBox.Show("resized");
+            //MessageBox.Show("resized");
 
             for(int i = 0; i < newWidth; ++i)
             {

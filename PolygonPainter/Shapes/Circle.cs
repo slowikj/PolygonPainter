@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using PolygonPainter.Interfaces;
-
+using PolygonPainter.Modes.LightManagers;
 
 namespace PolygonPainter.Shapes
 {
@@ -111,7 +111,7 @@ namespace PolygonPainter.Shapes
             throw new NotImplementedException();
         }
 
-        public override void SetFilling(FillingInfo fillingInfo, double[] _lightPoint)
+        public override void SetFilling(FillingInfo fillingInfo, LightManager lightManager)
         {
             throw new NotImplementedException();
         }
@@ -122,6 +122,11 @@ namespace PolygonPainter.Shapes
         }
 
         public override double Area()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ChangeLightManager(LightManager lightManager)
         {
             throw new NotImplementedException();
         }

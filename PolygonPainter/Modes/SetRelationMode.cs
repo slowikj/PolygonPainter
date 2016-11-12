@@ -115,5 +115,9 @@ namespace PolygonPainter.Modes
         public override void KeyEventHandler(Keys keyData)
         {
         }
+
+        public override void TimerTickHandler()
+        {
+        }
     }
 }

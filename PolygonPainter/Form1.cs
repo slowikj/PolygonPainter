@@ -51,7 +51,7 @@ namespace PolygonPainter
             MessageBox.Show(canvas.Width.ToString() + " " + canvas.Height.ToString());
 
             this.KeyPreview = true;
-            
+            lightChangeTimer.Enabled = false;
         }
 
         Dictionary<String, Mode> _PrepareModesDictionary()
@@ -163,7 +163,7 @@ namespace PolygonPainter
         {
             ShapesDrawnLabel.Text = _shapes.Count.ToString();
             
-            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics));
+            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width + 100, canvas.Height + 100, e.Graphics));
 
             PaintTools paintTools = new PaintTools(canvas, fastBitmap, e.Graphics);
 
@@ -196,6 +196,29 @@ namespace PolygonPainter
             {
                 shape.DrawContours(paintTools);
             }
+        }
+
+        private void manualLightChangeButton_CheckedChanged(object sender, EventArgs e)
+        {
+            (_modes["FillMode"] as FillMode).ChangeLightManager("ManualChangeLight");
+            lightChangeTimer.Enabled = false;
+        }
+
+        private void animatedLightButton_CheckedChanged(object sender, EventArgs e)
+        {
+            (_modes["FillMode"] as FillMode).ChangeLightManager("AnimatedOnSphereLight");
+            lightChangeTimer.Enabled = true;
+        }
+
+        private void fixedVectorLightButton_CheckedChanged(object sender, EventArgs e)
+        {
+            (_modes["FillMode"] as FillMode).ChangeLightManager("StaticLight");
+            lightChangeTimer.Enabled = false;
+        }
+
+        private void lightChangeTimer_Tick(object sender, EventArgs e)
+        {
+            _currentMode.TimerTickHandler();
         }
 
         private void _DrawGrid(PaintTools paintTools)

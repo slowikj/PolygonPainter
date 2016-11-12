@@ -35,6 +35,7 @@ namespace PolygonPainter.Modes
         public abstract void MouseMove(object obj, MouseEventArgs e);
         public abstract void MousedoubleClick(object obj, MouseEventArgs e);
         public abstract void KeyEventHandler(Keys keyData);
+        public abstract void TimerTickHandler();
         public abstract bool IsModeChangeForbidden();
         public abstract void Clear();
     }

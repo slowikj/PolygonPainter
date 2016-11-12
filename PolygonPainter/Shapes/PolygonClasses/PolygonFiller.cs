@@ -9,18 +9,31 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using PolygonPainter.Interfaces;
+using PolygonPainter.Modes.LightManagers;
 
 namespace PolygonPainter.Shapes.PolygonClasses
 {
     public partial class PolygonFiller
     {
         private FillingInfo _fillingInfo;
-        private double[] _lightPoint;
+        private LightManager _lightManager;
+
+        public LightManager LightManager
+        {
+            get
+            {
+                return _lightManager;
+            }
+            set
+            {
+                _lightManager = value;
+            }
+        }
         
-        public PolygonFiller(FillingInfo fillingInfo, double[] lightPoint)
+        public PolygonFiller(FillingInfo fillingInfo, LightManager lightManager)
         {
             _fillingInfo = fillingInfo;
-            _lightPoint = lightPoint;
+            _lightManager = lightManager;
         }
         
         public void Fill(PaintTools paintTools, List<Vertex> vertices)
@@ -75,7 +88,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             //double[] N = new double[3] { 0, 0, 1 };
             N = _Normalized(N);
 
-            double[] L = new double[3] { _lightPoint[0] - x, _lightPoint[1] - y, _lightPoint[2] };
+            double[] L = _lightManager.GetVectorToLight(x, y);
             L = _Normalized(L);
 
             double cos = N.Zip(L, (a, b) => a * b)

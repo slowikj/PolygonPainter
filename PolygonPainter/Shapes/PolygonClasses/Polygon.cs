@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using PolygonPainter.Shapes.PolygonClasses.Relations;
 using PolygonPainter.Interfaces;
 using PolygonPainter.Shapes.GeneralHandlers;
+using PolygonPainter.Modes.LightManagers;
 
 
 namespace PolygonPainter.Shapes.PolygonClasses
@@ -76,9 +77,14 @@ namespace PolygonPainter.Shapes.PolygonClasses
             _filler?.Fill(paintTools, _vertexManager.Vertices);
         }
 
-        public override void SetFilling(FillingInfo fillingInfo, double[] _lightPoint)
+        public override void SetFilling(FillingInfo fillingInfo, LightManager lightManager)
         {
-            _filler = new PolygonFiller(fillingInfo, _lightPoint);
+            _filler = new PolygonFiller(fillingInfo, lightManager);
+        }
+
+        public override void ChangeLightManager(LightManager lightManager)
+        {
+            _filler.LightManager = lightManager;
         }
 
         public override void DeleteFilling()

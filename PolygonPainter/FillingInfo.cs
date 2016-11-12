@@ -28,36 +28,22 @@ namespace PolygonPainter
 
         public Color GetPixelOfTexture(int x, int y)
         {
-            return _GetPixelOf(_texture, x, y);
+            return _texture.GetPixel(x, y);
         }
 
         public Color GetPixelOfNormalVectorsMap(int x, int y)
         {
-            return _GetPixelOf(_normalVectorsMap, x, y);
+            return _normalVectorsMap.GetPixel(x, y);
         }
 
         public Color GetPixelOfHeightMap(int x, int y)
         {
-            return _GetPixelOf(_heightMap, x, y);
+            return _heightMap.GetPixel(x, y);
         }
 
         public Color GetLightColor()
         {
             return _lightColor;
-        }
-
-        private Color _GetPixelOf(FastBitmap bitmap, int x, int y)
-        {
-            if(x >= bitmap.Width || y >= bitmap.Height)
-            {
-                x *= 2;
-                y *= 2;
-
-                bitmap.Resize(Math.Max(x + 1, bitmap.Width),
-                              Math.Max(y + 1, bitmap.Height));
-            }
-
-            return bitmap.GetPixel(x, y);
         }
         
     }

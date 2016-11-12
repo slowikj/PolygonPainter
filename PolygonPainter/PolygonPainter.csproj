@@ -59,6 +59,10 @@
     </Compile>
     <Compile Include="FillingInfo.cs" />
     <Compile Include="Modes\IntersectionMode.cs" />
+    <Compile Include="Modes\LightManagers\AnimatedOnSphereLight.cs" />
+    <Compile Include="Modes\LightManagers\LightManager.cs" />
+    <Compile Include="Modes\LightManagers\ManualChangeLight.cs" />
+    <Compile Include="Modes\LightManagers\StaticLight.cs" />
     <Compile Include="SegmentIntersectionInfo.cs" />
     <Compile Include="Modes\FillMode.cs" />
     <Compile Include="PaintTools.cs" />
@@ -97,6 +101,7 @@
     <Compile Include="Shapes\PolygonClasses\VertexManager.cs" />
     <Compile Include="Shapes\Shape.cs" />
     <Compile Include="Segment.cs" />
+    <Compile Include="Vector3D.cs" />
     <Compile Include="Vertex.cs" />
     <Compile Include="Shapes\PolygonClasses\Polygon.cs" />
     <Compile Include="Form1.cs">

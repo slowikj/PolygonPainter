@@ -10,46 +10,59 @@ using System.Windows.Forms;
 
 using PolygonPainter.Shapes;
 using PolygonPainter.Shapes.PolygonClasses;
+using PolygonPainter.Modes.LightManagers;
 
 namespace PolygonPainter.Modes
 {
     public class FillMode : Mode
     {
-        private double[] _lightPoint;
+        private LightManager _currentLightManager;
+        private Dictionary<string, LightManager> _lightManagers;
 
         public FillMode(List<Shape> shapes, PictureBox canvas)
             : base(shapes, canvas)
         {
-            _lightPoint = new double[3] { canvas.Width / 2, canvas.Height / 2, 50 };
+            _lightManagers = _GetLightManagers();
+            _currentLightManager = _lightManagers["ManualChangeLight"];
+        }
+
+        public void ChangeLightManager(string lightManagerName)
+        {
+            _currentLightManager = _lightManagers[lightManagerName];
+
+            for(int i = 0; i < _shapes.Count; ++i)
+            {
+                _shapes[i].ChangeLightManager(_currentLightManager);
+            }
+
+            this.UpdateCanvas();
+        }
+
+        private Dictionary<string, LightManager> _GetLightManagers()
+        {
+            Dictionary<string, LightManager> res = new Dictionary<string, LightManager>();
+
+            res.Add("AnimatedOnSphereLight", new AnimatedOnSphereLight(_canvas.Width, _canvas.Height));
+            res.Add("ManualChangeLight", new ManualChangeLight(_canvas.Width, _canvas.Height));
+            res.Add("StaticLight", new StaticLight());
+
+            return res;
         }
 
         public override void KeyEventHandler(Keys keyData)
         {
-            const int pixelsChange = 10;
-
-            switch(keyData)
-            {
-                case Keys.Up:
-                    _lightPoint[1] = Math.Max(0, _lightPoint[1] - pixelsChange);
-                    break;
-                case Keys.Down:
-                    _lightPoint[1] = Math.Min(_canvas.Height, _lightPoint[1] + pixelsChange);
-                    break;
-                case Keys.Left:
-                    _lightPoint[0] = Math.Max(0, _lightPoint[0] - pixelsChange); 
-                    break;
-                case Keys.Right:
-                    _lightPoint[0] = Math.Min(_canvas.Width, _lightPoint[0] + pixelsChange);
-                    break;
-                case Keys.W:
-                    _lightPoint[2] = Math.Min(1000, _lightPoint[2] + pixelsChange);
-                    break;
-                case Keys.S:
-                    _lightPoint[2] = Math.Max(1, _lightPoint[2] - pixelsChange);
-                    break;
-            }
-
+            _currentLightManager.KeyDown(keyData);
             this.UpdateCanvas();
+        }
+
+        public override void TimerTickHandler()
+        {
+          //  if (_currentLightManager is AnimatedOnSphereLight)
+          //  {
+                _currentLightManager.TimerTick();
+
+                this.UpdateCanvas();
+        //    }
         }
 
         public override bool IsModeChangeForbidden()
@@ -81,7 +94,7 @@ namespace PolygonPainter.Modes
 
             if (filling != null)
             {
-                _shapes[shapeIndex].SetFilling(filling, _lightPoint);
+                _shapes[shapeIndex].SetFilling(filling, _currentLightManager);
 
                 this.UpdateCanvas();
             }
