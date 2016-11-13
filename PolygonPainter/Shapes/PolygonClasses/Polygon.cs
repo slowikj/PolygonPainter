@@ -84,7 +84,10 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
         public override void ChangeLightManager(LightManager lightManager)
         {
-            _filler.LightManager = lightManager;
+            if (_filler != null)
+            {
+                _filler.LightManager = lightManager;
+            }
         }
 
         public override void DeleteFilling()

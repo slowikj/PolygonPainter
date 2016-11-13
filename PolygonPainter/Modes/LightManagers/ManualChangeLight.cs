@@ -15,7 +15,7 @@ namespace PolygonPainter.Modes.LightManagers
         public ManualChangeLight(int canvasWidth, int canvasHeight)
             : base(canvasWidth, canvasHeight)
         {
-            _lightPoint = new double[3] { canvasWidth / 2, canvasHeight / 2, 50 };
+            _lightPoint = new double[3] { canvasWidth / 2, canvasHeight / 2, 30 };
         }
         
         public override double[] GetVectorToLight(int x, int y)

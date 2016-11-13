@@ -63,6 +63,7 @@
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.InitialDirectory = "../../.../sample_images";
             // 
             // lightColorLabel
             // 

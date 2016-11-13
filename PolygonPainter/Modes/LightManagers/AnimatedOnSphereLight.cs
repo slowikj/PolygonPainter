@@ -12,30 +12,37 @@ namespace PolygonPainter.Modes.LightManagers
 {
     public class AnimatedOnSphereLight : LightManager
     {
-        private readonly int _pixelChange = 30;
-        private int _r, _x_0, _y_0, _z_0;
+        private readonly int _pixelChange = 10;
 
+        private double _x_0, _y_0, _z_0, _r;
+        private int _beg, _end;
+      
         private int _currentX, _currentY;
         private double _currentZ;
 
         public AnimatedOnSphereLight(int canvasWidth, int canvasHeight)
             : base(canvasWidth, canvasHeight)
         {
-            canvasHeight = 100;
-            canvasWidth = 100;
-
-            _x_0 = canvasWidth / 2;
-            _y_0 = canvasHeight / 2;
+            _x_0 = (double)canvasWidth / 2;
+            _y_0 = (double)canvasHeight / 2;
+            _r = canvasHeight * Math.Sqrt(2) / 2;
             _z_0 = 0;
-            _r = canvasWidth / 2;
 
-            _currentX  = _currentY = 0;
-            _currentZ = _GetZ(_currentX, _currentY);
+            _beg = 0;
+            _end = _canvasHeight;
+
+            //_beg = 200;
+            //_end = 300;
+            //_r = 50;
+
+            //_x_0 = 250;
+            //_y_0 = 250;
+
         }
 
         public override double[] GetVectorToLight(int x, int y)
         {
-            return new double[3] { _currentX - x, _currentZ - y, _currentZ };
+            return new double[3] { _currentX - x, _currentY - y, _currentZ };
         }
 
         public override void KeyDown(Keys keyData)
@@ -56,25 +63,14 @@ namespace PolygonPainter.Modes.LightManagers
 
         private void _MoveXY()
         {
-            if (_currentY == _canvasHeight)
-            {
-                _currentX = (_currentX == _canvasWidth ? 0
-                                                       : Math.Min(_canvasWidth, _currentX + _pixelChange));
-                _currentY = 0;
-            }
-            else
-            {
-                _currentY = Math.Min(_canvasHeight, _currentY + _pixelChange);
-            }
+            _currentX = (_currentX >= _end ? _beg : _currentX + _pixelChange);
+            _currentY = (_currentY >= _end ? _beg : _currentY + _pixelChange);
         }
 
         private double _GetZ(int x, int y)
         {
-            double a = (_currentX - x) * (_currentX - x) + (_currentY - y) * (_currentY - y);
-
-            if (a < 0)
-                throw new Exception();
-
+            double a = (x - _x_0) * (x - _x_0) + (y - _y_0) * (y - _y_0);
+            
             return Math.Sqrt(_r * _r - a) + _z_0;
         }
     }

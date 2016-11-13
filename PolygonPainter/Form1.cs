@@ -48,10 +48,9 @@ namespace PolygonPainter
 
             _meshPen = new Pen(Color.LightGray);
 
-            MessageBox.Show(canvas.Width.ToString() + " " + canvas.Height.ToString());
+          //  MessageBox.Show(canvas.Width.ToString() + " " + canvas.Height.ToString());
 
             this.KeyPreview = true;
-            lightChangeTimer.Enabled = false;
         }
 
         Dictionary<String, Mode> _PrepareModesDictionary()
@@ -185,6 +184,11 @@ namespace PolygonPainter
         
         private void _DrawShapes(PaintTools paintTools)
         {
+            //if (_currentMode is FillMode)
+            //{
+            //    MessageBox.Show("odrys");
+            //}
+
             foreach (Shape shape in _shapes)
             {
                 shape.DrawFilling(paintTools);
@@ -201,19 +205,19 @@ namespace PolygonPainter
         private void manualLightChangeButton_CheckedChanged(object sender, EventArgs e)
         {
             (_modes["FillMode"] as FillMode).ChangeLightManager("ManualChangeLight");
-            lightChangeTimer.Enabled = false;
+ //           lightChangeTimer.Enabled = false;
         }
 
         private void animatedLightButton_CheckedChanged(object sender, EventArgs e)
         {
             (_modes["FillMode"] as FillMode).ChangeLightManager("AnimatedOnSphereLight");
-            lightChangeTimer.Enabled = true;
+ //           lightChangeTimer.Enabled = true;
         }
 
         private void fixedVectorLightButton_CheckedChanged(object sender, EventArgs e)
         {
             (_modes["FillMode"] as FillMode).ChangeLightManager("StaticLight");
-            lightChangeTimer.Enabled = false;
+//            lightChangeTimer.Enabled = false;
         }
 
         private void lightChangeTimer_Tick(object sender, EventArgs e)

@@ -52,7 +52,7 @@
             // 
             // lightChangeTimer
             // 
-            this.lightChangeTimer.Interval = 500;
+            this.lightChangeTimer.Enabled = true;
             this.lightChangeTimer.Tick += new System.EventHandler(this.lightChangeTimer_Tick);
             // 
             // canvas

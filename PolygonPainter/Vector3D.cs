@@ -53,6 +53,9 @@ namespace PolygonPainter
         {
             double l = this.Length;
 
+            if (l == 0)
+                return;
+
             for(int i = 0; i < 3; ++i)
             {
                 _v[i] /= l;
@@ -72,6 +75,16 @@ namespace PolygonPainter
         public static Vector3D operator /(Vector3D vector, double d)
         {
             return new Vector3D(vector._v.Select(x => x / d).ToArray());
+        }
+
+        public static Vector3D operator- (Vector3D a, Vector3D b)
+        {
+            return new Vector3D(a._v.Zip(b._v, (x, y) => x - y).ToArray());
+        }
+
+        public static Vector3D operator+ (Vector3D a, Vector3D b)
+        {
+            return new Vector3D(a._v.Zip(b._v, (x, y) => x + y).ToArray());
         }
 
         public double Sum()
