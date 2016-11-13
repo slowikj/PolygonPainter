@@ -20,9 +20,9 @@ namespace PolygonPainter
         
         public FillingInfo (Bitmap texture, Bitmap normalVectorsMap, Bitmap heightMap, Color lightColor)
         {
-            _texture = new FastBitmap(texture, true);
-            _normalVectorsMap = new FastBitmap(normalVectorsMap, true);
-            _heightMap = new FastBitmap(heightMap, true);
+            _texture = new FastBitmap(texture, false);
+            _normalVectorsMap = new FastBitmap(normalVectorsMap, false);
+            _heightMap = new FastBitmap(heightMap, false);
             _lightColor = lightColor;
         }
 
