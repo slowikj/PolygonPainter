@@ -1,0 +1,37 @@
+Do poprzedniej wersji projektu zosta³y dodane 2 nowe tryby:
+
+1. Fill
+Wype³nianie figury.
+Nale¿y klikn¹æ lewym przyciskiem myszy na danej figurze
+(na wierzcho³ku lub krawêdzi).
+Wówczas, powinno siê wyœwietliæ okno dialogowe, w którym dokonujemy wyboru rodzaju kolorowania.
+
+Jeœli nie dokonamy wyboru koloru œwiat³a, zostanie ustawiony kolor bia³y.
+Podanie pozosta³ych obiektów jest wymagane.
+
+Aby usun¹æ wype³nienie danej figury, nale¿y klikn¹æ na niej prawym przyciskiem myszy
+(na wierzcho³ku lub krawêdzi).
+
+Ponadto, u¿ytkownik ma do wyboru trzy rodzaje oœwietlenia.
+(Aby wybraæ oœwietlenie, nale¿y byæ w trybie Fill)
+
+	(a) Manualna zmiana oœwietlenia
+		U¿ytkownik mo¿e manipulowaæ punktem œwiat³a w trzech wymiarach.
+		Wspó³rzêdne x i y s¹ zmieniane za pomoc¹ strza³ek,
+		natomiast wspó³rzêdna z za pomoc¹ klawiszy: W oraz S (W - wy¿ej, S - ni¿ej).
+
+		Aby mo¿liwoœæ sterowania punktem œwiat³a by³a mo¿liwa, nale¿y byæ w trybie Fill
+
+	(b) Animowane oœwietlenie
+		Jeœli wybierzemy animowane oœwietlenie i przejdziemy do innego trybu,
+		animacja zostanie wstrzymana. Aby j¹ ponowiæ, nale¿y wróciæ do trybu Fill.
+	
+	(c) Oœwietlenie sta³e - wektor do Ÿród³a œwiat³a [0, 0, 1]
+
+2. Intersection
+
+Przeciêcie wielok¹tów.
+Aby wybraæ 2 wielok¹ty, których przeciêcie chcemy obliczyæ, nale¿y na nich klikn¹æ lewym przyciskiem myszy.
+
+Mo¿emy wycofaæ wybór pierwszej figury, klikaj¹c prawy przycisk myszy.
+
