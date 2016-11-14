@@ -18,3 +18,7 @@ C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\Polyg
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\bin\Release\PolygonPainter.exe
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\bin\Release\PolygonPainter.pdb
 C:\Users\slowik\Documents\studia\grafika\projekty\projekt2\PolygonPainter2\PolygonPainter\obj\Release\PolygonPainter.csprojResolveAssemblyReference.cache
+H:\Windows7\Documents\grafika\projekt2\PolygonPainter2_lab\PolygonPainter\bin\Release\PolygonPainter.exe.config
+H:\Windows7\Documents\grafika\projekt2\PolygonPainter2_lab\PolygonPainter\obj\Release\PolygonPainter.exe
+H:\Windows7\Documents\grafika\projekt2\PolygonPainter2_lab\PolygonPainter\obj\Release\PolygonPainter.pdb
+H:\Windows7\Documents\grafika\projekt2\PolygonPainter2_lab\PolygonPainter\obj\Release\PolygonPainter.csprojResolveAssemblyReference.cache

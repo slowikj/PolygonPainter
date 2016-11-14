@@ -40,7 +40,7 @@ namespace PolygonPainter.Modes.LightManagers
                     _lightPoint[0] = Math.Min(_canvasWidth, _lightPoint[0] + pixelsChange);
                     break;
                 case Keys.W:
-                    _lightPoint[2] = Math.Min(1000, _lightPoint[2] + pixelsChange);
+                    _lightPoint[2] = Math.Min(2000, _lightPoint[2] + pixelsChange);
                     break;
                 case Keys.S:
                     _lightPoint[2] = Math.Max(1, _lightPoint[2] - pixelsChange);

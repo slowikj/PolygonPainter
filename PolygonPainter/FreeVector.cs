@@ -158,5 +158,10 @@ namespace PolygonPainter
         {
             return a + (-b);
         }
+
+        public static PointD operator+ (FreeVector a, PointD p)
+        {
+            return new PointD(a.X + p.X, a.Y + p.Y);
+        }
     }
 }

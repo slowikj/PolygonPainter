@@ -15,12 +15,15 @@ namespace PolygonPainter
         private Bitmap _texture, _normalVectorsMap, _heightMap;
         Color _lightColor;
         private bool _canExit;
+
+        private bool _fromFile;
         
         public FillingInfo FillingInfo
         {
             get
             {
-                return new FillingInfo(_texture, _normalVectorsMap, _heightMap, _lightColor);
+                return (_fromFile ? new FillingInfo(_texture, _normalVectorsMap, _heightMap, _lightColor)
+                                  : new FillingInfo(_texture, null, _heightMap, _lightColor));
             }
         }
 
@@ -32,6 +35,7 @@ namespace PolygonPainter
             _normalVectorsMap = null;
             _heightMap = null;
             _lightColor = Color.White;
+            _fromFile = false;
             
             _canExit = true;
         }
@@ -113,13 +117,17 @@ namespace PolygonPainter
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            if (_texture == null || _normalVectorsMap == null || _heightMap == null)
+            if (_texture == null || (_fromFile == true && _normalVectorsMap == null) || _heightMap == null)
             {
                 MessageBox.Show("Some attributes hasn't been chosen");
                 _canExit = false;
             }
         }
 
+        private void fromFileCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            _fromFile = fromFileCheckBox.Checked;
+        }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {

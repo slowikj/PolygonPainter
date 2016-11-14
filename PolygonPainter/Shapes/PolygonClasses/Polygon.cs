@@ -74,7 +74,8 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
         public override void DrawFilling(PaintTools paintTools)
         {
-            _filler?.Fill(paintTools, _vertexManager.Vertices);
+            if (_filler != null)
+                _filler.Fill(paintTools, _vertexManager.Vertices);
         }
 
         public override void SetFilling(FillingInfo fillingInfo, LightManager lightManager)

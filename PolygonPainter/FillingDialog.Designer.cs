@@ -44,6 +44,7 @@
             this.heightMapLabel = new System.Windows.Forms.Label();
             this.heightMapPanel = new System.Windows.Forms.Panel();
             this.heightMapButton = new System.Windows.Forms.Button();
+            this.fromFileCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -185,11 +186,23 @@
             this.heightMapButton.UseVisualStyleBackColor = true;
             this.heightMapButton.Click += new System.EventHandler(this.heightMapButton_Click);
             // 
+            // fromFileCheckBox
+            // 
+            this.fromFileCheckBox.AutoSize = true;
+            this.fromFileCheckBox.Location = new System.Drawing.Point(63, 226);
+            this.fromFileCheckBox.Name = "fromFileCheckBox";
+            this.fromFileCheckBox.Size = new System.Drawing.Size(65, 17);
+            this.fromFileCheckBox.TabIndex = 14;
+            this.fromFileCheckBox.Text = "From file";
+            this.fromFileCheckBox.UseVisualStyleBackColor = true;
+            this.fromFileCheckBox.CheckedChanged += new System.EventHandler(this.fromFileCheckBox_CheckedChanged);
+            // 
             // FillingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(611, 373);
+            this.Controls.Add(this.fromFileCheckBox);
             this.Controls.Add(this.heightMapButton);
             this.Controls.Add(this.heightMapPanel);
             this.Controls.Add(this.heightMapLabel);
@@ -230,5 +243,6 @@
         private System.Windows.Forms.Label heightMapLabel;
         private System.Windows.Forms.Panel heightMapPanel;
         private System.Windows.Forms.Button heightMapButton;
+        private System.Windows.Forms.CheckBox fromFileCheckBox;
     }
 }
