@@ -79,35 +79,11 @@ namespace PolygonPainter.Shapes.PolygonClasses
 
             Color lightColor = _fillingInfo.GetLightColor();
             double[] lightColorVector = _GetVector(lightColor);
-
-            Color colorFromNormalMap = _fillingInfo.GetPixelOfNormalVectorsMap(x, y);
-            double[] N = new double[3] {(double)colorFromNormalMap.R / 127.5 - 1,
-                                        (double)colorFromNormalMap.G / 127.5 - 1,
-                                        (double)colorFromNormalMap.B / 255};
-
-            //double[] N = new double[3] { 0, 0, 1 };
-             
-            // bump mapping
-            double[] dhX = _GetDH(x, y, x + 1, y);
-            double[] dhY = _GetDH(x, y, x, y + 1);
-
-            double[] T = new double[] { 1, 0, (N[2] == 0 ? 0 : (-N[0] / N[2])) };
-            //T = _Normalized(T);
-
-            double[] B = new double[] { 0, 1, (N[2] == 0 ? 0 : (-N[1] / N[2])) };
-            //B = _Normalized(B);
-
-            double[] tmp1 = dhX.Zip(T, (xx, yy) => xx * yy).ToArray();
-            double[] tmp2 = dhY.Zip(B, (xx, yy) => xx * yy).ToArray();
-            double[] D = tmp1.Zip(tmp2, (xx, yy) => xx + yy).ToArray();
-            D = _Normalized(D);
-            N = _Normalized(N);
-
-            double[] NN = D.Zip(N, (xx, yy) => xx + yy).ToArray();
-            NN = _Normalized(NN);
             
             double[] L = _lightManager.GetVectorToLight(x, y);
             L = _Normalized(L);
+
+            double[] NN = _fillingInfo.GetNormalVector(x, y);
             
             double cos = NN.Zip(L, (xx, yy) => xx * yy).Sum();
             
@@ -122,14 +98,7 @@ namespace PolygonPainter.Shapes.PolygonClasses
             return Color.FromArgb(objectColor.A, (int)res[0], (int)res[1], (int)res[2]);
         }
 
-        private double[] _GetDH(int x, int y, int xx, int yy)
-        {
-            Color c = _fillingInfo.GetPixelOfHeightMap(xx, yy);
-            Color d = _fillingInfo.GetPixelOfHeightMap(x, y);
-
-            return new double[] { c.R - d.R, c.G - d.G, c.B - d.B };
-        }
-
+        
         private double[] _Normalized(double[] a)
         {
             double l = Math.Sqrt(a.Select(x => x * x).Sum());

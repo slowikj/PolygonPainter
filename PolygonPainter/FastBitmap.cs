@@ -17,8 +17,7 @@ namespace PolygonPainter
     public class FastBitmap
     {
         private const int DEFAULT_WIDTH = 701, DEFAULT_HEIGHT = 701;
-
-        private Size _initalImageSize;
+        
         private Bitmap _bitmap;
         private BitmapData _bData;
 
@@ -40,32 +39,41 @@ namespace PolygonPainter
             }
         }
 
-        public FastBitmap(Bitmap bitmap, bool setDefaultSize = false)
+        public FastBitmap(Bitmap bitmap, bool setDefaultSize = true)
         {
             if (setDefaultSize)
             {
-                _initalImageSize = new Size(FastBitmap.DEFAULT_WIDTH, FastBitmap.DEFAULT_HEIGHT);
-                _bitmap = new Bitmap(bitmap, _initalImageSize);
+                _bitmap = new Bitmap(FastBitmap.DEFAULT_WIDTH, FastBitmap.DEFAULT_HEIGHT);
+                _Lock();
+                _FillBitmap(bitmap);
             }
             else
             {
-                _initalImageSize = bitmap.Size;
-
                 _bitmap = new Bitmap(bitmap);
+                _Lock();
             }
-
-            _Lock();
         }
-        
+
+
+        private void _FillBitmap(Bitmap b)
+        {
+            FastBitmap givenB = new FastBitmap(b, false);
+
+            for(int i = 0; i < this.Width; ++i)
+            {
+                for(int j = 0; j < this.Height; ++j)
+                {
+                    this.SetPixel(i, j, givenB.GetPixel(i % givenB.Width, j % givenB.Height));
+                }
+            }
+        }
         
         public unsafe void SetPixel(int x, int y, Color c)
         {
-            if (x < 0 || y < 0)
+            if (!IsInside(x, y))
             {
                 return;
             }
-
-            _ResizeIfNecessary(x, y);
 
             if (!_isLocked)
             {
@@ -96,13 +104,11 @@ namespace PolygonPainter
 
         public unsafe Color GetPixel(int x, int y)
         {
-            if (x < 0 || y < 0)
+            if (!IsInside(x, y))
             {
                 return Color.Black;
             }
-
-            _ResizeIfNecessary(x, y);
-
+            
             if (! _isLocked)
             {
                 _Lock();
@@ -117,42 +123,10 @@ namespace PolygonPainter
 
             return Color.FromArgb(A, R, G, B);
         }
-
-        private void _ResizeIfNecessary (int askedX, int askedY)
-        {
-            if (askedX >= this.Width || askedY >= this.Height)
-            {
-                askedX *= 2;
-                askedY *= 2;
-
-                this.Resize(Math.Max(askedX + 1, this.Width),
-                            Math.Max(askedY + 1, this.Height));
-            }
-        }
-
-        public void Resize (int newWidth, int newHeight)
-        {
-            FastBitmap fb = new FastBitmap(new Bitmap(newWidth, newHeight));
-
-            //MessageBox.Show("resized");
-
-            for(int i = 0; i < newWidth; ++i)
-            {
-                for(int j = 0; j < newHeight; ++j)
-                {
-                    fb.SetPixel(i, j,
-                                this.GetPixel(i % _initalImageSize.Width,
-                                              j % _initalImageSize.Height));
-                }
-            }
-
-            _bitmap = fb.GetBitmap();
-            _Lock();
-        }
-
+        
         public bool IsInside(int x, int y)
         {
-            return 0 <= x && x <= this.Width && 0 <= y && y <= this.Height;
+            return 0 <= x && x < this.Width && 0 <= y && y < this.Height;
         }
         
         public Bitmap GetBitmap()
