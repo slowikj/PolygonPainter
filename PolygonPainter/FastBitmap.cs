@@ -16,7 +16,7 @@ namespace PolygonPainter
 {
     public class FastBitmap
     {
-        private const int DEFAULT_WIDTH = 701, DEFAULT_HEIGHT = 701;
+        private const int DEFAULT_WIDTH = 600, DEFAULT_HEIGHT = 600;
         
         private Bitmap _bitmap;
         private BitmapData _bData;

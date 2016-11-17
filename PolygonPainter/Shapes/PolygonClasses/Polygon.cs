@@ -83,6 +83,11 @@ namespace PolygonPainter.Shapes.PolygonClasses
             _filler = new PolygonFiller(fillingInfo, lightManager);
         }
 
+        public override FillingInfo GetFilling()
+        {
+            return _filler?.FillingInfo;
+        }
+
         public override void ChangeLightManager(LightManager lightManager)
         {
             if (_filler != null)

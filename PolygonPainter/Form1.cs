@@ -162,7 +162,7 @@ namespace PolygonPainter
         {
             ShapesDrawnLabel.Text = _shapes.Count.ToString();
             
-            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width + 100, canvas.Height + 100, e.Graphics), false);
+            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics), false);
 
             PaintTools paintTools = new PaintTools(canvas, fastBitmap, e.Graphics);
 

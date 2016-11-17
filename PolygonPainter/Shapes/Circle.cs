@@ -130,5 +130,10 @@ namespace PolygonPainter.Shapes
         {
             throw new NotImplementedException();
         }
+
+        public override FillingInfo GetFilling()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

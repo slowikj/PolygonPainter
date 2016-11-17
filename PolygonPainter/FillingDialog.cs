@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,16 +15,56 @@ namespace PolygonPainter
     {
         private Bitmap _texture, _normalVectorsMap, _heightMap;
         Color _lightColor;
-        private bool _canExit;
-
-        private bool _fromFile;
         
-        public FillingInfo FillingInfo
+        public Color LightColor
         {
             get
             {
-                return (_fromFile ? new FillingInfo(_texture, _normalVectorsMap, _heightMap, _lightColor)
-                                  : new FillingInfo(_texture, null, _heightMap, _lightColor));
+                return _lightColor;
+            }
+
+            set
+            {
+                _lightColor = value;
+            }
+        }
+
+        public Bitmap NormalVectorsMap
+        {
+            get
+            {
+                return _normalVectorsMap;
+            }
+
+            set
+            {
+                _normalVectorsMap = value;
+            }
+        }
+
+        public Bitmap HeightMap
+        {
+            get
+            {
+                return _heightMap;
+            }
+
+            set
+            {
+                _heightMap = value;
+            }
+        }
+
+        public Bitmap Texture
+        {
+            get
+            {
+                return _texture;
+            }
+
+            set
+            {
+                _texture = value;
             }
         }
 
@@ -35,11 +76,11 @@ namespace PolygonPainter
             _normalVectorsMap = null;
             _heightMap = null;
             _lightColor = Color.White;
-            _fromFile = false;
+
+            openFileDialog.RestoreDirectory = true;
             
-            _canExit = true;
         }
-        
+
         private void lightColorButton_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
@@ -59,7 +100,7 @@ namespace PolygonPainter
                 _SetImage(image, ref _texture, texturePanel);
             }
         }
-        
+
         private void normalVectorsButton_Click(object sender, EventArgs e)
         {
             Bitmap image = _GetImage();
@@ -68,7 +109,7 @@ namespace PolygonPainter
                 _SetImage(image, ref _normalVectorsMap, normalVectorsPanel);
             }
         }
-        
+
         private void heightMapButton_Click(object sender, EventArgs e)
         {
             Bitmap image = _GetImage();
@@ -82,7 +123,7 @@ namespace PolygonPainter
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             DialogResult dialogResult = openFileDialog.ShowDialog();
-            
+
             return dialogResult == DialogResult.OK ? new Bitmap(openFileDialog.FileName)
                                                    : null;
         }
@@ -90,57 +131,23 @@ namespace PolygonPainter
         private void _SetImage(Bitmap image, ref Bitmap destination, Panel panel)
         {
             destination = image;
-
-            //Bitmap iconImage = _GetResizedImage(image, panel.Width, panel.Height);
+            
             Bitmap iconImage = new Bitmap(image, panel.Width, panel.Height);
             panel.CreateGraphics().DrawImage(iconImage, 0, 0);
         }
 
         
-        //private Bitmap _GetResizedImage(Image image, int width, int height)
-        //{
-        //    Bitmap res = new Bitmap(image, width, height);
-
-        //    using (Graphics graphics = Graphics.FromImage(res))
-        //    {
-        //        //set the resize quality modes to high quality
-        //        graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-        //        graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-        //        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
-        //        //draw the image into the target bitmap
-        //        graphics.DrawImage(image, 0, 0, res.Width, res.Height);
-        //    }
-
-        //    return res;
-        //}
-
         private void okButton_Click(object sender, EventArgs e)
         {
-            if (_texture == null || (_fromFile == true && _normalVectorsMap == null) || _heightMap == null)
-            {
-                MessageBox.Show("Some attributes hasn't been chosen");
-                _canExit = false;
-            }
         }
-
-        private void fromFileCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            _fromFile = fromFileCheckBox.Checked;
-        }
-
+        
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            _canExit = true;
         }
 
         private void FillingDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!_canExit)
-            {
-                e.Cancel = true;
-                _canExit = true;
-            }
+            e.Cancel = false;
         }
     }
 }

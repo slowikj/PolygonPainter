@@ -90,11 +90,37 @@ namespace PolygonPainter.Modes
 
         private void _SetFilling(int shapeIndex)
         {
-            FillingInfo filling = _GetFilling();
-
-            if (filling != null)
+            FillingInfo newDataFilling = _GetFilling();
+            
+            if (newDataFilling != null)
             {
-                _shapes[shapeIndex].SetFilling(filling, _currentLightManager);
+                //FillingInfo filling = _shapes[shapeIndex].GetFilling();
+                //if (filling == null)
+                //{
+                //    filling = newDataFilling;
+                //}
+
+                //if (newDataFilling.Texture != null)
+                //{
+                //    filling.Texture = newDataFilling.Texture;
+                //}
+
+                //if (newDataFilling.NormalVectorsMap != null)
+                //{
+                //    filling.NormalVectorsMap = newDataFilling.NormalVectorsMap;
+                //}
+
+                //if (newDataFilling.HeightMap != null)
+                //{
+                //    filling.HeightMap = newDataFilling.HeightMap;
+                //}
+
+                //if (newDataFilling.HeightMap != null || newDataFilling.NormalVectorsMap != null)
+                //{
+                //    filling.RecomputeNormalVectors();
+                //}
+
+                _shapes[shapeIndex].SetFilling(newDataFilling, _currentLightManager);
 
                 this.UpdateCanvas();
             }
@@ -115,7 +141,11 @@ namespace PolygonPainter.Modes
             switch (dialogResult)
             {
                 case DialogResult.OK:
-                    return fillingDialog.FillingInfo;
+                    return new FillingInfo(fillingDialog.Texture,
+                                           fillingDialog.NormalVectorsMap,
+                                           fillingDialog.HeightMap,
+                                           fillingDialog.LightColor);
+
                 default:
                     return null;
             }

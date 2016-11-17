@@ -29,7 +29,20 @@ namespace PolygonPainter.Shapes.PolygonClasses
                 _lightManager = value;
             }
         }
-        
+
+        public FillingInfo FillingInfo
+        {
+            get
+            {
+                return _fillingInfo;
+            }
+
+            set
+            {
+                _fillingInfo = value;
+            }
+        }
+
         public PolygonFiller(FillingInfo fillingInfo, LightManager lightManager)
         {
             _fillingInfo = fillingInfo;
@@ -84,9 +97,10 @@ namespace PolygonPainter.Shapes.PolygonClasses
             L = _Normalized(L);
 
             double[] NN = _fillingInfo.GetNormalVector(x, y);
+            NN = _Normalized(NN);
             
             double cos = NN.Zip(L, (xx, yy) => xx * yy).Sum();
-            
+
             if (cos <= 0)
             {
                 return Color.Black;
