@@ -39,25 +39,25 @@ namespace PolygonPainter
             }
         }
 
-        public FastBitmap(Bitmap bitmap, bool setDefaultSize = true)
+        public FastBitmap(Bitmap bitmap,
+                          int canvasWidth,
+                          int canvasHeight)
         {
-            if (setDefaultSize)
-            {
-                _bitmap = new Bitmap(FastBitmap.DEFAULT_WIDTH, FastBitmap.DEFAULT_HEIGHT);
-                _Lock();
-                _FillBitmap(bitmap);
-            }
-            else
-            {
-                _bitmap = new Bitmap(bitmap);
-                _Lock();
-            }
+            _bitmap = new Bitmap(canvasWidth, canvasHeight);
+            _Lock();
+            _FillBitmap(bitmap);
+        }
+
+        public FastBitmap(Bitmap bitmap)
+        {
+            _bitmap = new Bitmap(bitmap);
+            _Lock();
         }
 
 
         private void _FillBitmap(Bitmap b)
         {
-            FastBitmap givenB = new FastBitmap(b, false);
+            FastBitmap givenB = new FastBitmap(b);
 
             for(int i = 0; i < this.Width; ++i)
             {

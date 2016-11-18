@@ -58,11 +58,15 @@
       <DependentUpon>FillingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="FillingInfo.cs" />
+    <Compile Include="FillingInfoGenerator.cs" />
     <Compile Include="Modes\IntersectionMode.cs" />
     <Compile Include="Modes\LightManagers\AnimatedOnSphereLight.cs" />
     <Compile Include="Modes\LightManagers\LightManager.cs" />
     <Compile Include="Modes\LightManagers\ManualChangeLight.cs" />
     <Compile Include="Modes\LightManagers\StaticLight.cs" />
+    <Compile Include="NormalVectorsGenerators\FromTextureNormalVectorsGenerator.cs" />
+    <Compile Include="NormalVectorsGenerators\NormalVectorsGenerator.cs" />
+    <Compile Include="NormalVectorsGenerators\PyramidNormalVectorsGenerator.cs" />
     <Compile Include="SegmentIntersectionInfo.cs" />
     <Compile Include="Modes\FillMode.cs" />
     <Compile Include="PaintTools.cs" />

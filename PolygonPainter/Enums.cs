@@ -11,4 +11,6 @@ namespace PolygonPainter
     public enum IntersectionType { Disjoint, Intersects, Touches, Covers, Parallel };
 
     public enum PolygonPositionRelation { IsInside, Contains, Disjoint, Intersects };
+
+    public enum NormalVectorsType { FromTexture, Pyramid, None };
 }

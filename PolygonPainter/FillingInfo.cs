@@ -14,14 +14,11 @@ namespace PolygonPainter
 {
     public class FillingInfo
     {
-        private readonly string _defaultTexturePath = "..\\..\\..\\sample_images\\white.png";
-        private readonly string _defaultHeightMapPath = "..\\..\\..\\sample_images\\height.bmp";
-
         private FastBitmap _texture;
-        private FastBitmap _normalVectorsMap;
         private FastBitmap _heightMap;
 
         private double[,][] _normalVectors;
+        private double[,][] _bumpedNormalVectors;
 
         private Color _lightColor;
 
@@ -31,24 +28,6 @@ namespace PolygonPainter
             {
                 return _texture;
             }
-
-            set
-            {
-                _texture = value;
-            }
-        }
-
-        public FastBitmap NormalVectorsMap
-        {
-            get
-            {
-                return _normalVectorsMap;
-            }
-
-            set
-            {
-                _normalVectorsMap = value;
-            }
         }
 
         public FastBitmap HeightMap
@@ -56,12 +35,6 @@ namespace PolygonPainter
             get
             {
                 return _heightMap;
-            }
-
-            set
-            {
-                _heightMap = value;
-                _normalVectors = _GetNormalVectors(Texture.Width, Texture.Height);
             }
         }
 
@@ -71,61 +44,42 @@ namespace PolygonPainter
             {
                 return _lightColor;
             }
+        }
 
-            set
+        public double[,][] NormalVectors
+        {
+            get
             {
-                _lightColor = value;
+                return _normalVectors;
             }
         }
-        
-        public FillingInfo()
+
+        public FillingInfo (FastBitmap texture, double[,][] normalVectors, FastBitmap heightMap, Color lightColor)
         {
-            _lightColor = Color.White;
+            _texture = texture;
+            _normalVectors = normalVectors;
 
-            _texture = new FastBitmap(new Bitmap(_defaultTexturePath));
-
-            _normalVectorsMap = null;
-            _heightMap = new FastBitmap(new Bitmap(_defaultHeightMapPath));
-
-            this.RecomputeNormalVectors();
-        }
-
-        public FillingInfo (Bitmap texture, Bitmap normalVectorsMap, Bitmap heightMap, Color lightColor)
-        {
-            _texture = (texture != null ? new FastBitmap(texture, true)
-                                        : new FastBitmap(new Bitmap(_defaultTexturePath)));
-
-            _normalVectorsMap = (normalVectorsMap != null ? new FastBitmap(normalVectorsMap, true)
-                                                          : null);
-
-            _heightMap = (heightMap != null ? new FastBitmap(heightMap, true)
-                                            : new FastBitmap(new Bitmap(_defaultHeightMapPath)));
-
+            _heightMap = heightMap;
             _lightColor = lightColor;
 
-            this.RecomputeNormalVectors();
+            _bumpedNormalVectors = null;
         }
-
-        public void RecomputeNormalVectors()
+        
+        public double[] GetBumpedNormalVector(int x, int y)
         {
-            _normalVectors = _GetNormalVectors(_texture.Width, _texture.Height);
-        }
+            if(_bumpedNormalVectors == null)
+            {
+                _bumpedNormalVectors = _GetBumpedNormalVectors();
+            }
 
-        public double[] GetNormalVector(int x, int y)
-        {
-            return _normalVectors[x, y];
+            return _bumpedNormalVectors[x, y];
         }
 
         public Color GetPixelOfTexture(int x, int y)
         {
             return _texture.GetPixel(x, y);
         }
-
-        public Color GetPixelOfNormalVectorsMap(int x, int y)
-        {
-            return _normalVectorsMap.GetPixel(x, y);
-        }
-
+        
         public Color GetPixelOfHeightMap(int x, int y)
         {
             return _heightMap.GetPixel(x, y);
@@ -136,34 +90,28 @@ namespace PolygonPainter
             return _lightColor;
         }
 
-        private double[,][] _GetNormalVectors(int w, int h)
+        private double[,][] _GetBumpedNormalVectors()
         {
-            double[,][] res = new double[w, h][];
-            for(int i = 0; i < w; ++i)
+            int width = _normalVectors.GetLength(0);
+            int height = _normalVectors.GetLength(1);
+
+
+            double[,][] res = new double[width, height][];
+
+            for (int i = 0; i < width; ++i)
             {
-                for(int j = 0; j < h; ++j)
+                for (int j = 0; j < height; ++j)
                 {
-                    res[i, j] = _GetNormalVector(i, j);
+                    res[i, j] = _GetBumpedNormalVector(i, j);
                 }
             }
 
             return res;
         }
-
-        private double[] _GetNormalVector(int x, int y)
+        
+        private double[] _GetBumpedNormalVector(int x, int y)
         {
-            double[] N = null;
-            if (NormalVectorsMap != null)
-            {
-                Color colorFromNormalMap = NormalVectorsMap.GetPixel(x, y);
-                N = new double[3] {(double)colorFromNormalMap.R / 127.5 - 1,
-                                   (double)colorFromNormalMap.G / 127.5 - 1,
-                                   (double)colorFromNormalMap.B / 255};
-            }
-            else // pyramid
-            {
-                N = _GetPyramidNormalVector(x, y); 
-            }
+            double[] N = _normalVectors[x, y];
             
             // bump mapping
             double[] dhX = _GetDH(x, y, x + 1, y);
@@ -185,56 +133,11 @@ namespace PolygonPainter
             
             return NN;
         }
-
-        private double[] _GetPyramidNormalVector(int x, int y)
-        {
-            double[] N = null;
-             
-            int width = Texture.Width;
-            int height = Texture.Height;
-
-            PointD a = new PointD(0, 0);
-            PointD b = new PointD(0, Texture.Height);
-            PointD c = new PointD(Texture.Width, Texture.Height);
-            PointD d = new PointD(Texture.Width, 0);
-
-            FreeVector cs = new FreeVector(c, a) / 2;
-            PointD s = c + cs;
-
-            FreeVector bs = new FreeVector(b, d) / 2;
-
-            // determine the place
-            Direction bsDirection = bs.GetDirection(new FreeVector(new PointD(x - b.X, y - b.Y)));
-            Direction csDirection = cs.GetDirection(new FreeVector(new PointD(x - c.X, y - c.Y)));
-            
-            if (bsDirection == Direction.Anticlockwise && csDirection == Direction.Clockwise) // 0
-            {
-                N = new double[] { 0, s.Y, cs.Length };
-            }
-            else if (bsDirection == Direction.Clockwise && csDirection == Direction.Clockwise) // 1
-            {
-                N = new double[] { -s.X, 0, cs.Length };
-            }
-            else if (bsDirection == Direction.Clockwise && csDirection == Direction.Anticlockwise) // 2
-            {
-                N = new double[] { 0, -s.Y, cs.Length };
-            }
-            else if (bsDirection == Direction.Anticlockwise && csDirection == Direction.Anticlockwise) // 3
-            {
-                N = new double[] { s.X, 0, cs.Length };
-            }
-
-            //N[0] = N[0] / cs.Length - 1;
-            //N[1] = N[1] / cs.Length - 1;
-            //N[2] /= cs.Length;
-
-            return N;
-        }
-
+        
         private double[] _GetDH(int x, int y, int xx, int yy)
         {
-            Color c = HeightMap.GetPixel(xx, yy);
-            Color d = HeightMap.GetPixel(x, y);
+            Color c = _heightMap.GetPixel(xx, yy);
+            Color d = _heightMap.GetPixel(x, y);
 
             return new double[] { c.R - d.R, c.G - d.G, c.B - d.B };
         }
@@ -254,6 +157,5 @@ namespace PolygonPainter
             double[] res = new double[3] { color.R, color.G, color.B };
             return res;
         }
-
     }
 }

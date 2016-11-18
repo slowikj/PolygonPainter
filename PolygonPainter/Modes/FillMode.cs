@@ -90,37 +90,11 @@ namespace PolygonPainter.Modes
 
         private void _SetFilling(int shapeIndex)
         {
-            FillingInfo newDataFilling = _GetFilling();
+            FillingInfo newFilling = _GetFilling(_shapes[shapeIndex]);
             
-            if (newDataFilling != null)
+            if (newFilling != null)
             {
-                //FillingInfo filling = _shapes[shapeIndex].GetFilling();
-                //if (filling == null)
-                //{
-                //    filling = newDataFilling;
-                //}
-
-                //if (newDataFilling.Texture != null)
-                //{
-                //    filling.Texture = newDataFilling.Texture;
-                //}
-
-                //if (newDataFilling.NormalVectorsMap != null)
-                //{
-                //    filling.NormalVectorsMap = newDataFilling.NormalVectorsMap;
-                //}
-
-                //if (newDataFilling.HeightMap != null)
-                //{
-                //    filling.HeightMap = newDataFilling.HeightMap;
-                //}
-
-                //if (newDataFilling.HeightMap != null || newDataFilling.NormalVectorsMap != null)
-                //{
-                //    filling.RecomputeNormalVectors();
-                //}
-
-                _shapes[shapeIndex].SetFilling(newDataFilling, _currentLightManager);
+                _shapes[shapeIndex].SetFilling(newFilling, _currentLightManager);
 
                 this.UpdateCanvas();
             }
@@ -133,24 +107,21 @@ namespace PolygonPainter.Modes
             this.UpdateCanvas();
         }
 
-        private FillingInfo _GetFilling()
+        private FillingInfo _GetFilling(Shape shape)
         {
-            FillingDialog fillingDialog = new FillingDialog();
+            FillingDialog fillingDialog = new FillingDialog(_canvas.Width, _canvas.Height);
             DialogResult dialogResult = fillingDialog.ShowDialog();
             
             switch (dialogResult)
             {
                 case DialogResult.OK:
-                    return new FillingInfo(fillingDialog.Texture,
-                                           fillingDialog.NormalVectorsMap,
-                                           fillingDialog.HeightMap,
-                                           fillingDialog.LightColor);
+                    return new FillingInfoGenerator(shape.GetFilling(), fillingDialog, _canvas.Width, _canvas.Height).GetFilling();
 
                 default:
                     return null;
             }
         }
-
+        
         private int _GetClickedShapeIndex(Point p)
         {
             for (int i = _shapes.Count - 1; i >= 0; --i)

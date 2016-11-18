@@ -9,78 +9,83 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace PolygonPainter
 {
     public partial class FillingDialog : Form
     {
-        private Bitmap _texture, _normalVectorsMap, _heightMap;
-        Color _lightColor;
+        private FastBitmap _texture, _normalVectorsMap, _heightMap;
+        Color _colorOfLight;
         
-        public Color LightColor
+        private int _canvasWidth, _canvasHeight;
+        
+        public Color ColorOfLight
         {
             get
             {
-                return _lightColor;
-            }
-
-            set
-            {
-                _lightColor = value;
+                return _colorOfLight;
             }
         }
 
-        public Bitmap NormalVectorsMap
+        public NormalVectorsType NormalVectorsType
+        {
+            get
+            {
+                if (!pyramidCheckBox.Checked && _normalVectorsMap == null)
+                {
+                    return NormalVectorsType.None;
+                }
+                else if(pyramidCheckBox.Checked)
+                {
+                    return NormalVectorsType.Pyramid;
+                }
+                else
+                {
+                    return NormalVectorsType.FromTexture;
+                }
+            }
+        }
+
+        public FastBitmap NormalVectorsMap
         {
             get
             {
                 return _normalVectorsMap;
             }
-
-            set
-            {
-                _normalVectorsMap = value;
-            }
         }
 
-        public Bitmap HeightMap
+        public FastBitmap HeightMap
         {
             get
             {
                 return _heightMap;
             }
-
-            set
-            {
-                _heightMap = value;
-            }
         }
 
-        public Bitmap Texture
+        public FastBitmap Texture
         {
             get
             {
                 return _texture;
             }
-
-            set
-            {
-                _texture = value;
-            }
         }
-
-        public FillingDialog()
+        
+        public FillingDialog(int canvasWidth, int canvasHeight)
         {
             InitializeComponent();
 
             _texture = null;
             _normalVectorsMap = null;
             _heightMap = null;
-            _lightColor = Color.White;
+            _colorOfLight = Color.Empty;
+
+            _canvasWidth = canvasWidth;
+            _canvasHeight = canvasHeight;
 
             openFileDialog.RestoreDirectory = true;
             
         }
-
+        
         private void lightColorButton_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
@@ -88,7 +93,7 @@ namespace PolygonPainter
             if (dialogResult == DialogResult.OK)
             {
                 colorPanel.BackColor = colorDialog.Color;
-                _lightColor = colorDialog.Color;
+                _colorOfLight = colorDialog.Color;
             }
         }
 
@@ -128,9 +133,9 @@ namespace PolygonPainter
                                                    : null;
         }
 
-        private void _SetImage(Bitmap image, ref Bitmap destination, Panel panel)
+        private void _SetImage(Bitmap image, ref FastBitmap destination, Panel panel)
         {
-            destination = image;
+            destination = new FastBitmap(image, _canvasWidth, _canvasHeight);
             
             Bitmap iconImage = new Bitmap(image, panel.Width, panel.Height);
             panel.CreateGraphics().DrawImage(iconImage, 0, 0);

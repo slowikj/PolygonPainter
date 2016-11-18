@@ -96,7 +96,8 @@ namespace PolygonPainter.Shapes.PolygonClasses
             double[] L = _lightManager.GetVectorToLight(x, y);
             L = _Normalized(L);
 
-            double[] NN = _fillingInfo.GetNormalVector(x, y);
+            double[] NN = _fillingInfo.GetBumpedNormalVector(x, y);
+            //double[] NN = new double[] { 0, 0, 1 };
             NN = _Normalized(NN);
             
             double cos = NN.Zip(L, (xx, yy) => xx * yy).Sum();

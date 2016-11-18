@@ -44,7 +44,7 @@
             this.heightMapLabel = new System.Windows.Forms.Label();
             this.heightMapPanel = new System.Windows.Forms.Panel();
             this.heightMapButton = new System.Windows.Forms.Button();
-            this.pyramidNormalVectors = new System.Windows.Forms.CheckBox();
+            this.pyramidCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -186,22 +186,22 @@
             this.heightMapButton.UseVisualStyleBackColor = true;
             this.heightMapButton.Click += new System.EventHandler(this.heightMapButton_Click);
             // 
-            // pyramidNormalVectors
+            // pyramidCheckBox
             // 
-            this.pyramidNormalVectors.AutoSize = true;
-            this.pyramidNormalVectors.Location = new System.Drawing.Point(31, 240);
-            this.pyramidNormalVectors.Name = "pyramidNormalVectors";
-            this.pyramidNormalVectors.Size = new System.Drawing.Size(135, 17);
-            this.pyramidNormalVectors.TabIndex = 14;
-            this.pyramidNormalVectors.Text = "Pyramid normal vectors";
-            this.pyramidNormalVectors.UseVisualStyleBackColor = true;
+            this.pyramidCheckBox.AutoSize = true;
+            this.pyramidCheckBox.Location = new System.Drawing.Point(31, 240);
+            this.pyramidCheckBox.Name = "pyramidCheckBox";
+            this.pyramidCheckBox.Size = new System.Drawing.Size(135, 17);
+            this.pyramidCheckBox.TabIndex = 14;
+            this.pyramidCheckBox.Text = "Pyramid normal vectors";
+            this.pyramidCheckBox.UseVisualStyleBackColor = true;
             // 
             // FillingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(611, 373);
-            this.Controls.Add(this.pyramidNormalVectors);
+            this.Controls.Add(this.pyramidCheckBox);
             this.Controls.Add(this.heightMapButton);
             this.Controls.Add(this.heightMapPanel);
             this.Controls.Add(this.heightMapLabel);
@@ -242,6 +242,6 @@
         private System.Windows.Forms.Label heightMapLabel;
         private System.Windows.Forms.Panel heightMapPanel;
         private System.Windows.Forms.Button heightMapButton;
-        private System.Windows.Forms.CheckBox pyramidNormalVectors;
+        private System.Windows.Forms.CheckBox pyramidCheckBox;
     }
 }

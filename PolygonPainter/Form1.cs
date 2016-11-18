@@ -161,8 +161,8 @@ namespace PolygonPainter
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
             ShapesDrawnLabel.Text = _shapes.Count.ToString();
-            
-            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics), false);
+
+            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics));
 
             PaintTools paintTools = new PaintTools(canvas, fastBitmap, e.Graphics);
 
@@ -184,11 +184,6 @@ namespace PolygonPainter
         
         private void _DrawShapes(PaintTools paintTools)
         {
-            //if (_currentMode is FillMode)
-            //{
-            //    MessageBox.Show("odrys");
-            //}
-
             foreach (Shape shape in _shapes)
             {
                 shape.DrawFilling(paintTools);
