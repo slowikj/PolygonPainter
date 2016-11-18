@@ -48,9 +48,11 @@ namespace PolygonPainter
             _FillBitmap(bitmap);
         }
 
-        public FastBitmap(Bitmap bitmap)
+        public FastBitmap(Bitmap bitmap, bool makeCopy = true)
         {
-            _bitmap = new Bitmap(bitmap);
+            _bitmap = (makeCopy ? new Bitmap(bitmap)
+                                : bitmap);
+            
             _Lock();
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PolygonPainter.NormalVectorsGenerators
 {
-    class PyramidNormalVectorsGenerator : NormalVectorsGenerator
+    public class PyramidNormalVectorsGenerator : NormalVectorsGenerator
     {
         public PyramidNormalVectorsGenerator(int canvasWidth, int canvasHeight)
             : base(canvasWidth, canvasHeight)

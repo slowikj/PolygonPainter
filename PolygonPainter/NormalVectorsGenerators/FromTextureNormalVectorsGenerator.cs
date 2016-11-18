@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PolygonPainter.NormalVectorsGenerators
 {
-    class FromTextureNormalVectorsGenerator : NormalVectorsGenerator
+    public class FromTextureNormalVectorsGenerator : NormalVectorsGenerator
     {
         private FastBitmap _normalVectorsMap;
 

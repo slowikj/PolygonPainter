@@ -118,10 +118,10 @@ namespace PolygonPainter
             double[] dhY = _GetDH(x, y, x, y + 1);
 
             double[] T = new double[] { 1, 0, (N[2] == 0 ? 0 : (-N[0] / N[2])) };
-            //T = _Normalized(T);
+            T = _Normalized(T);
 
             double[] B = new double[] { 0, 1, (N[2] == 0 ? 0 : (-N[1] / N[2])) };
-            //B = _Normalized(B);
+            B = _Normalized(B);
 
             double[] tmp1 = dhX.Zip(T, (xx, yy) => xx * yy).ToArray();
             double[] tmp2 = dhY.Zip(B, (xx, yy) => xx * yy).ToArray();
@@ -131,7 +131,7 @@ namespace PolygonPainter
 
             double[] NN = D.Zip(N, (xx, yy) => xx + yy).ToArray();
             
-            return NN;
+            return _Normalized(NN);
         }
         
         private double[] _GetDH(int x, int y, int xx, int yy)

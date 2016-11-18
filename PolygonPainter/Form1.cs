@@ -162,7 +162,7 @@ namespace PolygonPainter
         {
             ShapesDrawnLabel.Text = _shapes.Count.ToString();
 
-            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics));
+            FastBitmap fastBitmap = new FastBitmap(new Bitmap(canvas.Width, canvas.Height, e.Graphics), false);
 
             PaintTools paintTools = new PaintTools(canvas, fastBitmap, e.Graphics);
 
@@ -200,19 +200,19 @@ namespace PolygonPainter
         private void manualLightChangeButton_CheckedChanged(object sender, EventArgs e)
         {
             (_modes["FillMode"] as FillMode).ChangeLightManager("ManualChangeLight");
- //           lightChangeTimer.Enabled = false;
+            //lightChangeTimer.Enabled = false;
         }
 
         private void animatedLightButton_CheckedChanged(object sender, EventArgs e)
         {
             (_modes["FillMode"] as FillMode).ChangeLightManager("AnimatedOnSphereLight");
- //           lightChangeTimer.Enabled = true;
+            //lightChangeTimer.Enabled = true;
         }
 
         private void fixedVectorLightButton_CheckedChanged(object sender, EventArgs e)
         {
             (_modes["FillMode"] as FillMode).ChangeLightManager("StaticLight");
-//            lightChangeTimer.Enabled = false;
+            //lightChangeTimer.Enabled = false;
         }
 
         private void lightChangeTimer_Tick(object sender, EventArgs e)
