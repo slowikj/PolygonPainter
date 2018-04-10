@@ -23,8 +23,8 @@ namespace PolygonPainter.NormalVectorsGenerators
         protected override double[] _GetNormalVector (int x, int y)
         {
             Color colorFromNormalMap = _normalVectorsMap.GetPixel(x, y);
-            return new double[3] {(double)colorFromNormalMap.R / 127.5 - 1,
-                                   (double)colorFromNormalMap.G / 127.5 - 1,
+            return new double[3] {(double)colorFromNormalMap.R * 2 / 255 - 1,
+                                   (double)colorFromNormalMap.G * 2 / 255 - 1,
                                    (double)colorFromNormalMap.B / 255};
         }
     }

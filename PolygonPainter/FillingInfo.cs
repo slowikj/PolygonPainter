@@ -112,7 +112,7 @@ namespace PolygonPainter
         private double[] _GetBumpedNormalVector(int x, int y)
         {
             double[] N = _normalVectors[x, y];
-            
+
             // bump mapping
             double[] dhX = _GetDH(x, y, x + 1, y);
             double[] dhY = _GetDH(x, y, x, y + 1);

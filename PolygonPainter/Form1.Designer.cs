@@ -254,6 +254,7 @@
             this.Controls.Add(this.ShapesDrawnLabel);
             this.Name = "Form1";
             this.Text = "PolygonDrawer";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
             this.modesBox.ResumeLayout(false);
             this.modesBox.PerformLayout();

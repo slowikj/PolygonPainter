@@ -220,6 +220,11 @@ namespace PolygonPainter
             _currentMode.TimerTickHandler();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void _DrawGrid(PaintTools paintTools)
         {
             int numOfCells = 50, cellSize = 30;

@@ -15,7 +15,7 @@ namespace PolygonPainter
     public class FillingInfoGenerator
     {
         private readonly string _defaultTexturePath = "..\\..\\..\\sample_images\\tulipany.jpg";
-        private readonly string _defaultNormalVectorsMapPath = "..\\..\\..\\sample_images\\normal.jpg";
+        private readonly string _defaultNormalVectorsMapPath = "..\\..\\..\\sample_images\\199_norm.JPG";
         private readonly string _defaultHeightMapPath = "..\\..\\..\\sample_images\\height.bmp";
 
         private int _canvasWidth, _canvasHeight;
