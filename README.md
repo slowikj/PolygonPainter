@@ -1,5 +1,5 @@
 # PolygonPainter
-A project done during Computer Graphics course at Warsaw University at Technology.
+A project done during Computer Graphics course at Warsaw University of Technology.
 It is written in C# (Winforms).
 
 A user may create polygons, set constraints on edges (such as a specific length, horizontal/vertical line).
